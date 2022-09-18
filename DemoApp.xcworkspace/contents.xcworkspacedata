@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:/Users/ericsilverberg/Documents/scruff/DemoAppIOS/DemoApp/DemoApp/TravelAdvisories.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:DemoApp/UIComponents">
+   </FileRef>
+   <FileRef
+      location = "group:DemoApp/BusinessLogic">
+   </FileRef>
+   <FileRef
+      location = "group:DemoApp/DomainModels">
+   </FileRef>
+   <FileRef
+      location = "group:DemoApp/NetworkLogic">
+   </FileRef>
+   <FileRef
+      location = "group:DemoApp/Interfaces">
+   </FileRef>
+   <FileRef
+      location = "group:DemoApp/Utils">
+   </FileRef>
+</Workspace>
