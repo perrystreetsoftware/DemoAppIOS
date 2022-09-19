@@ -4,7 +4,7 @@ import Utils
 import BusinessLogic
 import DomainModels
 
-public struct CountrySelectingContent: View {
+public struct CountrySelectingList: View {
     @Binding var continentList: [ContinentUIModel]
 
     public init(continentList: Binding<[ContinentUIModel]>) {
@@ -28,8 +28,8 @@ public struct CountrySelectingContent: View {
     }
 }
 
-struct CountrySelectingContent_Previews: PreviewProvider {
+struct CountrySelectingList_Previews: PreviewProvider {
     static var previews: some View {
-        CountrySelectingContent(continentList: .constant([ContinentUIModel(name: "Africa", countries: [CountryUIModel(regionCode: "ng")])]))
+        CountrySelectingList(continentList: .constant([ContinentUIModel(name: "Africa", countries: [CountryUIModel(regionCode: "ng")])]))
     }
 }

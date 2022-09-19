@@ -18,7 +18,7 @@ public struct CountrySelectingPage: View {
         NavigationView {
             ZStack {
                 ProgressIndicator(isLoading: $state.state.map { $0.isLoading })
-                CountrySelectingContent(continentList: $state.continents)
+                CountrySelectingList(continentList: $state.continents)
                     .onAppear {
                         onAppear?()
                     }

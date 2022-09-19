@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import DomainModels
 
-public final class CountrySelectingViewModel {
+public final class CountrySelectingViewModel: ObservableObject {
     public enum State {
         case initial
         case loading

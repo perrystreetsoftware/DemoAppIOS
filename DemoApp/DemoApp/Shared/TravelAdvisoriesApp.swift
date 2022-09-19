@@ -18,6 +18,7 @@ struct TravelAdvisoriesApp: App {
             .injectBusinessLogicViewModels()
             .injectBusinessLogicLogic()
             .injectBusinessLogicRepositories()
+            .injectBusinessLogicUtils()
             .injectNetworkLogic()
     }
 

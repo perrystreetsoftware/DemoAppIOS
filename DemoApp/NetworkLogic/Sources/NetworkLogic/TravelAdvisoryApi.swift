@@ -43,6 +43,7 @@ public final class TravelAdvisoryApi: TravelAdvisoryApiImplementing {
             }
         }
         .receive(on: appScheduler.mainScheduler)
+        .delay(for: .seconds(2), scheduler: appScheduler.mainScheduler)
         .eraseToAnyPublisher()
     }
 
@@ -82,6 +83,7 @@ public final class TravelAdvisoryApi: TravelAdvisoryApiImplementing {
             }
         }
         .receive(on: appScheduler.mainScheduler)
+        .delay(for: .seconds(2), scheduler: appScheduler.mainScheduler)
         .eraseToAnyPublisher()
     }
 }

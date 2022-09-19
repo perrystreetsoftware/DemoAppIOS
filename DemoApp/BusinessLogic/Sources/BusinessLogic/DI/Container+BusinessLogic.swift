@@ -42,4 +42,12 @@ public extension Container {
 
         return self
     }
+
+    func injectBusinessLogicUtils() -> Container {
+        self.register(AppSchedulerProviding.self) { resolver in
+            AppSchedulerProvider()
+        }.inObjectScope(.container)
+
+        return self
+    }
 }

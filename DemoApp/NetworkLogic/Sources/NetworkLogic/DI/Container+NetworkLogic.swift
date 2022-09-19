@@ -12,7 +12,7 @@ import Interfaces
 public extension Container {
     func injectNetworkLogic() -> Container {
         self.register(TravelAdvisoryApiImplementing.self) { resolver in
-            TravelAdvisoryApi()
+            TravelAdvisoryApi(appScheduler: resolver.resolve(AppSchedulerProviding.self)!)
         }.inObjectScope(.container)
 
         return self
