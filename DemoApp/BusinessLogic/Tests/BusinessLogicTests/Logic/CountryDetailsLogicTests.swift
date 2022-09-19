@@ -29,7 +29,8 @@ final class CountryDetailsLogicTests: QuickSpec {
                 container = Container().injectBusinessLogicRepositories()
                     .injectBusinessLogicLogic()
                     .injectBusinessLogicViewModels()
-                    .injectInterfaceMocks()
+                    .injectInterfaceLocalMocks()
+                    .injectInterfaceRemoteMocks()
                 mockAppScheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
                 mockAppScheduler.useTestMainScheduler = true
                 logic = container.resolve(CountryDetailsLogic.self)!
@@ -38,7 +39,6 @@ final class CountryDetailsLogicTests: QuickSpec {
             describe("#getDetails") {
                 var recorder: Recorder<CountryDetailsUIModel, CountryDetailsLogicError>!
                 var completion: Subscribers.Completion<CountryDetailsLogicError>!
-                var apiResult: Result<CountryDetailsDTO, TravelAdvisoryApiError>?
 
                 beforeEach {
                     recorder = logic.getDetails(country: country).record()
