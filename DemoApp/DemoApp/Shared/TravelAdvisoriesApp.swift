@@ -18,8 +18,8 @@ struct TravelAdvisoriesApp: App {
             .injectBusinessLogicViewModels()
             .injectBusinessLogicLogic()
             .injectBusinessLogicRepositories()
-            .injectBusinessLogicUtils()
-            .injectNetworkLogic()
+            .injectBusinessLogicLocalApis()
+            .injectNetworkLogicRemoteApis()
     }
 
     var body: some Scene {

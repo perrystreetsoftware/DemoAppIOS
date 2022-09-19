@@ -10,7 +10,7 @@ import Swinject
 import Interfaces
 
 public extension Container {
-    func injectNetworkLogic() -> Container {
+    func injectNetworkLogicRemoteApis() -> Container {
         self.register(TravelAdvisoryApiImplementing.self) { resolver in
             TravelAdvisoryApi(appScheduler: resolver.resolve(AppSchedulerProviding.self)!)
         }.inObjectScope(.container)
