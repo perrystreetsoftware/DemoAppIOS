@@ -34,10 +34,10 @@ public extension Container {
 
     func injectBusinessLogicRepositories() -> Container {
         self.register(CountrySelectingRepository.self) { resolver in
-            CountrySelectingRepository(countryListProviding: resolver.resolve(CountryListProviding.self)!)
+            CountrySelectingRepository(countryListProviding: resolver.resolve(TravelAdvisoryApiImplementing.self)!)
         }.inObjectScope(.container)
         self.register(CountryDetailsRepository.self) { resolver in
-            CountryDetailsRepository(countryListProviding: resolver.resolve(CountryListProviding.self)!)
+            CountryDetailsRepository(countryListProviding: resolver.resolve(TravelAdvisoryApiImplementing.self)!)
         }.inObjectScope(.container)
 
         return self

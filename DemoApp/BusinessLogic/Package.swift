@@ -19,8 +19,10 @@ let package = Package(
         // .package(url: /* package url */, from: "1.0.0"),
         .package(path: "../DomainModels"),
         .package(path: "../Interfaces"),
-        .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0")
-
+        .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0"),
+        .package(url: "https://github.com/perrystreetsoftware/Quick.git", branch: "perrystreet/assign_before"),
+        .package(url: "https://github.com/Quick/Nimble.git", from: "10.0.0"),
+        .package(url: "https://github.com/groue/CombineExpectations.git", from: "0.0.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -30,6 +32,6 @@ let package = Package(
             dependencies: ["DomainModels", "Interfaces", "Swinject"]),
         .testTarget(
             name: "BusinessLogicTests",
-            dependencies: ["BusinessLogic"]),
+            dependencies: ["BusinessLogic", "Quick", "Nimble", "CombineExpectations"]),
     ]
 )

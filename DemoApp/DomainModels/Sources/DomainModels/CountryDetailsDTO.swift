@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CountryDetailsDTO: Codable {
+public struct CountryDetailsDTO: Codable, Equatable {
     public let area: String
     public let regionName: String
     public let regionCode: String

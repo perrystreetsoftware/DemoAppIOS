@@ -10,8 +10,11 @@ import Swinject
 
 public extension Container {
     func injectInterfaceMocks() -> Container {
-        self.register(CountryListProviding.self) { resolver in
-            MockCountryListProvider()
+        self.register(TravelAdvisoryApiImplementing.self) { resolver in
+            MockTravelAdvisoryApi(scheduler: resolver.resolve(AppSchedulerProviding.self)!)
+        }.inObjectScope(.container)
+        self.register(AppSchedulerProviding.self) { resolver in
+            MockAppSchedulerProviding()
         }.inObjectScope(.container)
 
         return self

@@ -10,16 +10,27 @@ import Interfaces
 import DomainModels
 import Combine
 
-public enum CountrySelectingRepositoryError: Error {
-    case apiError(innerError: CountryListProvidingError)
+public enum CountrySelectingRepositoryError: Error, Equatable {
+    case apiError(innerError: TravelAdvisoryApiError)
     case other
+
+    public static func == (lhs: CountrySelectingRepositoryError, rhs: CountrySelectingRepositoryError) -> Bool {
+        switch (lhs, rhs) {
+        case (.apiError(let inner1), .apiError(let inner2)):
+            return inner1 == inner2
+        case (.other, .other):
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 public class CountrySelectingRepository {
     @Published public private(set) var continents: [ContinentUIModel] = []
-    private let countryListProviding: CountryListProviding
+    private let countryListProviding: TravelAdvisoryApiImplementing
 
-    public init(countryListProviding: CountryListProviding) {
+    public init(countryListProviding: TravelAdvisoryApiImplementing) {
         self.countryListProviding = countryListProviding
     }
 

@@ -11,8 +11,8 @@ import Interfaces
 
 public extension Container {
     func injectNetworkLogic() -> Container {
-        self.register(CountryListProviding.self) { resolver in
-            CountryListProvider()
+        self.register(TravelAdvisoryApiImplementing.self) { resolver in
+            TravelAdvisoryApi()
         }.inObjectScope(.container)
 
         return self

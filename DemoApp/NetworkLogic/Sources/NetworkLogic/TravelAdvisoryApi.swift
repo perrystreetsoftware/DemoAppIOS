@@ -3,8 +3,14 @@ import Combine
 import Foundation
 import DomainModels
 
-public final class CountryListProvider: CountryListProviding {
-    public func getCountryList() -> AnyPublisher<CountryListDTO, CountryListProvidingError> {
+public final class TravelAdvisoryApi: TravelAdvisoryApiImplementing {
+    private let appScheduler: AppSchedulerProviding
+
+    public init(appScheduler: AppSchedulerProviding) {
+        self.appScheduler = appScheduler
+    }
+
+    public func getCountryList() -> AnyPublisher<CountryListDTO, TravelAdvisoryApiError> {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "www.scruff.com"
@@ -17,7 +23,7 @@ public final class CountryListProvider: CountryListProviding {
         var task: URLSessionDataTask!
 
         return Deferred {
-            Future<CountryListDTO, CountryListProvidingError> { promise in
+            Future<CountryListDTO, TravelAdvisoryApiError> { promise in
                 task = URLSession.shared.dataTask(with: url) {
                     data, response, error in
 
@@ -26,7 +32,7 @@ public final class CountryListProvider: CountryListProviding {
                             let decoded = try JSONDecoder().decode(CountryListDTO.self, from: data)
                             promise(.success(decoded))
                         } else {
-                            promise(.failure(CountryListProvidingError.other))
+                            promise(.failure(TravelAdvisoryApiError.other))
                         }
                     } catch {
                         promise(.failure((.decodingError)))
@@ -36,12 +42,11 @@ public final class CountryListProvider: CountryListProviding {
                 task.resume()
             }
         }
-        .receive(on: DispatchQueue.main)
-        .delay(for: .seconds(1), scheduler: DispatchQueue.main)
+        .receive(on: appScheduler.mainScheduler)
         .eraseToAnyPublisher()
     }
 
-    public func getCountryDetails(regionCode: String) -> AnyPublisher<CountryDetailsDTO, CountryListProvidingError> {
+    public func getCountryDetails(regionCode: String) -> AnyPublisher<CountryDetailsDTO, TravelAdvisoryApiError> {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "www.scruff.com"
@@ -54,7 +59,7 @@ public final class CountryListProvider: CountryListProviding {
         var task: URLSessionDataTask!
 
         return Deferred {
-            Future<CountryDetailsDTO, CountryListProvidingError> { promise in
+            Future<CountryDetailsDTO, TravelAdvisoryApiError> { promise in
                 task = URLSession.shared.dataTask(with: url) {
                     data, response, error in
 
@@ -66,7 +71,7 @@ public final class CountryListProvider: CountryListProviding {
                             let decoded = try decoder.decode(CountryDetailsDTO.self, from: data)
                             promise(.success(decoded))
                         } else {
-                            promise(.failure(CountryListProvidingError.other))
+                            promise(.failure(TravelAdvisoryApiError.other))
                         }
                     } catch {
                         promise(.failure((.decodingError)))
@@ -76,8 +81,7 @@ public final class CountryListProvider: CountryListProviding {
                 task.resume()
             }
         }
-        .receive(on: DispatchQueue.main)
-        .delay(for: .seconds(1), scheduler: DispatchQueue.main)
+        .receive(on: appScheduler.mainScheduler)
         .eraseToAnyPublisher()
     }
 }
