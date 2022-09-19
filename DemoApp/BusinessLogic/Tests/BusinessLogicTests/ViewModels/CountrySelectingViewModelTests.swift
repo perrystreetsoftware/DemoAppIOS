@@ -25,7 +25,8 @@ final class CountrySelectingViewModelTests: QuickSpec {
                 container = Container().injectBusinessLogicRepositories()
                     .injectBusinessLogicLogic()
                     .injectBusinessLogicViewModels()
-                    .injectInterfaceMocks()
+                    .injectInterfaceLocalMocks()
+                    .injectInterfaceRemoteMocks()
                 mockAppScheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
                 mockAppScheduler.useTestMainScheduler = true
                 viewModel = container.resolve(CountrySelectingViewModel.self)!
