@@ -32,14 +32,14 @@ final class CountrySelectingViewModelTests: QuickSpec {
                 viewModel = container.resolve(CountrySelectingViewModel.self)!
             }
 
-            describe("#onAppear") {
+            describe("#onPageLoaded") {
                 var stateRecorder: Recorder<CountrySelectingViewModel.State, Never>!
                 var contentRecorder: Recorder<[ContinentUIModel], Never>!
 
                 beforeEach {
                     stateRecorder = viewModel.$state.record()
                     contentRecorder = viewModel.$continents.record()
-                    viewModel.onAppear()
+                    viewModel.onPageLoaded()
                 }
 
                 it("then it transitions to .loading") {

@@ -18,7 +18,7 @@ public struct CountrySelectingAdapter: View {
 
     public var body: some View {
         CountrySelectingPage(state: CountrySelectingUIState(viewModel: viewModel)) {
-            viewModel.onAppear()
+            viewModel.onPageLoaded()
         }
     }
 }

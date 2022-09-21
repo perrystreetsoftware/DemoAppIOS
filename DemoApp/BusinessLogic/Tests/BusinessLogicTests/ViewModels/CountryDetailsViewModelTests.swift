@@ -36,14 +36,14 @@ final class CountryDetailsViewModelTests: QuickSpec {
                 viewModel = viewModelBuilder.build(country: country)
             }
 
-            describe("#onAppear") {
+            describe("#onPageLoaded") {
                 var stateRecorder: Recorder<CountryDetailsViewModel.State, Never>!
                 var detailsRecorder: Recorder<CountryDetailsUIModel?, Never>!
 
                 beforeEach {
                     stateRecorder = viewModel.$state.record()
                     detailsRecorder = viewModel.$details.record()
-                    viewModel.onAppear()
+                    viewModel.onPageLoaded()
                 }
 
                 it("then it transitions to .loading") {

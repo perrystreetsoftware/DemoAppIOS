@@ -45,7 +45,7 @@ public class CountryDetailsViewModel {
         self.logic = logic
     }
 
-    public func onAppear() {
+    public func onPageLoaded() {
         logic.getDetails(country: country)
             .handleEvents(receiveSubscription: { [weak self] _ in
                 self?.state = .loading

@@ -32,7 +32,7 @@ public final class CountrySelectingViewModel: ObservableObject {
         logic.$continents.assign(to: &$continents)
     }
 
-    public func onAppear() {
+    public func onPageLoaded() {
         guard continents.count == 0 else { return }
 
         logic.reload()

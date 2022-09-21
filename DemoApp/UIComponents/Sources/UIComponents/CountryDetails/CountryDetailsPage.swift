@@ -14,12 +14,12 @@ import Utils
 /// Pages are the top-most thing that we attempt to preview.
 public struct CountryDetailsPage: View {
     @ObservedObject var state: CountryDetailsUIState
-    private var onAppear: (() -> Void)?
+    private var onFirstAppear: (() -> Void)?
 
     public init(state: CountryDetailsUIState,
-                onAppear: (() -> Void)? = nil) {
+                onFirstAppear: (() -> Void)? = nil) {
         self.state = state
-        self.onAppear = onAppear
+        self.onFirstAppear = onFirstAppear
     }
 
     public var body: some View {
@@ -27,8 +27,8 @@ public struct CountryDetailsPage: View {
             ProgressIndicator(isLoading: $state.state.map { $0.isLoading })
             CountryDetailsContent(countryName: state.details?.countryName ?? "",
                                   detailsText: state.details?.detailsText ?? "")
-        }.onAppear {
-            self.onAppear?()
+        }.onFirstAppear {
+            self.onFirstAppear?()
         }
     }
 }

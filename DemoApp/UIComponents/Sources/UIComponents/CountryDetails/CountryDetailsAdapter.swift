@@ -25,7 +25,7 @@ public struct CountryDetailsAdapter: View {
         let vm = countryDetailsViewModelBuilder.build(country: country)
 
         return CountryDetailsPage(state: CountryDetailsUIState(viewModel: vm)) {
-            vm.onAppear()
+            vm.onPageLoaded()
         }
     }
 }
