@@ -9,6 +9,22 @@ import Foundation
 import Combine
 import DomainModels
 
+public enum CountrySelectingViewModelError: Error, Identifiable {
+    public var id: Self { self }
+
+    case forbidden
+    case unknown
+
+    init(_ logicError: CountrySelectingLogicError) {
+        switch logicError {
+        case .forbidden:
+            self = .forbidden
+        default:
+            self = .unknown
+        }
+    }
+}
+
 public final class CountrySelectingViewModel: ObservableObject {
     public enum State {
         case initial
@@ -21,6 +37,7 @@ public final class CountrySelectingViewModel: ObservableObject {
 
     public enum Event {
         case itemTapped(country: Country)
+        case error(error: CountrySelectingViewModelError)
     }
 
     @Published public private(set) var state: State = .initial
@@ -56,5 +73,19 @@ public final class CountrySelectingViewModel: ObservableObject {
 
     public func onItemTapped(country: Country) {
         eventEmitter.send(Event.itemTapped(country: country))
+    }
+
+    public func onButtonTapped() {
+        logic.getForbiddenApi()
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .failure(let error):
+                    self?.eventEmitter.send(.error(error: CountrySelectingViewModelError(error)))
+                case .finished:
+                    break
+                }
+            },
+                  receiveValue: { _ in })
+            .store(in: &cancellables)
     }
 }

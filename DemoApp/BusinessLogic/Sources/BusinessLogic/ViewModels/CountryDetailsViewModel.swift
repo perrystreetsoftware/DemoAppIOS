@@ -23,13 +23,33 @@ public final class CountryDetailsViewModelBuilder {
     }
 }
 
+public enum CountryDetailsViewModelError: Error {
+    case countryNotFound
+    case unknown
+
+    init(_ logicError: CountryDetailsLogicError) {
+        switch logicError {
+        case .countryNotFound:
+            self = .countryNotFound
+        default:
+            self = .unknown
+        }
+    }
+}
+
 public class CountryDetailsViewModel {
     public enum State {
         case initial
         case loading
+        case error(error: CountryDetailsViewModelError)
 
         public var isLoading: Bool {
-            self == .loading
+            switch self {
+            case .loading:
+                return true
+            default:
+                return false
+            }
         }
     }
 
@@ -51,8 +71,13 @@ public class CountryDetailsViewModel {
                 self?.state = .loading
             }, receiveCancel: { [weak self] in
                 self?.state = .initial
-            }).sink(receiveCompletion: { [weak self] _ in
-                self?.state = .initial
+            }).sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .failure(let error):
+                    self?.state = .error(error: CountryDetailsViewModelError(error))
+                case .finished:
+                    self?.state = .initial
+                }
             }, receiveValue: { details in
                 self.details = details
             })

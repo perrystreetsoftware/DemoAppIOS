@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "UIComponents",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v14), .macOS(.v11)
     ],
@@ -30,7 +31,8 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "UIComponents",
-            dependencies: ["Swinject", "DomainModels", "Interfaces", "Utils", "BusinessLogic"]),
+            dependencies: ["Swinject", "DomainModels", "Interfaces", "Utils", "BusinessLogic"],
+            resources: [.process("Resources")]),
         .testTarget(
             name: "UIComponentsTests",
             dependencies: ["UIComponents"]),

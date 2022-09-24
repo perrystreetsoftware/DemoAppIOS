@@ -51,4 +51,10 @@ public class CountrySelectingRepository {
             .mapError { .apiError(innerError: $0) }
         .eraseToAnyPublisher()
     }
+
+    public func getForbiddenApi() -> AnyPublisher<Void, CountrySelectingRepositoryError> {
+        return countryListProviding.getForbiddenApi().mapError { error in
+            CountrySelectingRepositoryError.apiError(innerError: error)
+        }.eraseToAnyPublisher()
+    }
 }

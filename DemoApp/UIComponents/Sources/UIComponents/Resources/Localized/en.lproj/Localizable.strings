@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  
+
+  Created by Eric Silverberg on 9/24/22.
+  
+*/
+
+"forbidden_error_title" = "Error";
+"forbidden_error_message" = "This operation is forbidden";
+"generic_error_title" = "Error";
+"generic_error_message" = "An error occurred.";
+
+"cancel_button_title" = "Cancel";

@@ -33,8 +33,10 @@ public struct CountrySelectingAdapter: View {
 
                 CountrySelectingPage(state: CountrySelectingUIState(viewModel: viewModel), onAppear: {
                     viewModel.onPageLoaded()
-                }) { country in
+                }, onItemTapped: { country in
                     viewModel.onItemTapped(country: country)
+                }) {
+                    viewModel.onButtonTapped()
                 }
             }
         }

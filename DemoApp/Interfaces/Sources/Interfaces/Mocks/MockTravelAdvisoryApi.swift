@@ -16,6 +16,13 @@ public final class MockTravelAdvisoryApi: TravelAdvisoryApiImplementing {
         self.scheduler = scheduler
     }
 
+
+    public func getForbiddenApi() -> AnyPublisher<Void, TravelAdvisoryApiError> {
+        return Just(())
+            .setFailureType(to: TravelAdvisoryApiError.self)
+            .eraseToAnyPublisher()
+    }
+
     public var getCountryDetailsResult: Result<CountryDetailsDTO, TravelAdvisoryApiError>?
     public func getCountryDetails(regionCode: String) -> AnyPublisher<CountryDetailsDTO, TravelAdvisoryApiError> {
         if let result = getCountryDetailsResult {

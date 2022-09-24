@@ -22,6 +22,8 @@ public class CountrySelectingViewNavigator: ObservableObject {
             switch event {
             case .itemTapped(let country):
                 self.nextViewToReach = AnyView(CountryDetailsAdapter(country: country))
+            case .error:
+                break
             }
         }.store(in: &cancellables)
     }

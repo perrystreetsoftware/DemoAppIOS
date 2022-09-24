@@ -11,8 +11,22 @@ import Interfaces
 import Combine
 
 public enum CountryDetailsLogicError: Error {
-    case repoError(innerError: CountryDetailsRepositoryError)
-    case other
+    case countryNotFound
+    case other(error: TravelAdvisoryApiError)
+
+    init(_ travelAdvisoryError: TravelAdvisoryApiError) {
+        switch travelAdvisoryError {
+        case .domainError(let apiError, _):
+            switch apiError {
+            case .countryNotFound:
+                self = .countryNotFound
+            case .forbidden:
+                self = .other(error: travelAdvisoryError)
+            }
+        default:
+            self = .other(error: travelAdvisoryError)
+        }
+    }
 }
 
 public class CountryDetailsLogic {
@@ -25,9 +39,7 @@ public class CountryDetailsLogic {
     public func getDetails(country: Country) -> AnyPublisher<CountryDetails, CountryDetailsLogicError> {
         return countryDetailsRepository.getDetails(regionCode: country.regionCode).map { countryDetailsDTO in
             CountryDetails(countryDetailsDTO: countryDetailsDTO)
-        }.mapError { repoError in
-                .repoError(innerError: repoError)
-        }
+        }.mapError { CountryDetailsLogicError($0) }
         .eraseToAnyPublisher()
     }
 }

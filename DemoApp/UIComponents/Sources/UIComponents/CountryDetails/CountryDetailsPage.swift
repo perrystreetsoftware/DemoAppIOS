@@ -25,6 +25,7 @@ public struct CountryDetailsPage: View {
     public var body: some View {
         ZStack {
             ProgressIndicator(isLoading: $state.viewModelState.map { $0.isLoading })
+            CountryNotFoundErrorView(viewModelState: $state.viewModelState)
             CountryDetailsContent(countryName: state.details?.country.countryName ?? "",
                                   detailsText: state.details?.detailsText ?? "")
         }.onPageLoaded {
