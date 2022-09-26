@@ -9,9 +9,10 @@ import Foundation
 import Combine
 import BusinessLogic
 import SwiftUI
+import DomainModels
 
 public class CountrySelectingViewNavigator: ObservableObject {
-    @Published var nextViewToReach: AnyView?
+    @Published var nextCountryToReach: Country?
     private var viewModel: CountrySelectingViewModel
     private var cancellables = Set<AnyCancellable>()
 
@@ -21,10 +22,18 @@ public class CountrySelectingViewNavigator: ObservableObject {
         viewModel.events.sink { event in
             switch event {
             case .itemTapped(let country):
-                self.nextViewToReach = AnyView(CountryDetailsAdapter(country: country))
+                self.nextCountryToReach = country
             case .error:
                 break
             }
         }.store(in: &cancellables)
+    }
+
+    @ViewBuilder func buildView() -> some View {
+        if let nextCountryToReach = nextCountryToReach {
+            CountryDetailsAdapter(country: nextCountryToReach)
+        } else {
+            EmptyView()
+        }
     }
 }

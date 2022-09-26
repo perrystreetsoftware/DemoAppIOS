@@ -24,8 +24,8 @@ public struct CountrySelectingAdapter: View {
         NavigationView {
             VStack {
                 NavigationLink(
-                    destination: viewNavigator.nextViewToReach,
-                    isActive: $viewNavigator.nextViewToReach.mappedToBool(),
+                    destination: viewNavigator.buildView(),
+                    isActive: $viewNavigator.nextCountryToReach.mappedToBool(),
                     label: {
                         EmptyView()
                     }

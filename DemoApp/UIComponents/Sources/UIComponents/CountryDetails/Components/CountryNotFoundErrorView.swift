@@ -39,7 +39,7 @@ public struct CountryNotFoundErrorView: View {
                 Spacer().hidden()
             }
         default:
-            Spacer().hidden()
+            EmptyView().hidden()
         }
     }
 }
