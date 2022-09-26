@@ -11,7 +11,7 @@ import BusinessLogic
 import SwiftUI
 import DomainModels
 
-public class CountrySelectingViewNavigator: ObservableObject {
+public class CountrySelectingNavigatorAdapter: ObservableObject {
     @Published var nextCountryToReach: Country?
     private var viewModel: CountrySelectingViewModel
     private var cancellables = Set<AnyCancellable>()

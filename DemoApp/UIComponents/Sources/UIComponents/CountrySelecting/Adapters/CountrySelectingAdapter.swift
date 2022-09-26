@@ -13,19 +13,21 @@ import Combine
 
 public struct CountrySelectingAdapter: View {
     private let viewModel: CountrySelectingViewModel
-    @ObservedObject private var viewNavigator: CountrySelectingViewNavigator
+    @ObservedObject private var navigatorAdapter: CountrySelectingNavigatorAdapter
+    @ObservedObject private var errorAdapter: CountrySelectingErrorAdapter
 
     public init(viewModel: CountrySelectingViewModel) {
         self.viewModel = viewModel
-        viewNavigator = CountrySelectingViewNavigator(viewModel: viewModel)
+        navigatorAdapter = CountrySelectingNavigatorAdapter(viewModel: viewModel)
+        errorAdapter = CountrySelectingErrorAdapter(viewModel: viewModel)
     }
 
     public var body: some View {
         NavigationView {
             VStack {
                 NavigationLink(
-                    destination: viewNavigator.buildView(),
-                    isActive: $viewNavigator.nextCountryToReach.mappedToBool(),
+                    destination: navigatorAdapter.buildView(),
+                    isActive: $navigatorAdapter.nextCountryToReach.mappedToBool(),
                     label: {
                         EmptyView()
                     }
@@ -38,6 +40,16 @@ public struct CountrySelectingAdapter: View {
                 }) {
                     viewModel.onButtonTapped()
                 }
+            }.alert(item: $errorAdapter.error) { error in
+                let uiError = error.uiError
+
+                return Alert(
+                    title: Text(uiError.title),
+                    message: Text(uiError.messages.joined(separator: " ")),
+                    dismissButton: .cancel(Text(L10n.cancelButtonTitle), action: {
+                        $errorAdapter.error.wrappedValue = nil
+                    })
+                )
             }
         }
     }

@@ -25,7 +25,7 @@ public struct CountryDetails {
 
 extension CountryDetails: Hashable {
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(country.countryName ?? "")
+        hasher.combine(country.regionCode)
         hasher.combine(detailsText)
     }
 }

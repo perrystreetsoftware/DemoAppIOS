@@ -33,16 +33,6 @@ public struct CountrySelectingPage: View {
                     onAppear?()
                 }
             }
-        }.alert(item: $state.error) { error in
-            let uiError = error.uiError
-
-            return Alert(
-                title: Text(uiError.title),
-                message: Text(uiError.messages.joined(separator: " ")),
-                dismissButton: .cancel(Text(L10n.cancelButtonTitle), action: {
-                    $state.error.wrappedValue = nil
-                })
-            )
         }
     }
 }

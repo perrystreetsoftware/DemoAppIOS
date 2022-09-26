@@ -8,17 +8,19 @@
 import Foundation
 
 public struct Country {
-    public let countryName: String?
     public let regionCode: String
 
     public init(regionCode: String) {
-        self.countryName = Locale.current.localizedString(forRegionCode: regionCode)
         self.regionCode = regionCode
+    }
+
+    public var countryName: String? {
+        Locale.current.localizedString(forRegionCode: regionCode)
     }
 }
 
 extension Country: Hashable {
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(countryName ?? "")
+        hasher.combine(regionCode)
     }
 }
