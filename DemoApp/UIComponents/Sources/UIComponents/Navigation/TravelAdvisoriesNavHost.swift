@@ -45,7 +45,7 @@ public struct TravelAdvisoriesNavHost: View {
 //                    }
 //                )
 
-                buildView().isHidden(state.isRootView)
+                buildView()//.isHidden(state.isRootView)
             }.alert(item: $errorAdapter.error) { error in
                 let uiError = error.uiError
 

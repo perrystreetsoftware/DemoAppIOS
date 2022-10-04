@@ -22,19 +22,23 @@ public struct CountrySelectingPage: View {
     
     public var body: some View {
         ZStack {
-            ProgressIndicator(isLoading: state.map { $0.isLoading })
-            VStack {
-                CountrySelectingList(continentList: state.map {
-                    $0.continents
-                }, onItemTapped: { country in
-                    self.onItemTapped?(country)
-                })
-                CountrySelectingButton(isLoading: state.map { $0.isLoading },
-                                       onItemTapped: onButtonTapped)
-                .onAppear {
-                    onAppear?()
-                }
-            }
+            ProgressIndicator(isLoading: state.map {
+                print("New state is \($0)")
+                return $0.isLoading
+            })
+//            VStack {
+//                CountrySelectingList(continentList: state.map {
+//                    print("New state is \($0)")
+//                    return $0.continents
+//                }, onItemTapped: { country in
+//                    self.onItemTapped?(country)
+//                })
+//                CountrySelectingButton(isLoading: state.map { $0.isLoading },
+//                                       onItemTapped: onButtonTapped)
+//                .onAppear {
+//                    onAppear?()
+//                }
+//            }
         }
     }
 }

@@ -79,6 +79,10 @@ public final class CountrySelectingViewModel: ObservableObject {
                 self.state = .loaded(continents: continents)
             })
             .store(in: &cancellables)
+
+        $state.sink { newstate in
+            print(newstate)
+        }.store(in: &cancellables)
     }
 
     public func onPageLoaded() {
