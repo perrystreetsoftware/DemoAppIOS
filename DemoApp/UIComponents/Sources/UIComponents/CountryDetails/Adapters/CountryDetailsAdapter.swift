@@ -13,19 +13,15 @@ import DomainModels
 
 /// Adapters convert ViewModels into UIState objects
 public struct CountryDetailsAdapter: View {
-    @Inject var countryDetailsViewModelBuilder: CountryDetailsViewModelBuilder
-    private let country: Country
+    @ObservedObject private var viewModel: CountryDetailsViewModel
 
-    public init(country: Country) {
-        self.country = country
-
+    public init(viewModel: CountryDetailsViewModel) {
+        self.viewModel = viewModel
     }
 
     public var body: some View {
-        let vm = countryDetailsViewModelBuilder.build(country: country)
-
-        return CountryDetailsPage(state: CountryDetailsUIState(viewModel: vm)) {
-            vm.onPageLoaded()
+        return CountryDetailsPage(state: $viewModel.state) {
+            viewModel.onPageLoaded()
         }
     }
 }

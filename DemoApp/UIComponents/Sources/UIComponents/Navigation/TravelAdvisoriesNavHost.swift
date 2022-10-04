@@ -14,6 +14,7 @@ import DomainModels
 
 public struct TravelAdvisoriesNavHost: View {
     @State var state: ListOfAllViewsWeCanReach?
+    @Inject var builder: CountryDetailsViewModelBuilder
 
     enum ListOfAllViewsWeCanReach {
         case details(regionCode: String)
@@ -47,7 +48,9 @@ public struct TravelAdvisoriesNavHost: View {
     @ViewBuilder func buildChildViewFromState() -> some View {
         switch state {
         case .details(let regionCode):
-            CountryDetailsAdapter(country: Country(regionCode: regionCode))
+            let viewModel = builder.build(country: Country(regionCode: regionCode))
+
+            CountryDetailsAdapter(viewModel: viewModel)
         case .none:
             EmptyView()
         }

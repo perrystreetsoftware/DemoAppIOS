@@ -28,7 +28,10 @@ public final class MockTravelAdvisoryApi: TravelAdvisoryApiImplementing {
         if let result = getCountryDetailsResult {
             return result.publisher.eraseToAnyPublisher()
         } else {
-            return Just(CountryDetailsDTO(area: "Asia", regionName: "Yemen", regionCode: "YE", legalCodeBody: "Article 264"))
+            return Just(CountryDetailsDTO(area: "Asia",
+                                          regionName: Locale.current.localizedString(forRegionCode: regionCode)!,
+                                          regionCode: regionCode,
+                                          legalCodeBody: "Article 264"))
                 .receive(on: scheduler.mainScheduler)
                 .setFailureType(to: TravelAdvisoryApiError.self)
                 .eraseToAnyPublisher()

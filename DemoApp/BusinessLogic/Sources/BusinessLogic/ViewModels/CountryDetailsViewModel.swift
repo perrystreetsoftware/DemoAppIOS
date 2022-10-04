@@ -37,10 +37,11 @@ public enum CountryDetailsViewModelError: Error {
     }
 }
 
-public class CountryDetailsViewModel {
+public class CountryDetailsViewModel: ObservableObject {
     public enum State: Equatable {
         case initial
         case loading
+        case loaded(details: CountryDetails)
         case error(error: CountryDetailsViewModelError)
 
         public var isLoading: Bool {
@@ -52,6 +53,22 @@ public class CountryDetailsViewModel {
             }
         }
 
+        public var countryName: String? {
+            if case .loaded(let countryDetails) = self {
+                return countryDetails.country.countryName
+            }
+
+            return nil
+        }
+
+        public var countryDetails: String? {
+            if case .loaded(let countryDetails) = self {
+                return countryDetails.detailsText
+            }
+
+            return nil
+        }
+
         public static func ==(lhs: State, rhs: State) -> Bool {
             switch (lhs, rhs) {
             case (.initial, .initial):
@@ -60,14 +77,15 @@ public class CountryDetailsViewModel {
                 return true
             case (.error, .error):
                 return true
+            case (.loaded(let details), .loaded(let details2)):
+                return details == details2
             default:
                 return false
             }
         }
     }
 
-    @Published public private(set) var state: State = .initial
-    @Published public var details: CountryDetails? = nil
+    @Published public var state: State = .initial
 
     public let country: Country
     private let logic: CountryDetailsLogic
@@ -82,6 +100,8 @@ public class CountryDetailsViewModel {
         logic.getDetails(country: country)
             .handleEvents(receiveSubscription: { [weak self] _ in
                 self?.state = .loading
+            }, receiveOutput: { [weak self] details in
+                self?.state = .loaded(details: details)
             }, receiveCancel: { [weak self] in
                 self?.state = .initial
             }).sink(receiveCompletion: { [weak self] completion in
@@ -89,11 +109,9 @@ public class CountryDetailsViewModel {
                 case .failure(let error):
                     self?.state = .error(error: CountryDetailsViewModelError(error))
                 case .finished:
-                    self?.state = .initial
+                    break
                 }
-            }, receiveValue: { details in
-                self.details = details
-            })
+            }, receiveValue: { _ in })
             .store(in: &cancellables)
     }
 

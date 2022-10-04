@@ -59,7 +59,7 @@ final class CountryDetailsRepositoryTests: QuickSpec {
                     }
 
                     it("then value is set") {
-                        expect(value).to(equal(CountryDetailsDTO(area: "Asia", regionName: "Yemen", regionCode: "YE", legalCodeBody: "Article 264")))
+                        expect(value).to(equal(CountryDetailsDTO(area: "Asia", regionName: "Nigeria", regionCode: "ng", legalCodeBody: "Article 264")))
                     }
 
                     it("then recorder has completed") {
