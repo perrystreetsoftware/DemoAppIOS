@@ -12,13 +12,16 @@ import Utils
 import Combine
 
 public struct CountrySelectingAdapter: View {
+    @ObservedObject private var errorAdapter: CountrySelectingErrorAdapter
     @ObservedObject private var viewModel: CountrySelectingViewModel
+
     private let eventsAdapter: CountrySelectingEventsAdapter
 
     public init(viewModel: CountrySelectingViewModel,
                 onCountrySelected: ((String) -> Void)? = nil) {
         self.viewModel = viewModel
         eventsAdapter = CountrySelectingEventsAdapter(viewModel: viewModel, onCountrySelected: onCountrySelected)
+        errorAdapter = CountrySelectingErrorAdapter(viewModel: viewModel)
     }
 
     public var body: some View {
@@ -28,6 +31,16 @@ public struct CountrySelectingAdapter: View {
             viewModel.onItemTapped(country: country)
         }) {
             viewModel.onButtonTapped()
+        }.alert(item: $errorAdapter.error) { error in
+            let uiError = error.uiError
+
+            return Alert(
+                title: Text(uiError.title),
+                message: Text(uiError.messages.joined(separator: " ")),
+                dismissButton: .cancel(Text(L10n.cancelButtonTitle), action: {
+                    $errorAdapter.error.wrappedValue = nil
+                })
+            )
         }
     }
 }

@@ -13,7 +13,6 @@ import Combine
 import DomainModels
 
 public struct TravelAdvisoriesNavHost: View {
-    @ObservedObject private var errorAdapter: CountrySelectingErrorAdapter
     @State var state: ListOfAllViewsWeCanReach?
 
     enum ListOfAllViewsWeCanReach {
@@ -21,7 +20,6 @@ public struct TravelAdvisoriesNavHost: View {
     }
 
     public init() {
-        errorAdapter = CountrySelectingErrorAdapter()
     }
 
     public var body: some View {
@@ -36,16 +34,6 @@ public struct TravelAdvisoriesNavHost: View {
                 )
 
                 self.buildBaseView()
-            }.alert(item: $errorAdapter.error) { error in
-                let uiError = error.uiError
-
-                return Alert(
-                    title: Text(uiError.title),
-                    message: Text(uiError.messages.joined(separator: " ")),
-                    dismissButton: .cancel(Text(L10n.cancelButtonTitle), action: {
-                        $errorAdapter.error.wrappedValue = nil
-                    })
-                )
             }
         }
     }

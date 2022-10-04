@@ -38,7 +38,6 @@ final class CountrySelectingViewModelTests: QuickSpec {
 
                 beforeEach {
                     stateRecorder = viewModel.$state.record()
-                    contentRecorder = viewModel.$continents.record()
                     viewModel.onPageLoaded()
                 }
 
@@ -46,13 +45,12 @@ final class CountrySelectingViewModelTests: QuickSpec {
                     expect(try! stateRecorder.availableElements.get()).to(equal([.initial, .loading]))
                 }
 
-                it("then it has not loaded content") {
-                    expect(viewModel.continents).to(equal([]))
-                }
-
                 context("when I advance") {
+                    var nextState: CountrySelectingViewModel.State!
+
                     beforeEach {
                         mockAppScheduler.testScheduler.advance()
+                        nextState = try! QuickSpec.current.wait(for: stateRecorder.next(), timeout: 5.0)
                     }
 
                     it("then it transitions back to .initial") {
@@ -60,9 +58,7 @@ final class CountrySelectingViewModelTests: QuickSpec {
                     }
 
                     it("then it has loaded content") {
-                        expect(viewModel.continents.count).to(beGreaterThan(0))
-
-                        let continents = (try! contentRecorder.availableElements.get()).last!
+                        let continents = nextState.continents
 
                         expect(continents.count).to(equal(5))
                         expect(continents.first { uiModel in

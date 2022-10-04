@@ -26,7 +26,7 @@ public enum CountrySelectingViewModelError: Error, Identifiable {
 }
 
 public final class CountrySelectingViewModel: ObservableObject {
-    public enum State {
+    public enum State: Equatable {
         case initial
         case loading
         case loaded(continents: [Continent])

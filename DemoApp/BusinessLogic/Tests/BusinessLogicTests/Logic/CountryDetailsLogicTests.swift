@@ -54,7 +54,7 @@ final class CountryDetailsLogicTests: QuickSpec {
                     }
 
                     it("then value is set") {
-                        expect(value).to(equal(CountryDetails(regionCode: "YE", detailsText: "Article 264")))
+                        expect(value).to(equal(CountryDetails(country: Country(regionCode: "YE"), detailsText: "Article 264")))
                     }
 
                     it("then recorder has completed") {

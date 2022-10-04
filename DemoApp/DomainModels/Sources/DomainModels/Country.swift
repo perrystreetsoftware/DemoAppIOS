@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Country {
+public struct Country: Equatable {
     public let regionCode: String
 
     public init(regionCode: String) {

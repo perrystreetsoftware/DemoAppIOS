@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Continent {
+public struct Continent: Equatable {
     public let name: String
     public let countries: [Country]
 

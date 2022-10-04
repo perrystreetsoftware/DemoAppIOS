@@ -12,6 +12,8 @@ import Foundation
 public enum L10n {
   /// Cancel
   public static let cancelButtonTitle = L10n.tr("Localizable", "cancel_button_title")
+  /// Countries
+  public static let countriesTitle = L10n.tr("Localizable", "countries_title")
   /// This operation is forbidden
   public static let forbiddenErrorMessage = L10n.tr("Localizable", "forbidden_error_message")
   /// Error

@@ -31,7 +31,7 @@ final class CountryDetailsViewModelTests: QuickSpec {
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
                 mockAppScheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
-                mockAppScheduler.useTestMainScheduler = true
+//                mockAppScheduler.useTestMainScheduler = true
                 viewModelBuilder = container.resolve(CountryDetailsViewModelBuilder.self)!
                 viewModel = viewModelBuilder.build(country: country)
             }
@@ -56,7 +56,8 @@ final class CountryDetailsViewModelTests: QuickSpec {
 
                 context("when I advance") {
                     beforeEach {
-                        mockAppScheduler.testScheduler.advance()
+                        _ = try! QuickSpec.current.wait(for: stateRecorder.next(3), timeout: 5.0)
+//                        mockAppScheduler.testScheduler.advance()
                     }
 
                     it("then it transitions back to .initial") {
@@ -65,7 +66,8 @@ final class CountryDetailsViewModelTests: QuickSpec {
 
                     it("then it has loaded content") {
                         expect(viewModel.details).notTo(beNil())
-                        expect(try! detailsRecorder.availableElements.get()).to(equal([nil, CountryDetails(regionCode: "YE", detailsText: "Article 264")]))
+                        expect(try! detailsRecorder.availableElements.get()).to(equal([nil,
+                                                                                       CountryDetails(country: Country(regionCode: "YE"), detailsText: "Article 264")]))
                     }
                 }
             }

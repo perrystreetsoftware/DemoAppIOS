@@ -77,7 +77,7 @@ final class CountryDetailsRepositoryTests: QuickSpec {
 
                 context("failure") {
                     assignBefore {
-                        apiResult = .failure(.domainError(.countryNotFound, responseCode: .notFound))
+                        apiResult = .failure(.domainError(.forbidden, responseCode: .forbidden))
                     }
 
                     beforeEach {
@@ -87,7 +87,7 @@ final class CountryDetailsRepositoryTests: QuickSpec {
                     it("then recorder has failed") {
                         switch completion {
                         case .failure(let error):
-                            expect(error).to(equal(TravelAdvisoryApiError.domainError(.countryNotFound, responseCode: .notFound)))
+                            expect(error).to(equal(TravelAdvisoryApiError.domainError(.forbidden, responseCode: .forbidden)))
                         case .finished:
                             fail("Unexpected state")
                         case .none:

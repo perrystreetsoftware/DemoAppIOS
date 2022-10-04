@@ -38,7 +38,7 @@ public enum CountryDetailsViewModelError: Error {
 }
 
 public class CountryDetailsViewModel {
-    public enum State {
+    public enum State: Equatable {
         case initial
         case loading
         case error(error: CountryDetailsViewModelError)
@@ -46,6 +46,19 @@ public class CountryDetailsViewModel {
         public var isLoading: Bool {
             switch self {
             case .loading:
+                return true
+            default:
+                return false
+            }
+        }
+
+        public static func ==(lhs: State, rhs: State) -> Bool {
+            switch (lhs, rhs) {
+            case (.initial, .initial):
+                return true
+            case (.loading, .loading):
+                return true
+            case (.error, .error):
                 return true
             default:
                 return false

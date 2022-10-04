@@ -60,7 +60,7 @@ final class CountrySelectingLogicTests: QuickSpec {
                     }
 
                     it("then value is set") {
-                        expect(value.count).to(equal(5))
+                        expect(value.count).to(equal(6))
                     }
 
                     it("then recorder has completed") {
