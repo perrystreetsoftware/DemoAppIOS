@@ -13,22 +13,12 @@ import Combine
 import DomainModels
 
 public struct TravelAdvisoriesNavHost: View {
-    enum ListOfAllViewsWeCanReach {
-        case selecting
-        case details(regionCode: String)
-
-        var isRootView: Bool {
-            switch self {
-            case .selecting:
-                return true
-            default:
-                return false
-            }
-        }
-    }
-
-    @State private var state: ListOfAllViewsWeCanReach = .selecting
     @ObservedObject private var errorAdapter: CountrySelectingErrorAdapter
+    @State var state: ListOfAllViewsWeCanReach?
+
+    enum ListOfAllViewsWeCanReach {
+        case details(regionCode: String)
+    }
 
     public init() {
         errorAdapter = CountrySelectingErrorAdapter()
@@ -38,14 +28,14 @@ public struct TravelAdvisoriesNavHost: View {
         NavigationView {
             VStack {
                 NavigationLink(
-                    destination: buildView(),
-                    isActive: $state.map { $0.isRootView == false },
+                    destination: self.buildChildViewFromState(),
+                    isActive: $state.mappedToBool(),
                     label: {
                         EmptyView()
                     }
                 )
 
-                buildView()
+                self.buildBaseView()
             }.alert(item: $errorAdapter.error) { error in
                 let uiError = error.uiError
 
@@ -60,20 +50,18 @@ public struct TravelAdvisoriesNavHost: View {
         }
     }
 
-//    @ViewBuilder func buildDummyView() -> some View {
-//        CountrySelectingAdapter(viewModel: InjectSettings.resolver!.resolve(CountrySelectingViewModel.self)!) { regionCode in
-//            self.state = ListOfAllViewsWeCanReach.details(regionCode: regionCode)
-//        }
-//    }
+    @ViewBuilder func buildBaseView() -> some View {
+        CountrySelectingAdapter(viewModel: InjectSettings.resolver!.resolve(CountrySelectingViewModel.self)!) { regionCode in
+            self.state = ListOfAllViewsWeCanReach.details(regionCode: regionCode)
+        }
+    }
 
-    @ViewBuilder func buildView() -> some View {
-//        switch state {
-//        case .selecting:
-            CountrySelectingAdapter(viewModel: InjectSettings.resolver!.resolve(CountrySelectingViewModel.self)!) { regionCode in
-                self.state = ListOfAllViewsWeCanReach.details(regionCode: regionCode)
-            }
-//        case .details(let regionCode):
-//            CountryDetailsAdapter(country: Country(regionCode: regionCode))
-//        }
+    @ViewBuilder func buildChildViewFromState() -> some View {
+        switch state {
+        case .details(let regionCode):
+            CountryDetailsAdapter(country: Country(regionCode: regionCode))
+        case .none:
+            EmptyView()
+        }
     }
 }
