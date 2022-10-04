@@ -74,6 +74,7 @@ public final class CountrySelectingViewModel: ObservableObject {
         self.logic = logic
 
         logic.$continents
+            .dropFirst()
             .sink(receiveValue: { continents in
                 self.state = .loaded(continents: continents)
             })

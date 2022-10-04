@@ -13,24 +13,39 @@ import Combine
 import DomainModels
 
 public struct TravelAdvisoriesNavHost: View {
-    @ObservedObject private var navigationState: CountrySelectingNavigatorState
+    enum ListOfAllViewsWeCanReach {
+        case selecting
+        case details(regionCode: String)
+
+        var isRootView: Bool {
+            switch self {
+            case .selecting:
+                return true
+            default:
+                return false
+            }
+        }
+    }
+
+    @State private var state: ListOfAllViewsWeCanReach = .selecting
     @ObservedObject private var errorAdapter: CountrySelectingErrorAdapter
 
     public init() {
-        navigationState = CountrySelectingNavigatorState()
         errorAdapter = CountrySelectingErrorAdapter()
     }
 
     public var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(
-                    destination: navigationState.buildView(),
-                    isActive: .constant(true),
-                    label: {
-                        EmptyView()
-                    }
-                )
+//                NavigationLink(
+//                    destination: buildView(),
+//                    isActive: $state.map { $0.isRootView == false },
+//                    label: {
+//                        EmptyView()
+//                    }
+//                )
+
+                buildView().isHidden(state.isRootView)
             }.alert(item: $errorAdapter.error) { error in
                 let uiError = error.uiError
 
@@ -44,32 +59,15 @@ public struct TravelAdvisoriesNavHost: View {
             }
         }
     }
-}
-
-public class CountrySelectingNavigatorState: ObservableObject {
-    private var nextCountryToReach: String?
-    private var cancellables = Set<AnyCancellable>()
-
-    @Published private(set) var state: ListOfAllViewsWeCanReach
-
-    enum ListOfAllViewsWeCanReach {
-        case selecting
-        case details
-    }
-
-    init() {
-        state = .selecting
-    }
 
     @ViewBuilder func buildView() -> some View {
         switch state {
         case .selecting:
-            CountrySelectingAdapter(viewModel: InjectSettings.resolver!.resolve(CountrySelectingViewModel.self)!) { nextCountry in
-                self.nextCountryToReach = nextCountry
-                self.state = ListOfAllViewsWeCanReach.details
+            CountrySelectingAdapter(viewModel: InjectSettings.resolver!.resolve(CountrySelectingViewModel.self)!) { regionCode in
+                self.state = ListOfAllViewsWeCanReach.details(regionCode: regionCode)
             }
-        case .details:
-            CountryDetailsAdapter(country: Country(regionCode: nextCountryToReach!))
+        case .details(let regionCode):
+            CountryDetailsAdapter(country: Country(regionCode: regionCode))
         }
     }
 }

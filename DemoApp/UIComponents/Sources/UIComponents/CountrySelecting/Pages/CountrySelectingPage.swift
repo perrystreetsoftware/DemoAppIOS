@@ -24,7 +24,9 @@ public struct CountrySelectingPage: View {
         ZStack {
             ProgressIndicator(isLoading: state.map { $0.isLoading })
             VStack {
-                CountrySelectingList(continentList: state.map { $0.continents }, onItemTapped: { country in
+                CountrySelectingList(continentList: state.map {
+                    $0.continents
+                }, onItemTapped: { country in
                     self.onItemTapped?(country)
                 })
                 CountrySelectingButton(isLoading: state.map { $0.isLoading },

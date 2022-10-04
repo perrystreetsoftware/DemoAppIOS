@@ -46,9 +46,7 @@ public class CountrySelectingEventsAdapter: ObservableObject {
         viewModel.events.sink { event in
             switch event {
             case .itemTapped(let country):
-                if let countryName = country.countryName {
-                    onCountrySelected?(countryName)
-                }
+                onCountrySelected?(country.regionCode)
             default:
                 break
             }
