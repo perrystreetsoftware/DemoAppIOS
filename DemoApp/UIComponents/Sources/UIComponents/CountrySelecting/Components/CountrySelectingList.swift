@@ -16,6 +16,7 @@ public struct CountrySelectingList: View {
 
     public var body: some View {
         List {
+            let _ = print("Cont list is \(continentList.count)")
             ForEach(continentList, id: \.self) { continent in
                 Section(header: Text(continent.name)) {
                     ForEach(continent.countries, id: \.self) { country in

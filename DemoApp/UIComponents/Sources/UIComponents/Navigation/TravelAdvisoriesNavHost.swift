@@ -37,15 +37,15 @@ public struct TravelAdvisoriesNavHost: View {
     public var body: some View {
         NavigationView {
             VStack {
-//                NavigationLink(
-//                    destination: buildView(),
-//                    isActive: $state.map { $0.isRootView == false },
-//                    label: {
-//                        EmptyView()
-//                    }
-//                )
+                NavigationLink(
+                    destination: buildView(),
+                    isActive: $state.map { $0.isRootView == false },
+                    label: {
+                        EmptyView()
+                    }
+                )
 
-                buildView()//.isHidden(state.isRootView)
+                buildView()
             }.alert(item: $errorAdapter.error) { error in
                 let uiError = error.uiError
 
