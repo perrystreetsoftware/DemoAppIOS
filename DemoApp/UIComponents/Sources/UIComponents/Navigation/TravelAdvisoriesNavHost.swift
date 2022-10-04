@@ -60,14 +60,20 @@ public struct TravelAdvisoriesNavHost: View {
         }
     }
 
+//    @ViewBuilder func buildDummyView() -> some View {
+//        CountrySelectingAdapter(viewModel: InjectSettings.resolver!.resolve(CountrySelectingViewModel.self)!) { regionCode in
+//            self.state = ListOfAllViewsWeCanReach.details(regionCode: regionCode)
+//        }
+//    }
+
     @ViewBuilder func buildView() -> some View {
-        switch state {
-        case .selecting:
+//        switch state {
+//        case .selecting:
             CountrySelectingAdapter(viewModel: InjectSettings.resolver!.resolve(CountrySelectingViewModel.self)!) { regionCode in
                 self.state = ListOfAllViewsWeCanReach.details(regionCode: regionCode)
             }
-        case .details(let regionCode):
-            CountryDetailsAdapter(country: Country(regionCode: regionCode))
-        }
+//        case .details(let regionCode):
+//            CountryDetailsAdapter(country: Country(regionCode: regionCode))
+//        }
     }
 }
