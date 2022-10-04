@@ -5,12 +5,12 @@ import BusinessLogic
 import DomainModels
 
 public struct CountrySelectingPage: View {
-    @ObservedObject var state: CountrySelectingUIState
+    var state: Binding<CountrySelectingViewModel.State>
     private var onAppear: (() -> Void)?
     private var onItemTapped: ((Country) -> Void)?
     private var onButtonTapped: (() -> Void)?
     
-    public init(state: CountrySelectingUIState,
+    public init(state: Binding<CountrySelectingViewModel.State>,
                 onAppear: (() -> Void)? = nil,
                 onItemTapped: ((Country) -> Void)? = nil,
                 onButtonTapped: (() -> Void)? = nil) {
@@ -22,12 +22,12 @@ public struct CountrySelectingPage: View {
     
     public var body: some View {
         ZStack {
-            ProgressIndicator(isLoading: $state.viewModelState.map { $0.isLoading })
+            ProgressIndicator(isLoading: state.map { $0.isLoading })
             VStack {
-                CountrySelectingList(continentList: $state.continents, onItemTapped: { country in
+                CountrySelectingList(continentList: state.map { $0.continents }, onItemTapped: { country in
                     self.onItemTapped?(country)
                 })
-                CountrySelectingButton(isLoading: $state.viewModelState.map { $0.isLoading },
+                CountrySelectingButton(isLoading: state.map { $0.isLoading },
                                        onItemTapped: onButtonTapped)
                 .onAppear {
                     onAppear?()
@@ -39,6 +39,8 @@ public struct CountrySelectingPage: View {
 
 struct CountrySelectingPage_Previews: PreviewProvider {
     static var previews: some View {
-        CountrySelectingPage(state: CountrySelectingUIState(continents: [Continent(name: "Africa", countries: [Country(regionCode: "ng")])], state: .initial))
+        let continents = [Continent(name: "North America", countries: [Country(regionCode: "es")])]
+
+        CountrySelectingPage(state: .constant(.loaded(continents:continents)))
     }
 }

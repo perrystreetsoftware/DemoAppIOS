@@ -29,9 +29,31 @@ public final class CountrySelectingViewModel: ObservableObject {
     public enum State {
         case initial
         case loading
+        case loaded(continents: [Continent])
 
         public var isLoading: Bool {
-            self == .loading
+            if case .loading = self {
+                return true
+            }
+
+            return false
+        }
+
+        public var isLoaded: Bool {
+            if case .loaded = self {
+                return true
+            }
+
+            return false
+        }
+
+        public var continents: [Continent] {
+            switch self {
+            case .loaded(continents: let continents):
+                return continents
+            default:
+                return []
+            }
         }
     }
 
@@ -40,8 +62,7 @@ public final class CountrySelectingViewModel: ObservableObject {
         case error(error: CountrySelectingViewModelError)
     }
 
-    @Published public private(set) var state: State = .initial
-    @Published public private(set) var continents: [Continent]
+    @Published public var state: State = .initial
 
     private var eventEmitter = PassthroughSubject<Event, Never>()
     public lazy var events: AnyPublisher<Event, Never> = eventEmitter.eraseToAnyPublisher()
@@ -51,13 +72,16 @@ public final class CountrySelectingViewModel: ObservableObject {
 
     public init(logic: CountrySelectingLogic) {
         self.logic = logic
-        self.continents = logic.continents
 
-        logic.$continents.assign(to: &$continents)
+        logic.$continents
+            .sink(receiveValue: { continents in
+                self.state = .loaded(continents: continents)
+            })
+            .store(in: &cancellables)
     }
 
     public func onPageLoaded() {
-        guard continents.count == 0 else { return }
+        guard state.isLoaded == false else { return }
 
         logic.reload()
             .handleEvents(receiveSubscription: { [weak self] _ in

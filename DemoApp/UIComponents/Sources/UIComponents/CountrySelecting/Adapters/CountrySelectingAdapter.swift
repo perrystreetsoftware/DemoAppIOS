@@ -12,7 +12,7 @@ import Utils
 import Combine
 
 public struct CountrySelectingAdapter: View {
-    private let viewModel: CountrySelectingViewModel
+    @ObservedObject private var viewModel: CountrySelectingViewModel
     @ObservedObject private var navigatorAdapter: CountrySelectingNavigatorAdapter
     @ObservedObject private var errorAdapter: CountrySelectingErrorAdapter
 
@@ -33,7 +33,7 @@ public struct CountrySelectingAdapter: View {
                     }
                 )
 
-                CountrySelectingPage(state: CountrySelectingUIState(viewModel: viewModel), onAppear: {
+                CountrySelectingPage(state: $viewModel.state, onAppear: {
                     viewModel.onPageLoaded()
                 }, onItemTapped: { country in
                     viewModel.onItemTapped(country: country)
