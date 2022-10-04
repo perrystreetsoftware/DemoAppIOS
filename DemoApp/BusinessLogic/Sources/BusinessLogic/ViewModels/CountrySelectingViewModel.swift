@@ -88,8 +88,7 @@ public final class CountrySelectingViewModel: ObservableObject {
                 self?.state = .loading
             }, receiveCancel: { [weak self] in
                 self?.state = .initial
-            }).sink(receiveCompletion: { [weak self] _ in
-                self?.state = .initial
+            }).sink(receiveCompletion: { _ in
             }, receiveValue: { _ in
             })
             .store(in: &cancellables)

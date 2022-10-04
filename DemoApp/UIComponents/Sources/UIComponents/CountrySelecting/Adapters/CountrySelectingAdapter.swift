@@ -13,44 +13,45 @@ import Combine
 
 public struct CountrySelectingAdapter: View {
     @ObservedObject private var viewModel: CountrySelectingViewModel
-    @ObservedObject private var navigatorAdapter: CountrySelectingNavigatorAdapter
-    @ObservedObject private var errorAdapter: CountrySelectingErrorAdapter
+    private let eventsAdapter: CountrySelectingEventsAdapter
 
-    public init(viewModel: CountrySelectingViewModel) {
+    public init(viewModel: CountrySelectingViewModel,
+                onCountrySelected: ((String) -> Void)? = nil) {
         self.viewModel = viewModel
-        navigatorAdapter = CountrySelectingNavigatorAdapter(viewModel: viewModel)
-        errorAdapter = CountrySelectingErrorAdapter(viewModel: viewModel)
+        eventsAdapter = CountrySelectingEventsAdapter(viewModel: viewModel, onCountrySelected: onCountrySelected)
     }
 
     public var body: some View {
-        NavigationView {
-            VStack {
-                NavigationLink(
-                    destination: navigatorAdapter.buildView(),
-                    isActive: $navigatorAdapter.nextCountryToReach.mappedToBool(),
-                    label: {
-                        EmptyView()
-                    }
-                )
-
-                CountrySelectingPage(state: $viewModel.state, onAppear: {
-                    viewModel.onPageLoaded()
-                }, onItemTapped: { country in
-                    viewModel.onItemTapped(country: country)
-                }) {
-                    viewModel.onButtonTapped()
-                }
-            }.alert(item: $errorAdapter.error) { error in
-                let uiError = error.uiError
-
-                return Alert(
-                    title: Text(uiError.title),
-                    message: Text(uiError.messages.joined(separator: " ")),
-                    dismissButton: .cancel(Text(L10n.cancelButtonTitle), action: {
-                        $errorAdapter.error.wrappedValue = nil
-                    })
-                )
-            }
+        CountrySelectingPage(state: $viewModel.state, onAppear: {
+            viewModel.onPageLoaded()
+        }, onItemTapped: { country in
+            viewModel.onItemTapped(country: country)
+        }) {
+            viewModel.onButtonTapped()
         }
+    }
+}
+
+public class CountrySelectingEventsAdapter: ObservableObject {
+    private var viewModel: CountrySelectingViewModel
+    private let onCountrySelected: ((String) -> Void)?
+
+    private var cancellables = Set<AnyCancellable>()
+
+    public init(viewModel: CountrySelectingViewModel,
+                onCountrySelected: ((String) -> Void)? = nil) {
+        self.viewModel = viewModel
+        self.onCountrySelected = onCountrySelected
+
+        viewModel.events.sink { event in
+            switch event {
+            case .itemTapped(let country):
+                if let countryName = country.countryName {
+                    onCountrySelected?(countryName)
+                }
+            default:
+                break
+            }
+        }.store(in: &cancellables)
     }
 }

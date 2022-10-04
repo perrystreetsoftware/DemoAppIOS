@@ -11,10 +11,8 @@ import BusinessLogic
 import Utils
 
 struct ContentView: View {
-    @Inject var viewModel: CountrySelectingViewModel
-
     var body: some View {
-        CountrySelectingAdapter(viewModel: viewModel)
+        TravelAdvisoriesNavHost()
     }
 }
 
