@@ -36,8 +36,8 @@ final class CountryDetailsRepositoryTests: QuickSpec {
             }
 
             describe("#getDetails") {
-                var recorder: Recorder<CountryDetailsDTO, CountryDetailsRepositoryError>!
-                var completion: Subscribers.Completion<CountryDetailsRepositoryError>!
+                var recorder: Recorder<CountryDetailsDTO, TravelAdvisoryApiError>!
+                var completion: Subscribers.Completion<TravelAdvisoryApiError>!
                 var apiResult: Result<CountryDetailsDTO, TravelAdvisoryApiError>?
 
                 beforeEach {
@@ -77,7 +77,7 @@ final class CountryDetailsRepositoryTests: QuickSpec {
 
                 context("failure") {
                     assignBefore {
-                        apiResult = .failure(.networkError)
+                        apiResult = .failure(.domainError(.countryNotFound, responseCode: .notFound))
                     }
 
                     beforeEach {
@@ -87,7 +87,7 @@ final class CountryDetailsRepositoryTests: QuickSpec {
                     it("then recorder has failed") {
                         switch completion {
                         case .failure(let error):
-                            expect(error).to(equal(.apiError(innerError: .networkError)))
+                            expect(error).to(equal(TravelAdvisoryApiError.domainError(.countryNotFound, responseCode: .notFound)))
                         case .finished:
                             fail("Unexpected state")
                         case .none:
