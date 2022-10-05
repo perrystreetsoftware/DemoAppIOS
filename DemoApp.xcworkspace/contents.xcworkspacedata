@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/ericsilverberg/Documents/scruff/DemoAppIOS/DemoApp/DemoApp/TravelAdvisories.xcodeproj">
+      location = "container:DemoApp/DemoApp/TravelAdvisories.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:DemoApp/UIComponents">

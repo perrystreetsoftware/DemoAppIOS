@@ -12,7 +12,8 @@ import Utils
 
 struct ContentView: View {
     var body: some View {
-        TravelAdvisoriesNavHost()
+//        TravelAdvisoriesNavHost()
+        GridPage()
     }
 }
 
