@@ -11,12 +11,13 @@ import BusinessLogic
 import Utils
 import Combine
 import DomainModels
+import Feature
 
 public struct TravelAdvisoriesNavHost: View {
-    @State var state: ListOfAllViewsWeCanReach?
+    @State var destination: Destinations?
     @Inject var builder: CountryDetailsViewModelBuilder
 
-    enum ListOfAllViewsWeCanReach {
+    enum Destinations {
         case details(regionCode: String)
     }
 
@@ -28,7 +29,7 @@ public struct TravelAdvisoriesNavHost: View {
             VStack {
                 NavigationLink(
                     destination: self.buildChildViewFromState(),
-                    isActive: $state.mappedToBool(),
+                    isActive: $destination.mappedToBool(),
                     label: {
                         EmptyView()
                     }
@@ -41,12 +42,12 @@ public struct TravelAdvisoriesNavHost: View {
 
     @ViewBuilder func buildBaseView() -> some View {
         CountrySelectingAdapter(viewModel: InjectSettings.resolver!.resolve(CountrySelectingViewModel.self)!) { regionCode in
-            self.state = ListOfAllViewsWeCanReach.details(regionCode: regionCode)
+            self.destination = Destinations.details(regionCode: regionCode)
         }
     }
 
     @ViewBuilder func buildChildViewFromState() -> some View {
-        switch state {
+        switch destination {
         case .details(let regionCode):
             let viewModel = builder.build(country: Country(regionCode: regionCode))
 

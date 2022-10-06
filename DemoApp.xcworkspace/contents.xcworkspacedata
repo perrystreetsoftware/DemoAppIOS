@@ -5,6 +5,9 @@
       location = "group:/Users/ericsilverberg/Documents/scruff/DemoAppIOS/DemoApp/DemoApp/TravelAdvisories.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:DemoApp/Feature">
+   </FileRef>
+   <FileRef
       location = "group:DemoApp/UIComponents">
    </FileRef>
    <FileRef

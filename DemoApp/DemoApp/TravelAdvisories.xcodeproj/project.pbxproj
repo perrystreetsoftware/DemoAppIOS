@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		610A3CAC28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */; };
+		610A3CAD28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */; };
+		610A3CAF28EF16E000C8C4D1 /* Feature in Frameworks */ = {isa = PBXBuildFile; productRef = 610A3CAE28EF16E000C8C4D1 /* Feature */; };
 		61A7892728D6625F009170DF /* BusinessLogic in Frameworks */ = {isa = PBXBuildFile; productRef = 61A7892628D6625F009170DF /* BusinessLogic */; };
 		61A7892928D6625F009170DF /* DomainModels in Frameworks */ = {isa = PBXBuildFile; productRef = 61A7892828D6625F009170DF /* DomainModels */; };
 		61A7892B28D6625F009170DF /* Interfaces in Frameworks */ = {isa = PBXBuildFile; productRef = 61A7892A28D6625F009170DF /* Interfaces */; };
@@ -43,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAdvisoriesNavHost.swift; sourceTree = "<group>"; };
+		610A3CB028EF195E00C8C4D1 /* Feature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Feature; path = ../Feature; sourceTree = "<group>"; };
 		61A7892128D6620F009170DF /* Interfaces */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Interfaces; path = ../Interfaces; sourceTree = "<group>"; };
 		61A7892228D66219009170DF /* Utils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utils; path = ../Utils; sourceTree = "<group>"; };
 		61A7892328D66227009170DF /* UIComponents */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = UIComponents; path = ../UIComponents; sourceTree = "<group>"; };
@@ -70,6 +75,7 @@
 				61A7893228D7453C009170DF /* NetworkLogic in Frameworks */,
 				61A7892D28D6625F009170DF /* UIComponents in Frameworks */,
 				61A7892928D6625F009170DF /* DomainModels in Frameworks */,
+				610A3CAF28EF16E000C8C4D1 /* Feature in Frameworks */,
 				61A7892F28D6625F009170DF /* Utils in Frameworks */,
 				61A7892B28D6625F009170DF /* Interfaces in Frameworks */,
 				61A7892728D6625F009170DF /* BusinessLogic in Frameworks */,
@@ -108,6 +114,7 @@
 				61A7892328D66227009170DF /* UIComponents */,
 				61A7892428D66231009170DF /* BusinessLogic */,
 				61A7892528D6623A009170DF /* DomainModels */,
+				610A3CB028EF195E00C8C4D1 /* Feature */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -138,6 +145,7 @@
 				61C9EEBF28CD3A9400ACDF3E /* TravelAdvisoriesApp.swift */,
 				61C9EEC028CD3A9400ACDF3E /* ContentView.swift */,
 				61C9EEC128CD3A9500ACDF3E /* Assets.xcassets */,
+				610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -202,6 +210,7 @@
 				61A7892C28D6625F009170DF /* UIComponents */,
 				61A7892E28D6625F009170DF /* Utils */,
 				61A7893128D7453C009170DF /* NetworkLogic */,
+				610A3CAE28EF16E000C8C4D1 /* Feature */,
 			);
 			productName = "DemoApp (iOS)";
 			productReference = 61C9EEC628CD3A9500ACDF3E /* TravelAdvisories.app */;
@@ -268,7 +277,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					61C9EEC528CD3A9500ACDF3E = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -347,6 +356,7 @@
 			files = (
 				61C9EEE928CD3A9500ACDF3E /* ContentView.swift in Sources */,
 				61C9EEE728CD3A9500ACDF3E /* TravelAdvisoriesApp.swift in Sources */,
+				610A3CAC28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +366,7 @@
 			files = (
 				61C9EEEA28CD3A9500ACDF3E /* ContentView.swift in Sources */,
 				61C9EEE828CD3A9500ACDF3E /* TravelAdvisoriesApp.swift in Sources */,
+				610A3CAD28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,6 +437,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -484,6 +496,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -569,9 +582,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = E5Y88KX65Q;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -597,9 +612,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = E5Y88KX65Q;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -666,6 +683,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = E5Y88KX65Q;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
@@ -685,6 +703,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = E5Y88KX65Q;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
@@ -749,6 +768,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		610A3CAE28EF16E000C8C4D1 /* Feature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Feature;
+		};
 		61A7892628D6625F009170DF /* BusinessLogic */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BusinessLogic;

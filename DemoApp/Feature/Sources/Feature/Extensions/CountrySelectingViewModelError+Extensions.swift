@@ -7,6 +7,7 @@
 
 import Foundation
 import BusinessLogic
+import UIComponents
 
 extension CountrySelectingViewModelError {
     var uiError: UIError {

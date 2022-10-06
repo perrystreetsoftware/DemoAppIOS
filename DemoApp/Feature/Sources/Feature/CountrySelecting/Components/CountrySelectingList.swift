@@ -3,6 +3,7 @@ import Foundation
 import Utils
 import BusinessLogic
 import DomainModels
+import UIComponents
 
 public struct CountrySelectingList: View {
     @Binding var continentList: [Continent]

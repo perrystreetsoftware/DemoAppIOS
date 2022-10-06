@@ -10,6 +10,7 @@ import SwiftUI
 import BusinessLogic
 import Utils
 import Combine
+import UIComponents
 
 public struct CountrySelectingAdapter: View {
     @ObservedObject private var errorAdapter: CountrySelectingErrorAdapter
