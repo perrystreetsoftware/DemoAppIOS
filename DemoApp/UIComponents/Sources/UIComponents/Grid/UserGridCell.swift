@@ -17,9 +17,6 @@ struct UserGridCell: View {
     let stackId: String
     let user: ProfileGridCellUIModel
     let userGridCellType: UserGridCellType
-//    let onProfileTapped: ((PSSUser) -> Void)?
-//    let onProfileDisappeared: ((String, PSSUser) -> Void)?
-//    let getFullUser: ((Int) -> PSSUser)
 
     @State var labelFrame: CGRect = .zero
     
@@ -30,34 +27,17 @@ struct UserGridCell: View {
     init(stackId: String,
          user: ProfileGridCellUIModel,
          userGridCellType: UserGridCellType
-//         onProfileTapped: ((TransitionAnimationUser) -> Void)?,
-//         onProfileDisappeared: ((String, TransitionAnimationUser) -> Void)?,
-//         getFullUser: @escaping ((Int) -> PSSUser)
     ) {
         
         self.stackId = stackId
         self.user = user
         self.userGridCellType = userGridCellType
-//        self.onProfileTapped = onProfileTapped
-//        self.onProfileDisappeared = onProfileDisappeared
-//        self.getFullUser = getFullUser
     }
-    
-//    @Environment(\.pss_v7stylesheet) private var stylesheet
-    
+
     var body: some View {
         GeometryReader { containerGeometry in
             ZStack(alignment: .bottom) {
-//                if user.hasAnyUnreadMessages {
-//                    ZStack {
-//                        let unreadIndicatorSizeAndPadding = userGridCellType == .carousel ? 12.0 : 8.0
-//                        Circle()
-//                            .frame(width: unreadIndicatorSizeAndPadding, height: unreadIndicatorSizeAndPadding)
-//                            .foregroundColor(stylesheet.color(.accent))
-//                            .padding(unreadIndicatorSizeAndPadding)
-//                    }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-//                }
-                
+
                 HStack(spacing: 4) {
                     
                     let statusAccentColor: Color = .red
@@ -67,7 +47,7 @@ struct UserGridCell: View {
                         .frame(width: 8, height: 8)
                         .foregroundColor(statusAccentColor)
                     
-                    Text(user.name ?? "")
+                    Text(String(user.remoteId) ?? "")
                         .lineLimit(1)
                         .foregroundColor(.black)
                         .overlay(GeometryReader { textGeometry in
@@ -88,14 +68,7 @@ struct UserGridCell: View {
         }
         .background(
             ZStack {
-                AsyncImage(url: URL(string: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Alexander_Mathis_at_Harvard_2020.jpg/800px-Alexander_Mathis_at_Harvard_2020.jpg")!,
-                           content: { image in
-                    image.resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(maxWidth: 300, maxHeight: 100)
-                }, placeholder: {
-                    ProgressView()
-                })
+                AsyncProfileImage(request: URLRequest(url: URL(string: "https://picsum.photos/id/\(100 + user.remoteId)/200/300")!))
             }
                 .accessibilityHidden(true)
         )

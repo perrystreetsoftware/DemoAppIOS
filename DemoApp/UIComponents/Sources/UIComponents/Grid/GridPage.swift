@@ -12,26 +12,14 @@ import SwiftUI
 struct ProfileGrid: View {
     public static var AspectRatio: CGFloat = 0.75
 
-//    @Environment(\.pss_v7stylesheet) private var stylesheet
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.redactionReasons) private var reasons
-//    @StateObject private var orientation = DeviceOrientation()
 
     private let stacks: [ProfileGridStackUIModel]
-//    private let onProfileTapped: ((TransitionAnimationUser) -> Void)?
-//    private let onProfileLongTapped: ((Int) -> Void)?
-//    private let onProfileDisappeared: ((String, PSSUser) -> Void)?
-//    private let onProfileAppeared: ((Int) -> Void)?
-//    private let onPullToRefresh: (() async -> Void)?
-//    private let getFullUser: ((Int) -> PSSUser)
-    
+
     public init(stacks: [ProfileGridStackUIModel]
-//                onProfileDisappeared: ((String, PSSUser) -> Void)?,
-//                onProfileAppeared: ((Int) -> Void)?,
     ) {
         self.stacks = stacks
-//        self.onProfileDisappeared = onProfileDisappeared
-//        self.onProfileAppeared = onProfileAppeared
     }
     
     var body: some View {
@@ -40,8 +28,12 @@ struct ProfileGrid: View {
         // we're using this grid component instead of LazyVGrid because there's
         // a bug when you put multiple LazyVGrids inside a list, they'll all call
         // the cell onAppear all at the same time
-        List(stacks, id: \.self) { stack in
-            Grid(stack: stack, columns: columnCount)
+        ScrollView {
+            LazyVStack {
+                ForEach(stacks, id: \.self) { stack in
+                    Grid(stack: stack, columns: columnCount)
+                }
+            }
         }
         .buttonStyle(PlainButtonStyle())
         .listStyle(PlainListStyle())
@@ -86,9 +78,11 @@ public struct GridPage: View {
 //    var state: Binding<CountryDetailsViewModel.State>
 //    private var onPageLoaded: (() -> Void)?
 
+    static let MaxUsers: Int = 200
+
     private var stacks: [ProfileGridStackUIModel]
     public init() {
-        let profiles: [ProfileGridCellUIModel] = Array(1..<100).map {
+        let profiles: [ProfileGridCellUIModel] = Array(1..<Self.MaxUsers).map {
             ProfileGridCellUIModel(user: PSSUser.stub(id: $0), index: $0)
         }
         
@@ -115,7 +109,7 @@ public struct GridPage: View {
 struct GridPage_Previews: PreviewProvider {
     static var previews: some View {
         
-        let profiles: [ProfileGridCellUIModel] = Array(1..<100).map {
+        let profiles: [ProfileGridCellUIModel] = Array(1..<GridPage.MaxUsers).map {
             ProfileGridCellUIModel(user: PSSUser.stub(id: $0), index: $0)
         }
         
