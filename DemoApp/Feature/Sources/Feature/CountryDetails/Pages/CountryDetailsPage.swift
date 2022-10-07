@@ -15,21 +15,21 @@ import UIComponents
 /// Pages represent the entire thing shown onscreen. Pages take UIState objects.
 /// Pages are the top-most thing that we attempt to preview.
 public struct CountryDetailsPage: View {
-    var state: Binding<CountryDetailsViewModel.State>
+    @Binding var state: CountryDetailsViewModel.State
     private var onPageLoaded: (() -> Void)?
 
     public init(state: Binding<CountryDetailsViewModel.State>,
                 onPageLoaded: (() -> Void)? = nil) {
-        self.state = state
+        self._state = state
         self.onPageLoaded = onPageLoaded
     }
 
     public var body: some View {
         ZStack {
-            ProgressIndicator(isLoading: state.map { $0.isLoading })
-            CountryNotFoundErrorView(viewModelState: state)
-            CountryDetailsContent(countryName: state.map { $0.countryName ?? "" }.wrappedValue,
-                                  detailsText: state.map { $0.countryDetails ?? "" }.wrappedValue)
+            ProgressIndicator(isLoading: state.isLoading)
+            CountryNotFoundErrorView(viewModelState: _state)
+            CountryDetailsContent(countryName: _state.map { $0.countryName ?? "" }.wrappedValue,
+                                  detailsText: _state.map { $0.countryDetails ?? "" }.wrappedValue)
         }.onPageLoaded {
             self.onPageLoaded?()
         }

@@ -6,12 +6,12 @@ import DomainModels
 import UIComponents
 
 public struct CountrySelectingList: View {
-    @Binding var continentList: [Continent]
+    var continentList: [Continent]
     private var onItemTapped: ((Country) -> Void)?
 
 
-    public init(continentList: Binding<[Continent]>, onItemTapped: ((Country) -> Void)? = nil) {
-        self._continentList = continentList
+    public init(continentList: [Continent], onItemTapped: ((Country) -> Void)? = nil) {
+        self.continentList = continentList
         self.onItemTapped = onItemTapped
     }
 
@@ -34,6 +34,10 @@ public struct CountrySelectingList: View {
 
 struct CountrySelectingList_Previews: PreviewProvider {
     static var previews: some View {
-        CountrySelectingList(continentList: .constant([Continent(name: "North America", countries: [Country(regionCode: "us")])]))
+        CountrySelectingList(
+            continentList:
+                [Continent(name: "North America",
+                           countries: [Country(regionCode: "us")])]
+        )
     }
 }

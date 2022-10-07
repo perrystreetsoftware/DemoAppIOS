@@ -5,12 +5,12 @@ import BusinessLogic
 import DomainModels
 
 public struct CountrySelectingButton: View {
-    @Binding private var isLoading: Bool
+    private var isLoading: Bool
     private var onItemTapped: (() -> Void)?
 
-    public init(isLoading: Binding<Bool>,
+    public init(isLoading: Bool,
                 onItemTapped: (() -> Void)? = nil) {
-        self._isLoading = isLoading
+        self.isLoading = isLoading
         self.onItemTapped = onItemTapped
     }
 
@@ -26,6 +26,6 @@ public struct CountrySelectingButton: View {
 
 struct CountrySelectingButton_Previews: PreviewProvider {
     static var previews: some View {
-        CountrySelectingButton(isLoading: .constant(false))
+        CountrySelectingButton(isLoading: false)
     }
 }

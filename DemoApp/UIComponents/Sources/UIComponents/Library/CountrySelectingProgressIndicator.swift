@@ -4,10 +4,10 @@ import Utils
 import BusinessLogic
 
 public struct ProgressIndicator: View {
-    @Binding var isLoading: Bool
+    var isLoading: Bool
 
-    public init(isLoading: Binding<Bool>) {
-        self._isLoading = isLoading
+    public init(isLoading: Bool) {
+        self.isLoading = isLoading
     }
 
     public var body: some View {
@@ -21,8 +21,8 @@ public struct ProgressIndicator: View {
 struct ProgressIndicator_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ProgressIndicator(isLoading: .constant(true))
-            ProgressIndicator(isLoading: .constant(false))
+            ProgressIndicator(isLoading: true)
+            ProgressIndicator(isLoading: false)
         }
     }
 }

@@ -6,7 +6,7 @@ import DomainModels
 import UIComponents
 
 public struct CountrySelectingPage: View {
-    var state: Binding<CountrySelectingViewModel.State>
+    @Binding var state: CountrySelectingViewModel.State
     private var onAppear: (() -> Void)?
     private var onItemTapped: ((Country) -> Void)?
     private var onButtonTapped: (() -> Void)?
@@ -15,7 +15,7 @@ public struct CountrySelectingPage: View {
                 onAppear: (() -> Void)? = nil,
                 onItemTapped: ((Country) -> Void)? = nil,
                 onButtonTapped: (() -> Void)? = nil) {
-        self.state = state
+        self._state = state
         self.onAppear = onAppear
         self.onItemTapped = onItemTapped
         self.onButtonTapped = onButtonTapped
@@ -23,14 +23,12 @@ public struct CountrySelectingPage: View {
     
     public var body: some View {
         ZStack {
-            ProgressIndicator(isLoading: state.map({ $0.isLoading }))
+            ProgressIndicator(isLoading: state.isLoading)
             VStack {
-                CountrySelectingList(continentList: state.map {
-                    return $0.continents
-                }, onItemTapped: { country in
+                CountrySelectingList(continentList: state.continents, onItemTapped: { country in
                     self.onItemTapped?(country)
                 })
-                CountrySelectingButton(isLoading: state.map { $0.isLoading },
+                CountrySelectingButton(isLoading: state.isLoading,
                                        onItemTapped: onButtonTapped)
                 .onAppear {
                     onAppear?()
