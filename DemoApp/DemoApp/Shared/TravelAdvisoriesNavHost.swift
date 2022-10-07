@@ -12,6 +12,7 @@ import Utils
 import Combine
 import DomainModels
 import Feature
+import UIComponents
 
 public struct TravelAdvisoriesNavHost: View {
     @State var destination: Destinations?
@@ -34,16 +35,22 @@ public struct TravelAdvisoriesNavHost: View {
                         EmptyView()
                     }
                 )
-
+                
                 self.buildBaseView()
+            }
+        }.didReceiveNavigationEvent { event in
+            switch event {
+            case .onCountrySelected(let country):
+                self.destination = Destinations.details(regionCode: country.regionCode)
+                
+            case .none:
+                break
             }
         }
     }
-
+    
     @ViewBuilder func buildBaseView() -> some View {
-        CountrySelectingAdapter(viewModel: InjectSettings.resolver!.resolve(CountrySelectingViewModel.self)!) { regionCode in
-            self.destination = Destinations.details(regionCode: regionCode)
-        }
+        CountrySelectingAdapter(viewModel: InjectSettings.resolver!.resolve(CountrySelectingViewModel.self)!) 
     }
 
     @ViewBuilder func buildChildViewFromState() -> some View {
@@ -54,6 +61,14 @@ public struct TravelAdvisoriesNavHost: View {
             CountryDetailsAdapter(viewModel: viewModel)
         case .none:
             EmptyView()
+        }
+    }
+}
+
+private extension View {
+    func didReceiveNavigationEvent(_ completion: @escaping (TravelAdvisoriesNavHostKey.Event?) -> ()) -> some View {
+        self.onPreferenceChange(TravelAdvisoriesNavHostKey.self) { event in
+            completion(event)
         }
     }
 }

@@ -9,7 +9,6 @@ import SwiftUI
 import Swinject
 import Utils
 import Interfaces
-import NetworkLogic
 
 @main
 struct TravelAdvisoriesApp: App {
@@ -19,7 +18,6 @@ struct TravelAdvisoriesApp: App {
             .injectBusinessLogicLogic()
             .injectBusinessLogicRepositories()
             .injectBusinessLogicLocalApis()
-            .injectNetworkLogicRemoteApis()
     }
 
     var body: some Scene {

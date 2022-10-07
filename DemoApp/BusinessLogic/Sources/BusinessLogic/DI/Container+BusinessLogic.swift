@@ -48,6 +48,11 @@ public extension Container {
             AppSchedulerProvider()
         }.inObjectScope(.container)
 
+        
+        self.register(TravelAdvisoryApiImplementing.self) { resolver in
+            MockTravelAdvisoryApi(scheduler: AppSchedulerProvider())
+        }.inObjectScope(.container)
+        
         return self
     }
 }
