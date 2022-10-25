@@ -9,6 +9,7 @@ import Foundation
 import DomainModels
 import Interfaces
 import Combine
+import Repositories
 
 public enum ServerStatusLogicError: Error {
     case forbidden

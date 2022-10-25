@@ -12,8 +12,8 @@ import Foundation
 import DomainModels
 import CombineExpectations
 import Interfaces
-@testable import BusinessLogic
 import Combine
+import Repositories
 
 final class CountrySelectingRepositoryTests: QuickSpec {
     override func spec() {
@@ -27,7 +27,6 @@ final class CountrySelectingRepositoryTests: QuickSpec {
 
             beforeEach {
                 container = Container().injectBusinessLogicRepositories()
-                    .injectBusinessLogicLogic()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
                 mockAppScheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
