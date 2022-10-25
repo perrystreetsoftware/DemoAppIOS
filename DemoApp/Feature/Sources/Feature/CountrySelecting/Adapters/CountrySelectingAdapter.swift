@@ -25,9 +25,7 @@ public struct CountrySelectingAdapter: View {
     }
 
     public var body: some View {
-        CountrySelectingPage(state: $viewModel.state, onAppear: {
-            viewModel.onPageLoaded()
-        }, onItemTapped: { country in
+        CountrySelectingPage(state: $viewModel.state, onItemTapped: { country in
             onCountrySelected?(country)
         }) {
             viewModel.onButtonTapped()

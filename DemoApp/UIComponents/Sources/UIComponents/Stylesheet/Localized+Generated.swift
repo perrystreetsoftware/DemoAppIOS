@@ -22,6 +22,8 @@ public enum L10n {
   public static let genericErrorMessage = L10n.tr("Localizable", "generic_error_message")
   /// Error
   public static let genericErrorTitle = L10n.tr("Localizable", "generic_error_title")
+  /// Refresh (always will fail)
+  public static let refreshButtonTitle = L10n.tr("Localizable", "refresh_button_title")
   /// Server status is not OK
   public static let serverStatusNotOk = L10n.tr("Localizable", "server_status_not_ok")
   /// Server status is OK

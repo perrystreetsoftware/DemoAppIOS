@@ -7,16 +7,13 @@ import UIComponents
 
 public struct CountrySelectingPage: View {
     @Binding var state: CountrySelectingViewModel.UiState
-    private var onAppear: (() -> Void)?
     private var onItemTapped: ((Country) -> Void)?
     private var onButtonTapped: (() -> Void)?
     
     public init(state: Binding<CountrySelectingViewModel.UiState>,
-                onAppear: (() -> Void)? = nil,
                 onItemTapped: ((Country) -> Void)? = nil,
                 onButtonTapped: (() -> Void)? = nil) {
         self._state = state
-        self.onAppear = onAppear
         self.onItemTapped = onItemTapped
         self.onButtonTapped = onButtonTapped
     }
@@ -47,9 +44,6 @@ public struct CountrySelectingPage: View {
                 }.font(.caption).padding(5)
                 CountrySelectingButton(isLoading: state.isLoading,
                                        onItemTapped: onButtonTapped)
-                .onAppear {
-                    onAppear?()
-                }
             }
         }
     }

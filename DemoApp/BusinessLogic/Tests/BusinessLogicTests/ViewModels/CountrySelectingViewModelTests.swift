@@ -33,37 +33,34 @@ final class CountrySelectingViewModelTests: QuickSpec {
             }
 
             describe("#onPageLoaded") {
-                var stateRecorder: Recorder<CountrySelectingViewModel.State, Never>!
-                var contentRecorder: Recorder<[Continent], Never>!
+                var stateRecorder: Recorder<CountrySelectingViewModel.UiState, Never>!
+                var states: [CountrySelectingViewModel.UiState]!
 
                 beforeEach {
                     stateRecorder = viewModel.$state.record()
-                    viewModel.onPageLoaded()
+
                 }
 
                 it("then it transitions to .loading") {
-                    expect(try! stateRecorder.availableElements.get()).to(equal([.initial, .loading]))
+                    expect(try! stateRecorder.availableElements.get()).to(equal([
+                        CountrySelectingViewModel.UiState(isLoading: true, serverStatus: .Empty)]))
                 }
 
                 context("when I advance") {
-                    var nextState: CountrySelectingViewModel.State!
 
                     beforeEach {
                         mockAppScheduler.testScheduler.advance()
-                        nextState = try! QuickSpec.current.wait(for: stateRecorder.next(), timeout: 5.0)
+                        states = try! stateRecorder.availableElements.get()
                     }
 
-                    it("then it transitions back to .initial") {
-                        expect(try! stateRecorder.availableElements.get()).to(equal([.initial, .loading, .initial]))
-                    }
+                    fit("then it has loaded") {
+                        expect(states[1].isLoading).to(beTrue())
+                        expect(states[1].isLoaded).to(beFalse())
+                        expect(states[1].continents.isEmpty).to(beFalse())
 
-                    it("then it has loaded content") {
-                        let continents = nextState.continents
-
-                        expect(continents.count).to(equal(5))
-                        expect(continents.first { uiModel in
-                            uiModel.name == "Africa"
-                        }?.countries.count).to(equal(2))
+                        expect(states[2].isLoading).to(beFalse())
+                        expect(states[2].isLoaded).to(beTrue())
+                        expect(states[2].continents.isEmpty).to(beFalse())
                     }
                 }
             }

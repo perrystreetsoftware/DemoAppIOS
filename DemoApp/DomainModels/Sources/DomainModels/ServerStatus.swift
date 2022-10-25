@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ServerStatus {
+public struct ServerStatus: Equatable {
     public let success: Bool
 
     public init(success: Bool) {

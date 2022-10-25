@@ -3,6 +3,7 @@ import Foundation
 import Utils
 import BusinessLogic
 import DomainModels
+import UIComponents
 
 public struct CountrySelectingButton: View {
     private var isLoading: Bool
@@ -18,8 +19,8 @@ public struct CountrySelectingButton: View {
         Button {
             onItemTapped?()
         } label: {
-            Text("Failing Api Call")
-        }.isHidden(isLoading)
+            Text(L10n.refreshButtonTitle)
+        }.disabled(isLoading)
 
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import DomainModels
 
-public enum CountrySelectingViewModelError: Error, Identifiable {
+public enum CountrySelectingViewModelError: Error, Identifiable, Equatable {
     public var id: Self { self }
 
     case forbidden
@@ -26,7 +26,7 @@ public enum CountrySelectingViewModelError: Error, Identifiable {
 }
 
 public final class CountrySelectingViewModel: ObservableObject {
-    public struct UiState {
+    public struct UiState: Equatable {
         public let continents: [Continent]
         public let isLoading: Bool
         public let isLoaded: Bool
@@ -85,9 +85,11 @@ public final class CountrySelectingViewModel: ObservableObject {
                 self.state = self.state.copy(continents: continents)
             })
             .store(in: &cancellables)
+
+        onPageLoaded()
     }
 
-    public func onPageLoaded() {
+    private func onPageLoaded() {
         guard state.isLoaded == false else { return }
 
         logic.reload()
