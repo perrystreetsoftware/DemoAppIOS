@@ -24,11 +24,17 @@ public enum L10n {
     /// Error
     public static let genericErrorTitle = L10n.tr("Errors", "generic_error_title")
   }
+  public enum Localizable {
+    /// Placeholder
+    public static let placeholder = L10n.tr("Localizable", "placeholder")
+  }
   public enum Ui {
     /// Cancel
     public static let cancelButtonTitle = L10n.tr("UI", "cancel_button_title")
     /// Countries
     public static let countriesTitle = L10n.tr("UI", "countries_title")
+    /// Loading...
+    public static let loading = L10n.tr("UI", "loading")
     /// Refresh (always will fail)
     public static let refreshButtonTitle = L10n.tr("UI", "refresh_button_title")
     /// Server status is not OK

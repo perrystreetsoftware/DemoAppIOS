@@ -11,7 +11,7 @@ public struct ProgressIndicator: View {
 
     public var body: some View {
         VStack {
-            Text("Loading...")
+            Text(L10n.Ui.loading)
             ProgressView()
         }.isHidden(isLoading == false)
     }
@@ -23,5 +23,6 @@ struct ProgressIndicator_Previews: PreviewProvider {
             ProgressIndicator(isLoading: true)
             ProgressIndicator(isLoading: false)
         }
+        .environment(\.locale, .init(identifier: "es"))
     }
 }

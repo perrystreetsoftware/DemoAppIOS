@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  
+
+  Created by Eric Silverberg on 9/24/22.
+  
+*/
+
+"cancel_button_title" = "Cancelar";
+"countries_title" = "Countries";
+
+"server_status_ok" = "El estado del servidor es correcto";
+"server_status_not_ok" = "El estado del servidor no es correcto";
+
+"refresh_button_title" = "Actualizar (siempre fallará)";
+"loading" = "Cargando...";

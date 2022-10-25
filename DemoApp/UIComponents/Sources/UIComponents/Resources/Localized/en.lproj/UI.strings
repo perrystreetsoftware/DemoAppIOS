@@ -13,4 +13,4 @@
 "server_status_not_ok" = "Server status is not OK";
 
 "refresh_button_title" = "Refresh (always will fail)";
-
+"loading" = "Loading...";
