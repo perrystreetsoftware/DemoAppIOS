@@ -6,11 +6,6 @@
   
 */
 
-"forbidden_error_title" = "Error";
-"forbidden_error_message" = "This operation is forbidden";
-"generic_error_title" = "Error";
-"generic_error_message" = "An error occurred.";
-
 "cancel_button_title" = "Cancel";
 "countries_title" = "Countries";
 
@@ -18,6 +13,4 @@
 "server_status_not_ok" = "Server status is not OK";
 
 "refresh_button_title" = "Refresh (always will fail)";
-"country_not_found_error_title" = "Error";
-"country_not_found_error_message" = "Country not found";
 

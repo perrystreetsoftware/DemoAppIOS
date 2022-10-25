@@ -27,7 +27,7 @@ public struct CountrySelectingList: View {
             }
         }
         .listStyle(.grouped)
-        .navigationBarTitle(L10n.countriesTitle)
+        .navigationBarTitle(L10n.Ui.countriesTitle)
     }
 }
 

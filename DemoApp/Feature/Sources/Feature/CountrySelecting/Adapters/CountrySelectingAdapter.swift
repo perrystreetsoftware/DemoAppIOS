@@ -35,7 +35,7 @@ public struct CountrySelectingAdapter: View {
             return Alert(
                 title: Text(uiError.title),
                 message: Text(uiError.messages.joined(separator: " ")),
-                dismissButton: .cancel(Text(L10n.cancelButtonTitle), action: {
+                dismissButton: .cancel(Text(L10n.Ui.cancelButtonTitle), action: {
                     $viewModel.error.wrappedValue = nil
                 })
             )

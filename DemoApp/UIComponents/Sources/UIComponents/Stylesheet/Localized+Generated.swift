@@ -10,28 +10,32 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 public enum L10n {
-  /// Cancel
-  public static let cancelButtonTitle = L10n.tr("Localizable", "cancel_button_title")
-  /// Countries
-  public static let countriesTitle = L10n.tr("Localizable", "countries_title")
-  /// Country not found
-  public static let countryNotFoundErrorMessage = L10n.tr("Localizable", "country_not_found_error_message")
-  /// Error
-  public static let countryNotFoundErrorTitle = L10n.tr("Localizable", "country_not_found_error_title")
-  /// This operation is forbidden
-  public static let forbiddenErrorMessage = L10n.tr("Localizable", "forbidden_error_message")
-  /// Error
-  public static let forbiddenErrorTitle = L10n.tr("Localizable", "forbidden_error_title")
-  /// An error occurred.
-  public static let genericErrorMessage = L10n.tr("Localizable", "generic_error_message")
-  /// Error
-  public static let genericErrorTitle = L10n.tr("Localizable", "generic_error_title")
-  /// Refresh (always will fail)
-  public static let refreshButtonTitle = L10n.tr("Localizable", "refresh_button_title")
-  /// Server status is not OK
-  public static let serverStatusNotOk = L10n.tr("Localizable", "server_status_not_ok")
-  /// Server status is OK
-  public static let serverStatusOk = L10n.tr("Localizable", "server_status_ok")
+  public enum Errors {
+    /// Country not found
+    public static let countryNotFoundErrorMessage = L10n.tr("Errors", "country_not_found_error_message")
+    /// Error
+    public static let countryNotFoundErrorTitle = L10n.tr("Errors", "country_not_found_error_title")
+    /// This operation is forbidden
+    public static let forbiddenErrorMessage = L10n.tr("Errors", "forbidden_error_message")
+    /// Error
+    public static let forbiddenErrorTitle = L10n.tr("Errors", "forbidden_error_title")
+    /// An error occurred.
+    public static let genericErrorMessage = L10n.tr("Errors", "generic_error_message")
+    /// Error
+    public static let genericErrorTitle = L10n.tr("Errors", "generic_error_title")
+  }
+  public enum Ui {
+    /// Cancel
+    public static let cancelButtonTitle = L10n.tr("UI", "cancel_button_title")
+    /// Countries
+    public static let countriesTitle = L10n.tr("UI", "countries_title")
+    /// Refresh (always will fail)
+    public static let refreshButtonTitle = L10n.tr("UI", "refresh_button_title")
+    /// Server status is not OK
+    public static let serverStatusNotOk = L10n.tr("UI", "server_status_not_ok")
+    /// Server status is OK
+    public static let serverStatusOk = L10n.tr("UI", "server_status_ok")
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

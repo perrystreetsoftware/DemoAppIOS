@@ -1,0 +1,6 @@
+"country_not_found_error_message" = "Country not found";
+"country_not_found_error_title" = "Error";
+"forbidden_error_message" = "This operation is forbidden";
+"forbidden_error_title" = "Error";
+"generic_error_message" = "An error occurred.";
+"generic_error_title" = "Error";

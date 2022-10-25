@@ -18,7 +18,7 @@ public struct CountrySelectingButton: View {
         Button {
             onItemTapped?()
         } label: {
-            Text(L10n.refreshButtonTitle)
+            Text(L10n.Ui.refreshButtonTitle)
         }.disabled(isLoading)
 
     }
