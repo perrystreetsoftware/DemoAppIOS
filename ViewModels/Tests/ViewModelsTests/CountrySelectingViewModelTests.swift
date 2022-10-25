@@ -12,7 +12,7 @@ import Foundation
 import DomainModels
 import CombineExpectations
 import Interfaces
-import BusinessLogic
+import Logic
 @testable import ViewModels
 
 final class CountrySelectingViewModelTests: QuickSpec {

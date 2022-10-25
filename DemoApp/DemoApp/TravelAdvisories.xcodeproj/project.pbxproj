@@ -56,7 +56,6 @@
 		61A7892128D6620F009170DF /* Interfaces */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Interfaces; path = ../Interfaces; sourceTree = "<group>"; };
 		61A7892228D66219009170DF /* Utils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utils; path = ../Utils; sourceTree = "<group>"; };
 		61A7892328D66227009170DF /* UIComponents */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = UIComponents; path = ../UIComponents; sourceTree = "<group>"; };
-		61A7892428D66231009170DF /* BusinessLogic */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BusinessLogic; path = ../BusinessLogic; sourceTree = "<group>"; };
 		61A7892528D6623A009170DF /* DomainModels */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DomainModels; path = ../DomainModels; sourceTree = "<group>"; };
 		61C9EEBF28CD3A9400ACDF3E /* TravelAdvisoriesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAdvisoriesApp.swift; sourceTree = "<group>"; };
 		61C9EEC028CD3A9400ACDF3E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -121,7 +120,6 @@
 				61A7892128D6620F009170DF /* Interfaces */,
 				61A7892228D66219009170DF /* Utils */,
 				61A7892328D66227009170DF /* UIComponents */,
-				61A7892428D66231009170DF /* BusinessLogic */,
 				61030A0F29084445007BEF5A /* Repositories */,
 				61A7892528D6623A009170DF /* DomainModels */,
 				610A3CB028EF195E00C8C4D1 /* Feature */,

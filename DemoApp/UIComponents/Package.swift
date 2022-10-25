@@ -17,8 +17,6 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0"),
-        .package(path: "../DomainModels"),
-        .package(path: "../Interfaces"),
         .package(path: "../Utils")
     ],
     targets: [
@@ -26,7 +24,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "UIComponents",
-            dependencies: ["Swinject", "DomainModels", "Interfaces", "Utils"],
+            dependencies: ["Swinject", "Utils"],
             resources: [.process("Resources")]),
         .testTarget(
             name: "UIComponentsTests",
