@@ -12,6 +12,7 @@
 		610A3CAC28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */; };
 		610A3CAD28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */; };
 		610A3CAF28EF16E000C8C4D1 /* Feature in Frameworks */ = {isa = PBXBuildFile; productRef = 610A3CAE28EF16E000C8C4D1 /* Feature */; };
+		613871B0290849A000FA9C38 /* Logic in Frameworks */ = {isa = PBXBuildFile; productRef = 613871AF290849A000FA9C38 /* Logic */; };
 		61A7892728D6625F009170DF /* BusinessLogic in Frameworks */ = {isa = PBXBuildFile; productRef = 61A7892628D6625F009170DF /* BusinessLogic */; };
 		61A7892928D6625F009170DF /* DomainModels in Frameworks */ = {isa = PBXBuildFile; productRef = 61A7892828D6625F009170DF /* DomainModels */; };
 		61A7892B28D6625F009170DF /* Interfaces in Frameworks */ = {isa = PBXBuildFile; productRef = 61A7892A28D6625F009170DF /* Interfaces */; };
@@ -52,6 +53,7 @@
 		61030A0F29084445007BEF5A /* Repositories */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Repositories; path = ../Repositories; sourceTree = "<group>"; };
 		610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAdvisoriesNavHost.swift; sourceTree = "<group>"; };
 		610A3CB028EF195E00C8C4D1 /* Feature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Feature; path = ../Feature; sourceTree = "<group>"; };
+		613871AE2908496E00FA9C38 /* Logic */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Logic; path = ../../Logic; sourceTree = "<group>"; };
 		61A7892128D6620F009170DF /* Interfaces */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Interfaces; path = ../Interfaces; sourceTree = "<group>"; };
 		61A7892228D66219009170DF /* Utils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utils; path = ../Utils; sourceTree = "<group>"; };
 		61A7892328D66227009170DF /* UIComponents */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = UIComponents; path = ../UIComponents; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				61A7892D28D6625F009170DF /* UIComponents in Frameworks */,
 				61030A112908444D007BEF5A /* Repositories in Frameworks */,
 				61A7892928D6625F009170DF /* DomainModels in Frameworks */,
+				613871B0290849A000FA9C38 /* Logic in Frameworks */,
 				610A3CAF28EF16E000C8C4D1 /* Feature in Frameworks */,
 				61A7892F28D6625F009170DF /* Utils in Frameworks */,
 				61A7892B28D6625F009170DF /* Interfaces in Frameworks */,
@@ -115,6 +118,7 @@
 		61A7890928D6557B009170DF /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				613871AE2908496E00FA9C38 /* Logic */,
 				61030A0C2908372B007BEF5A /* ViewModels */,
 				61A7892128D6620F009170DF /* Interfaces */,
 				61A7892228D66219009170DF /* Utils */,
@@ -221,6 +225,7 @@
 				610A3CAE28EF16E000C8C4D1 /* Feature */,
 				61030A0D290841BB007BEF5A /* ViewModels */,
 				61030A102908444D007BEF5A /* Repositories */,
+				613871AF290849A000FA9C38 /* Logic */,
 			);
 			productName = "DemoApp (iOS)";
 			productReference = 61C9EEC628CD3A9500ACDF3E /* TravelAdvisories.app */;
@@ -789,6 +794,10 @@
 		610A3CAE28EF16E000C8C4D1 /* Feature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Feature;
+		};
+		613871AF290849A000FA9C38 /* Logic */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Logic;
 		};
 		61A7892628D6625F009170DF /* BusinessLogic */ = {
 			isa = XCSwiftPackageProductDependency;

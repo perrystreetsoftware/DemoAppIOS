@@ -12,18 +12,17 @@ import Foundation
 import DomainModels
 import CombineExpectations
 import Interfaces
-@testable import BusinessLogic
+@testable import Logic
 import Combine
 
-final class CountryDetailsLogicTests: QuickSpec {
+final class CountrySelectingLogicTests: QuickSpec {
     override func spec() {
-        describe("CountryDetailsLogic") {
+        describe("CountrySelectingLogic") {
             var container: Container!
-            var logic: CountryDetailsLogic!
+            var logic: CountrySelectingLogic!
             var mockAppScheduler: MockAppSchedulerProviding!
-
-            let country = Country(regionCode: "ng")
-
+            var continentsRecorder: Recorder<[Continent], Never>!
+            var value: [Continent]!
 
             beforeEach {
                 container = Container().injectBusinessLogicRepositories()
@@ -32,28 +31,35 @@ final class CountryDetailsLogicTests: QuickSpec {
                     .injectInterfaceRemoteMocks()
                 mockAppScheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
                 mockAppScheduler.useTestMainScheduler = true
-                logic = container.resolve(CountryDetailsLogic.self)!
+                logic = container.resolve(CountrySelectingLogic.self)!
+
+                continentsRecorder = logic.$continents.record()
+                value = try! QuickSpec.current.wait(for: continentsRecorder.next(), timeout: 5.0)
             }
 
-            describe("#getDetails") {
-                var recorder: Recorder<CountryDetails, CountryDetailsLogicError>!
-                var completion: Subscribers.Completion<CountryDetailsLogicError>!
+            it("then it starts with no continents") {
+                expect(value.count).to(equal(0))
+            }
+
+            describe("#reload") {
+                var recorder: Recorder<Void, CountrySelectingLogicError>!
+                var completion: Subscribers.Completion<CountrySelectingLogicError>!
 
                 beforeEach {
-                    recorder = logic.getDetails(country: country).record()
+                    recorder = logic.reload().record()
                     mockAppScheduler.testScheduler.advance()
                 }
 
                 context("success") {
-                    var value: CountryDetails!
+                    var value: [Continent]!
 
                     beforeEach {
-                        value = try! QuickSpec.current.wait(for: recorder.next(), timeout: 5.0)
+                        value = try! QuickSpec.current.wait(for: continentsRecorder.next(), timeout: 5.0)
                         completion = try! QuickSpec.current.wait(for: recorder.completion, timeout: 5.0)
                     }
 
                     it("then value is set") {
-                        expect(value).to(equal(CountryDetails(country: country, detailsText: "Article 264")))
+                        expect(value.count).to(equal(6))
                     }
 
                     it("then recorder has completed") {

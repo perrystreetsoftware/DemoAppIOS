@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 import DomainModels
-import BusinessLogic
+import Logic
 
 public enum CountrySelectingViewModelError: Error, Identifiable, Equatable {
     public var id: Self { self }

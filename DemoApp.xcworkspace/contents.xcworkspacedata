@@ -8,6 +8,9 @@
       location = "group:DemoApp/Feature">
    </FileRef>
    <FileRef
+      location = "group:DemoApp/DemoApp/../../Logic">
+   </FileRef>
+   <FileRef
       location = "group:DemoApp/DemoApp/../../ViewModels">
    </FileRef>
    <FileRef
