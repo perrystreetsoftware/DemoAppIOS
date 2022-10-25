@@ -8,6 +8,7 @@
 import Foundation
 import BusinessLogic
 import UIComponents
+import ViewModels
 
 extension CountrySelectingViewModelError {
     var uiError: UIError {

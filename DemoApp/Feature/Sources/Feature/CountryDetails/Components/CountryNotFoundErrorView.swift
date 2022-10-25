@@ -10,6 +10,7 @@ import SwiftUI
 import DomainModels
 import Utils
 import BusinessLogic
+import ViewModels
 
 /// Content is a component of a page. Content accepts bindings or simple primitive types.
 public struct CountryNotFoundErrorView: View {

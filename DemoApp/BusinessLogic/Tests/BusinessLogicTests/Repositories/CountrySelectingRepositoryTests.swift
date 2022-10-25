@@ -28,7 +28,6 @@ final class CountrySelectingRepositoryTests: QuickSpec {
             beforeEach {
                 container = Container().injectBusinessLogicRepositories()
                     .injectBusinessLogicLogic()
-                    .injectBusinessLogicViewModels()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
                 mockAppScheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
@@ -56,11 +55,11 @@ final class CountrySelectingRepositoryTests: QuickSpec {
                 }
 
                 fcontext("success") {
-                    assignBefore {
+                    beforeEach {
                         apiResult = nil // use default success
                     }
 
-                    beforeEach {
+                    justBeforeEach {
                         _ = try! QuickSpec.current.wait(for: recorder.next(), timeout: 5.0)
                         continents = try! QuickSpec.current.wait(for: continentsRecorder.next(), timeout: 5.0)
                         completion = try! QuickSpec.current.wait(for: recorder.completion, timeout: 5.0)
@@ -84,11 +83,11 @@ final class CountrySelectingRepositoryTests: QuickSpec {
                 }
 
                 context("failure") {
-                    assignBefore {
+                    beforeEach {
                         apiResult = .failure(.domainError(.forbidden, responseCode: .forbidden))
                     }
 
-                    beforeEach {
+                    justBeforeEach {
                         completion = try! QuickSpec.current.wait(for: recorder.completion, timeout: 5.0)
                     }
 

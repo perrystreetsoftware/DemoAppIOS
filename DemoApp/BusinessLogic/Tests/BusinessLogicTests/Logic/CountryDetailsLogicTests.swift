@@ -28,7 +28,6 @@ final class CountryDetailsLogicTests: QuickSpec {
             beforeEach {
                 container = Container().injectBusinessLogicRepositories()
                     .injectBusinessLogicLogic()
-                    .injectBusinessLogicViewModels()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
                 mockAppScheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)

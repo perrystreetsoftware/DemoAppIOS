@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		61030A0E290841BB007BEF5A /* ViewModels in Frameworks */ = {isa = PBXBuildFile; productRef = 61030A0D290841BB007BEF5A /* ViewModels */; };
 		610A3CAC28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */; };
 		610A3CAD28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */; };
 		610A3CAF28EF16E000C8C4D1 /* Feature in Frameworks */ = {isa = PBXBuildFile; productRef = 610A3CAE28EF16E000C8C4D1 /* Feature */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		61030A0C2908372B007BEF5A /* ViewModels */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ViewModels; path = ../../ViewModels; sourceTree = "<group>"; };
 		610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAdvisoriesNavHost.swift; sourceTree = "<group>"; };
 		610A3CB028EF195E00C8C4D1 /* Feature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Feature; path = ../Feature; sourceTree = "<group>"; };
 		61A7892128D6620F009170DF /* Interfaces */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Interfaces; path = ../Interfaces; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				61A7893228D7453C009170DF /* NetworkLogic in Frameworks */,
+				61030A0E290841BB007BEF5A /* ViewModels in Frameworks */,
 				61A7892D28D6625F009170DF /* UIComponents in Frameworks */,
 				61A7892928D6625F009170DF /* DomainModels in Frameworks */,
 				610A3CAF28EF16E000C8C4D1 /* Feature in Frameworks */,
@@ -109,6 +112,7 @@
 		61A7890928D6557B009170DF /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				61030A0C2908372B007BEF5A /* ViewModels */,
 				61A7892128D6620F009170DF /* Interfaces */,
 				61A7892228D66219009170DF /* Utils */,
 				61A7892328D66227009170DF /* UIComponents */,
@@ -211,6 +215,7 @@
 				61A7892E28D6625F009170DF /* Utils */,
 				61A7893128D7453C009170DF /* NetworkLogic */,
 				610A3CAE28EF16E000C8C4D1 /* Feature */,
+				61030A0D290841BB007BEF5A /* ViewModels */,
 			);
 			productName = "DemoApp (iOS)";
 			productReference = 61C9EEC628CD3A9500ACDF3E /* TravelAdvisories.app */;
@@ -768,6 +773,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		61030A0D290841BB007BEF5A /* ViewModels */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ViewModels;
+		};
 		610A3CAE28EF16E000C8C4D1 /* Feature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Feature;

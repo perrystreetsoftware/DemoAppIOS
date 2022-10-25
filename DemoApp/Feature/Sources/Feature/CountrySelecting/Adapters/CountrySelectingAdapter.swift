@@ -12,6 +12,7 @@ import Utils
 import Combine
 import UIComponents
 import DomainModels
+import ViewModels
 
 public struct CountrySelectingAdapter: View {
     @ObservedObject private var viewModel: CountrySelectingViewModel

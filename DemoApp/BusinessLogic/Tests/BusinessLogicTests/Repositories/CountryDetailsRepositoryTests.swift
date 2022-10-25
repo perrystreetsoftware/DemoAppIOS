@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  CountryDetailsRepositoryTests.swift
 //
 //
 //  Created by Eric Silverberg on Sep 18, 2022
@@ -26,7 +26,6 @@ final class CountryDetailsRepositoryTests: QuickSpec {
             beforeEach {
                 container = Container().injectBusinessLogicRepositories()
                     .injectBusinessLogicLogic()
-                    .injectBusinessLogicViewModels()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
                 mockAppScheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
@@ -40,22 +39,22 @@ final class CountryDetailsRepositoryTests: QuickSpec {
                 var completion: Subscribers.Completion<TravelAdvisoryApiError>!
                 var apiResult: Result<CountryDetailsDTO, TravelAdvisoryApiError>?
 
-                beforeEach {
+                justBeforeEach {
                     api.getCountryDetailsResult = apiResult
                     recorder = repository.getDetails(regionCode: "ng").record()
                     mockAppScheduler.testScheduler.advance()
+                    completion = try! QuickSpec.current.wait(for: recorder.completion, timeout: 5.0)
                 }
 
                 context("success") {
                     var value: CountryDetailsDTO!
 
-                    assignBefore {
+                    beforeEach {
                         apiResult = nil // use default success
                     }
 
-                    beforeEach {
-                        value = try! QuickSpec.current.wait(for: recorder.next(), timeout: 5.0)
-                        completion = try! QuickSpec.current.wait(for: recorder.completion, timeout: 5.0)
+                    justBeforeEach {
+                        value = try! recorder.availableElements.get().last
                     }
 
                     it("then value is set") {
@@ -76,12 +75,11 @@ final class CountryDetailsRepositoryTests: QuickSpec {
                 }
 
                 context("failure") {
-                    assignBefore {
+                    beforeEach {
                         apiResult = .failure(.domainError(.forbidden, responseCode: .forbidden))
                     }
 
-                    beforeEach {
-                        completion = try! QuickSpec.current.wait(for: recorder.completion, timeout: 5.0)
+                    justBeforeEach {
                     }
 
                     it("then recorder has failed") {

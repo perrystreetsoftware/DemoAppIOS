@@ -10,6 +10,7 @@ import SwiftUI
 import BusinessLogic
 import Utils
 import DomainModels
+import ViewModels
 
 /// Adapters convert ViewModels into UIState objects
 public struct CountryDetailsAdapter: View {

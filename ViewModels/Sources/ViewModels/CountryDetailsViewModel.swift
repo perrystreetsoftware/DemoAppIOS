@@ -9,6 +9,7 @@ import Foundation
 import DomainModels
 import Combine
 import Swinject
+import BusinessLogic
 
 public final class CountryDetailsViewModelBuilder {
     private var resolver: Swinject.Resolver

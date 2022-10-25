@@ -48,10 +48,10 @@
     {
       "identity" : "quick",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/perrystreetsoftware/Quick.git",
+      "location" : "https://github.com/Quick/Quick.git",
       "state" : {
-        "branch" : "perrystreet/assign_before",
-        "revision" : "4da067d4bbc33c7e0f8b6626fadc25e799d557af"
+        "branch" : "main",
+        "revision" : "4a2ca8d680f933f4fbf7b92e4cfa510aceb06d94"
       }
     },
     {
@@ -77,8 +77,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
       "state" : {
-        "revision" : "30314f1ece684dd60679d598a9b89107557b67d9",
-        "version" : "0.4.1"
+        "revision" : "16e6409ee82e1b81390bdffbf217b9c08ab32784",
+        "version" : "0.5.0"
       }
     }
   ],

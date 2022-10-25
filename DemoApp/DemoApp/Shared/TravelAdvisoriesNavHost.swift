@@ -12,6 +12,7 @@ import Utils
 import Combine
 import DomainModels
 import Feature
+import ViewModels
 
 public struct TravelAdvisoriesNavHost: View {
     @State var destination: Destinations?

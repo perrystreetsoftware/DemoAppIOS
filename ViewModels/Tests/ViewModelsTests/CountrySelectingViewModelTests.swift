@@ -12,7 +12,8 @@ import Foundation
 import DomainModels
 import CombineExpectations
 import Interfaces
-@testable import BusinessLogic
+import BusinessLogic
+@testable import ViewModels
 
 final class CountrySelectingViewModelTests: QuickSpec {
     override func spec() {
