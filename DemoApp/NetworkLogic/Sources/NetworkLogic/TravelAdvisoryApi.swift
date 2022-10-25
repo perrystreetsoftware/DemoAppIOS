@@ -139,4 +139,47 @@ public final class TravelAdvisoryApi: TravelAdvisoryApiImplementing {
         .delay(for: .seconds(1), scheduler: appScheduler.mainScheduler)
         .eraseToAnyPublisher()
     }
+
+    public func getServerStatus() -> AnyPublisher<ServerStatusDTO, TravelAdvisoryApiError> {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "status.scruff.com"
+        components.path = "/index.json"
+
+        guard let url = components.url else {
+            preconditionFailure("Failed to construct URL")
+        }
+
+        var task: URLSessionDataTask!
+
+        return Deferred {
+            Future<ServerStatusDTO, TravelAdvisoryApiError> { promise in
+                task = URLSession.shared.dataTask(with: url) {
+                    data, response, error in
+
+                    let httpResponse = response as! HTTPURLResponse
+                    let apiResponseCode = ApiResponseCode(rawValue: httpResponse.statusCode)
+
+                    if apiResponseCode == .success {
+
+                        do {
+                            let decoded = try JSONDecoder().decode(ServerStatusDTO.self, from: data!)
+                            promise(.success(decoded))
+                        } catch {
+                            promise(.failure(TravelAdvisoryApiError.otherError(error)))
+                        }
+                    } else {
+                        promise(.failure(TravelAdvisoryApiError(statusCode: httpResponse.statusCode,
+                                                                responseData: data)))
+                    }
+                }
+
+                task.resume()
+            }
+        }
+        .receive(on: appScheduler.mainScheduler)
+        .delay(for: .seconds(1), scheduler: appScheduler.mainScheduler)
+        .eraseToAnyPublisher()
+    }
+
 }

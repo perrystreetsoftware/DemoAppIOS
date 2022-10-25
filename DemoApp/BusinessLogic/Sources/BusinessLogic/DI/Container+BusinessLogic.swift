@@ -8,45 +8,36 @@
 import Foundation
 import Swinject
 import Interfaces
+import SwinjectAutoregistration
 
 public extension Container {
     func injectBusinessLogicViewModels() -> Container {
-        self.register(CountrySelectingViewModel.self) { resolver in
-            CountrySelectingViewModel(logic: resolver.resolve(CountrySelectingLogic.self)!)
-        }.inObjectScope(.container)
+        self.autoregister(CountrySelectingViewModel.self, initializer: CountrySelectingViewModel.init).inObjectScope(.transient)
         self.register(CountryDetailsViewModelBuilder.self) { resolver in
             CountryDetailsViewModelBuilder(resolver: resolver)
-        }.inObjectScope(.container)
+        }.inObjectScope(.transient)
 
         return self
     }
 
     func injectBusinessLogicLogic() -> Container {
-        self.register(CountrySelectingLogic.self) { resolver in
-            CountrySelectingLogic(countrySelectingRepository: resolver.resolve(CountrySelectingRepository.self)!)
-        }.inObjectScope(.container)
-        self.register(CountryDetailsLogic.self) { resolver in
-            CountryDetailsLogic(countryDetailsRepository: resolver.resolve(CountryDetailsRepository.self)!)
-        }.inObjectScope(.container)
+        self.autoregister(CountrySelectingLogic.self, initializer: CountrySelectingLogic.init).inObjectScope(.transient)
+        self.autoregister(CountryDetailsLogic.self, initializer: CountryDetailsLogic.init).inObjectScope(.transient)
+        self.autoregister(ServerStatusLogic.self, initializer: ServerStatusLogic.init).inObjectScope(.transient)
 
         return self
     }
 
     func injectBusinessLogicRepositories() -> Container {
-        self.register(CountrySelectingRepository.self) { resolver in
-            CountrySelectingRepository(countryListProviding: resolver.resolve(TravelAdvisoryApiImplementing.self)!)
-        }.inObjectScope(.container)
-        self.register(CountryDetailsRepository.self) { resolver in
-            CountryDetailsRepository(countryListProviding: resolver.resolve(TravelAdvisoryApiImplementing.self)!)
-        }.inObjectScope(.container)
+        self.autoregister(CountrySelectingRepository.self, initializer: CountrySelectingRepository.init).inObjectScope(.container)
+        self.autoregister(CountryDetailsRepository.self, initializer: CountryDetailsRepository.init).inObjectScope(.container)
+        self.autoregister(ServerStatusPushBasedRepository.self, initializer: ServerStatusPushBasedRepository.init).inObjectScope(.container)
 
         return self
     }
 
     func injectBusinessLogicLocalApis() -> Container {
-        self.register(AppSchedulerProviding.self) { resolver in
-            AppSchedulerProvider()
-        }.inObjectScope(.container)
+        self.autoregister(AppSchedulerProviding.self, initializer: AppSchedulerProvider.init).inObjectScope(.container)
 
         return self
     }

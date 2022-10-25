@@ -6,6 +6,7 @@ public protocol TravelAdvisoryApiImplementing {
     func getForbiddenApi() -> AnyPublisher<Void, TravelAdvisoryApiError>
     func getCountryList() -> AnyPublisher<CountryListDTO, TravelAdvisoryApiError>
     func getCountryDetails(regionCode: String) -> AnyPublisher<CountryDetailsDTO, TravelAdvisoryApiError>
+    func getServerStatus() -> AnyPublisher<ServerStatusDTO, TravelAdvisoryApiError>
 }
 
 public enum TravelAdvisoryApiDomainApiError: DomainApiError {

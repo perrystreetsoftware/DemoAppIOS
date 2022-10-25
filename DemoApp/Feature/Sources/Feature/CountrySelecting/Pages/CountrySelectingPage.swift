@@ -6,12 +6,12 @@ import DomainModels
 import UIComponents
 
 public struct CountrySelectingPage: View {
-    @Binding var state: CountrySelectingViewModel.State
+    @Binding var state: CountrySelectingViewModel.UiState
     private var onAppear: (() -> Void)?
     private var onItemTapped: ((Country) -> Void)?
     private var onButtonTapped: (() -> Void)?
     
-    public init(state: Binding<CountrySelectingViewModel.State>,
+    public init(state: Binding<CountrySelectingViewModel.UiState>,
                 onAppear: (() -> Void)? = nil,
                 onItemTapped: ((Country) -> Void)? = nil,
                 onButtonTapped: (() -> Void)? = nil) {
@@ -28,6 +28,23 @@ public struct CountrySelectingPage: View {
                 CountrySelectingList(continentList: state.continents, onItemTapped: { country in
                     self.onItemTapped?(country)
                 })
+                VStack {
+                    if state.serverStatus?.success == true {
+                        HStack {
+                            Text(L10n.serverStatusOk)
+                            Circle()
+                                .fill(.green)
+                                .frame(width: 10, height: 10)
+                        }
+                    } else {
+                        HStack {
+                            Text(L10n.serverStatusNotOk)
+                            Circle()
+                                .fill(.orange)
+                                .frame(width: 10, height: 10)
+                        }
+                    }
+                }.font(.caption).padding(5)
                 CountrySelectingButton(isLoading: state.isLoading,
                                        onItemTapped: onButtonTapped)
                 .onAppear {
@@ -42,6 +59,6 @@ struct CountrySelectingPage_Previews: PreviewProvider {
     static var previews: some View {
         let continents = [Continent(name: "North America", countries: [Country(regionCode: "es")])]
 
-        CountrySelectingPage(state: .constant(.loaded(continents:continents)))
+        CountrySelectingPage(state: .constant(CountrySelectingViewModel.UiState(continents:continents)))
     }
 }

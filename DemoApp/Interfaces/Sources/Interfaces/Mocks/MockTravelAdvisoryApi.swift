@@ -32,9 +32,9 @@ public final class MockTravelAdvisoryApi: TravelAdvisoryApiImplementing {
                                           regionName: Locale.current.localizedString(forRegionCode: regionCode)!,
                                           regionCode: regionCode,
                                           legalCodeBody: "Article 264"))
-                .receive(on: scheduler.mainScheduler)
-                .setFailureType(to: TravelAdvisoryApiError.self)
-                .eraseToAnyPublisher()
+            .receive(on: scheduler.mainScheduler)
+            .setFailureType(to: TravelAdvisoryApiError.self)
+            .eraseToAnyPublisher()
         }
     }
 
@@ -47,6 +47,15 @@ public final class MockTravelAdvisoryApi: TravelAdvisoryApiImplementing {
                 .receive(on: scheduler.mainScheduler)
                 .setFailureType(to: TravelAdvisoryApiError.self)
                 .eraseToAnyPublisher()
+        }
+    }
+
+    public var getServerStatusResult: Result<ServerStatusDTO, TravelAdvisoryApiError>?
+    public func getServerStatus() -> AnyPublisher<ServerStatusDTO, TravelAdvisoryApiError> {
+        if let result = getServerStatusResult {
+            return result.publisher.eraseToAnyPublisher()
+        } else {
+            return Just(DomainModels.ServerStatusDTO.Empty).setFailureType(to: TravelAdvisoryApiError.self).eraseToAnyPublisher()
         }
     }
 }

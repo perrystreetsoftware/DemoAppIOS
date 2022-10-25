@@ -13,3 +13,7 @@
 
 "cancel_button_title" = "Cancel";
 "countries_title" = "Countries";
+
+"server_status_ok" = "Server status is OK";
+"server_status_not_ok" = "Server status is not OK";
+

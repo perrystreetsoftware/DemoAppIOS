@@ -22,6 +22,10 @@ public enum L10n {
   public static let genericErrorMessage = L10n.tr("Localizable", "generic_error_message")
   /// Error
   public static let genericErrorTitle = L10n.tr("Localizable", "generic_error_title")
+  /// Server status is not OK
+  public static let serverStatusNotOk = L10n.tr("Localizable", "server_status_not_ok")
+  /// Server status is OK
+  public static let serverStatusOk = L10n.tr("Localizable", "server_status_ok")
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

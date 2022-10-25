@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  CountrySelectingViewModel.swift
 //  
 //
 //  Created by Eric Silverberg on 9/17/22.
@@ -26,57 +26,63 @@ public enum CountrySelectingViewModelError: Error, Identifiable {
 }
 
 public final class CountrySelectingViewModel: ObservableObject {
-    public enum State: Equatable {
-        case initial
-        case loading
-        case loaded(continents: [Continent])
+    public struct UiState {
+        public let continents: [Continent]
+        public let isLoading: Bool
+        public let isLoaded: Bool
+        public let error: CountrySelectingViewModelError?
+        public let serverStatus: ServerStatus?
 
-        public var isLoading: Bool {
-            if case .loading = self {
-                return true
-            }
-
-            return false
+        public init(continents: [Continent] = [],
+                    isLoading: Bool = false,
+                    isLoaded: Bool = false,
+                    error: CountrySelectingViewModelError? = nil,
+                    serverStatus: ServerStatus? = nil) {
+            self.continents = continents
+            self.isLoading = isLoading
+            self.isLoaded = isLoaded
+            self.error = error
+            self.serverStatus = serverStatus
         }
 
-        public var isLoaded: Bool {
-            if case .loaded = self {
-                return true
-            }
-
-            return false
-        }
-
-        public var continents: [Continent] {
-            switch self {
-            case .loaded(continents: let continents):
-                return continents
-            default:
-                return []
-            }
+        public func copy(
+            continents: [Continent]? = nil,
+            isLoading: Bool? = nil,
+            isLoaded: Bool? = nil,
+            error: CountrySelectingViewModelError? = nil,
+            serverStatus: ServerStatus? = nil
+        ) -> UiState {
+            return UiState(
+                continents: continents ?? self.continents,
+                isLoading: isLoading != nil ? (isLoading ?? false) : self.isLoading,
+                isLoaded: isLoaded != nil ? (isLoaded ?? false) : self.isLoaded,
+                error: error != nil ? error : self.error,
+                serverStatus: serverStatus != nil ? serverStatus : self.serverStatus
+            )
         }
     }
 
     public enum Event {
-        case itemTapped(country: Country)
         case error(error: CountrySelectingViewModelError)
     }
 
-    @Published public var state: State = .initial
-
-    private var eventEmitter = PassthroughSubject<Event, Never>()
-    public lazy var events: AnyPublisher<Event, Never> = eventEmitter.eraseToAnyPublisher()
+    @Published public var state: UiState = UiState()
+    @Published public var error: CountrySelectingViewModelError? = nil
 
     private var cancellables = Set<AnyCancellable>()
     private let logic: CountrySelectingLogic
+    private let serverStatusLogic: ServerStatusLogic
 
-    public init(logic: CountrySelectingLogic) {
+    public init(logic: CountrySelectingLogic, serverStatusLogic: ServerStatusLogic) {
         self.logic = logic
+        self.serverStatusLogic = serverStatusLogic
 
         logic.$continents
             .dropFirst()
-            .sink(receiveValue: { continents in
-                self.state = .loaded(continents: continents)
+            .sink(receiveValue: { [weak self] continents in
+                guard let self = self else { return }
+
+                self.state = self.state.copy(continents: continents)
             })
             .store(in: &cancellables)
     }
@@ -86,25 +92,47 @@ public final class CountrySelectingViewModel: ObservableObject {
 
         logic.reload()
             .handleEvents(receiveSubscription: { [weak self] _ in
-                self?.state = .loading
+                guard let self = self else { return }
+
+                self.state = self.state.copy(isLoading: true)
             }, receiveCancel: { [weak self] in
-                self?.state = .initial
-            }).sink(receiveCompletion: { _ in
+                guard let self = self else { return }
+
+                self.state = self.state.copy(isLoading: false)
+            }).sink(receiveCompletion: { completion in
+                let error: CountrySelectingViewModelError? = {
+                    if case .failure(let innerError) = completion {
+                        return CountrySelectingViewModelError(innerError)
+                    } else {
+                        return nil
+                    }
+                }()
+
+                self.state = self.state.copy(isLoading: false, isLoaded: true, error: error)
             }, receiveValue: { _ in
             })
             .store(in: &cancellables)
-    }
 
-    public func onItemTapped(country: Country) {
-        eventEmitter.send(Event.itemTapped(country: country))
+        serverStatusLogic.$serverStatus.sink { [weak self] serverStatus in
+            guard let self = self else { return }
+
+            self.state = self.state.copy(serverStatus: serverStatus)
+        }.store(in: &cancellables)
+
+        serverStatusLogic.reload().sink { _ in
+        } receiveValue: { _ in
+        }.store(in: &cancellables)
+
     }
 
     public func onButtonTapped() {
         logic.getForbiddenApi()
             .sink(receiveCompletion: { [weak self] completion in
+                guard let self = self else { return }
+
                 switch completion {
                 case .failure(let error):
-                    self?.eventEmitter.send(.error(error: CountrySelectingViewModelError(error)))
+                    self.error = CountrySelectingViewModelError(error)
                 case .finished:
                     break
                 }

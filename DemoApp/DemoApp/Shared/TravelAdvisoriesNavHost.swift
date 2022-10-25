@@ -41,8 +41,8 @@ public struct TravelAdvisoriesNavHost: View {
     }
 
     @ViewBuilder func buildBaseView() -> some View {
-        CountrySelectingAdapter(viewModel: InjectSettings.resolver!.resolve(CountrySelectingViewModel.self)!) { regionCode in
-            self.destination = Destinations.details(regionCode: regionCode)
+        CountrySelectingAdapter(viewModel: InjectSettings.resolver!.resolve(CountrySelectingViewModel.self)!) { country in
+            self.destination = Destinations.details(regionCode: country.regionCode)
         }
     }
 
