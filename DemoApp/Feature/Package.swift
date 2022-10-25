@@ -5,7 +5,6 @@ import PackageDescription
 
 let package = Package(
     name: "Feature",
-    defaultLocalization: "en",
     platforms: [
         .iOS(.v14), .macOS(.v11)
     ],

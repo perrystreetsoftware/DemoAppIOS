@@ -12,6 +12,7 @@
 		610A3CAC28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */; };
 		610A3CAD28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */; };
 		610A3CAF28EF16E000C8C4D1 /* Feature in Frameworks */ = {isa = PBXBuildFile; productRef = 610A3CAE28EF16E000C8C4D1 /* Feature */; };
+		6130549B29085FCD00B54AF9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6130549D29085FCD00B54AF9 /* Localizable.strings */; };
 		613871B0290849A000FA9C38 /* Logic in Frameworks */ = {isa = PBXBuildFile; productRef = 613871AF290849A000FA9C38 /* Logic */; };
 		61A7892928D6625F009170DF /* DomainModels in Frameworks */ = {isa = PBXBuildFile; productRef = 61A7892828D6625F009170DF /* DomainModels */; };
 		61A7892B28D6625F009170DF /* Interfaces in Frameworks */ = {isa = PBXBuildFile; productRef = 61A7892A28D6625F009170DF /* Interfaces */; };
@@ -52,6 +53,8 @@
 		61030A0F29084445007BEF5A /* Repositories */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Repositories; path = ../Repositories; sourceTree = "<group>"; };
 		610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAdvisoriesNavHost.swift; sourceTree = "<group>"; };
 		610A3CB028EF195E00C8C4D1 /* Feature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Feature; path = ../Feature; sourceTree = "<group>"; };
+		6130549C29085FCD00B54AF9 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6130549E29085FD100B54AF9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		613871AE2908496E00FA9C38 /* Logic */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Logic; path = ../../Logic; sourceTree = "<group>"; };
 		61A7892128D6620F009170DF /* Interfaces */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Interfaces; path = ../Interfaces; sourceTree = "<group>"; };
 		61A7892228D66219009170DF /* Utils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utils; path = ../Utils; sourceTree = "<group>"; };
@@ -112,6 +115,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6130549829085FAC00B54AF9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6130549D29085FCD00B54AF9 /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		61A7890928D6557B009170DF /* Packages */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +148,7 @@
 		61C9EEB928CD3A9400ACDF3E = {
 			isa = PBXGroup;
 			children = (
+				6130549829085FAC00B54AF9 /* Resources */,
 				61A7890928D6557B009170DF /* Packages */,
 				61C9EEBE28CD3A9400ACDF3E /* Shared */,
 				61C9EECD28CD3A9500ACDF3E /* macOS */,
@@ -312,6 +324,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 61C9EEB928CD3A9400ACDF3E;
 			productRefGroup = 61C9EEC728CD3A9500ACDF3E /* Products */;
@@ -332,6 +345,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				61C9EEEB28CD3A9500ACDF3E /* Assets.xcassets in Resources */,
+				6130549B29085FCD00B54AF9 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +426,18 @@
 			targetProxy = 61C9EEE028CD3A9500ACDF3E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6130549D29085FCD00B54AF9 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6130549C29085FCD00B54AF9 /* es */,
+				6130549E29085FD100B54AF9 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		61C9EEED28CD3A9500ACDF3E /* Debug */ = {
