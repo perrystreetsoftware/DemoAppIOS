@@ -28,14 +28,14 @@ public struct CountrySelectingPage: View {
                 VStack {
                     if state.serverStatus?.success == true {
                         HStack {
-                            Text(L10n.Ui.serverStatusOk)
+                            L10n.Ui.serverStatusOk.text
                             Circle()
                                 .fill(.green)
                                 .frame(width: 10, height: 10)
                         }
                     } else {
                         HStack {
-                            Text(L10n.Ui.serverStatusNotOk)
+                            L10n.Ui.serverStatusNotOk.text
                             Circle()
                                 .fill(.orange)
                                 .frame(width: 10, height: 10)

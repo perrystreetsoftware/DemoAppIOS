@@ -29,10 +29,10 @@ public struct CountryNotFoundErrorView: View {
                         .ignoresSafeArea()
 
                     VStack {
-                        Text(L10n.Errors.countryNotFoundErrorTitle)
+                        L10n.Errors.countryNotFoundErrorTitle.text
                             .bold()
                             .foregroundColor(.white)
-                        Text(L10n.Errors.countryNotFoundErrorMessage)
+                        L10n.Errors.countryNotFoundErrorMessage.text
                             .foregroundColor(.white)
                     }
                 }.frame(maxWidth: 200, maxHeight: 200)

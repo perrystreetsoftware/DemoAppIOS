@@ -1,68 +1,92 @@
-// swiftlint:disable all
 // Generated using SwiftGen — https://github.com/SwiftGen/SwiftGen
 
-import Foundation
-
-// swiftlint:disable superfluous_disable_command file_length implicit_return
+import SwiftUI
 
 // MARK: - Strings
 
-// swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
-// swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 public enum L10n {
   public enum Errors {
     /// Country not found
-    public static let countryNotFoundErrorMessage = L10n.tr("Errors", "country_not_found_error_message")
+    public static let countryNotFoundErrorMessage = LocalizedString(table: "Errors", lookupKey: "country_not_found_error_message")
     /// Error
-    public static let countryNotFoundErrorTitle = L10n.tr("Errors", "country_not_found_error_title")
+    public static let countryNotFoundErrorTitle = LocalizedString(table: "Errors", lookupKey: "country_not_found_error_title")
     /// This operation is forbidden
-    public static let forbiddenErrorMessage = L10n.tr("Errors", "forbidden_error_message")
+    public static let forbiddenErrorMessage = LocalizedString(table: "Errors", lookupKey: "forbidden_error_message")
     /// Error
-    public static let forbiddenErrorTitle = L10n.tr("Errors", "forbidden_error_title")
+    public static let forbiddenErrorTitle = LocalizedString(table: "Errors", lookupKey: "forbidden_error_title")
     /// An error occurred.
-    public static let genericErrorMessage = L10n.tr("Errors", "generic_error_message")
+    public static let genericErrorMessage = LocalizedString(table: "Errors", lookupKey: "generic_error_message")
     /// Error
-    public static let genericErrorTitle = L10n.tr("Errors", "generic_error_title")
+    public static let genericErrorTitle = LocalizedString(table: "Errors", lookupKey: "generic_error_title")
   }
   public enum Localizable {
     /// Placeholder
-    public static let placeholder = L10n.tr("Localizable", "placeholder")
+    public static let placeholder = LocalizedString(table: "Localizable", lookupKey: "placeholder")
   }
   public enum Ui {
     /// Cancel
-    public static let cancelButtonTitle = L10n.tr("UI", "cancel_button_title")
+    public static let cancelButtonTitle = LocalizedString(table: "UI", lookupKey: "cancel_button_title")
     /// Countries
-    public static let countriesTitle = L10n.tr("UI", "countries_title")
+    public static let countriesTitle = LocalizedString(table: "UI", lookupKey: "countries_title")
+    /// Unknown
+    public static let countryNameUnknownTitle = LocalizedString(table: "UI", lookupKey: "country_name_unknown_title")
+    /// Invalid
+    public static let invalidTitle = LocalizedString(table: "UI", lookupKey: "invalid_title")
     /// Loading...
-    public static let loading = L10n.tr("UI", "loading")
+    public static let loading = LocalizedString(table: "UI", lookupKey: "loading")
     /// Refresh (always will fail)
-    public static let refreshButtonTitle = L10n.tr("UI", "refresh_button_title")
+    public static let refreshButtonTitle = LocalizedString(table: "UI", lookupKey: "refresh_button_title")
     /// Server status is not OK
-    public static let serverStatusNotOk = L10n.tr("UI", "server_status_not_ok")
+    public static let serverStatusNotOk = LocalizedString(table: "UI", lookupKey: "server_status_not_ok")
     /// Server status is OK
-    public static let serverStatusOk = L10n.tr("UI", "server_status_ok")
+    public static let serverStatusOk = LocalizedString(table: "UI", lookupKey: "server_status_ok")
   }
 }
-// swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
-// swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces
 
 // MARK: - Implementation Details
+fileprivate func tr(_ table: String, _ key: String, _ locale: Locale = Locale.current, _ args: CVarArg...) -> String {
+  let path = Bundle.main.path(forResource: locale.identifier, ofType: "lproj") ?? ""
+  let format: String
+  if let bundle = Bundle(path: path) {
+    format = NSLocalizedString(key, tableName: table, bundle: bundle, comment: "")
+  } else {
+    format = BundleToken.bundle.localizedString(forKey: key, value: nil, table: table)
+  }
+  return String(format: format, locale: locale, arguments: args)
+}
 
-extension L10n {
-  private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
-    let format = BundleToken.bundle.localizedString(forKey: key, value: nil, table: table)
-    return String(format: format, locale: Locale.current, arguments: args)
+public struct LocalizedString: Hashable {
+  let table: String
+  fileprivate let lookupKey: String
+
+  init(table: String, lookupKey: String) {
+    self.table = table
+    self.lookupKey = lookupKey
+  }
+
+  private var key: LocalizedStringKey {
+    LocalizedStringKey(lookupKey)
+  }
+
+  public var text: Text {
+    Text(key, tableName: table, bundle: BundleToken.bundle)
+  }
+
+  public var stringValue: String {
+    tr(table, lookupKey)
+  }
+
+  func stringValue(withLocale locale: Locale) -> String {
+    tr(table, lookupKey, locale)
   }
 }
 
-// swiftlint:disable convenience_type
 private final class BundleToken {
   static let bundle: Bundle = {
     #if SWIFT_PACKAGE
-    return Bundle.module
+      return Bundle.module
     #else
-    return Bundle(for: BundleToken.self)
+      return Bundle(for: BundleToken.self)
     #endif
   }()
 }
-// swiftlint:enable convenience_type

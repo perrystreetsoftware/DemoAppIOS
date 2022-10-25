@@ -17,9 +17,9 @@ public struct CountrySelectingList: View {
     public var body: some View {
         List {
             ForEach(continentList, id: \.self) { continent in
-                Section(header: Text(continent.name)) {
+                Section(header: continent.titleTextView) {
                     ForEach(continent.countries, id: \.self) { country in
-                        Text(country.countryName ?? "Unknown").onTapGesture {
+                        country.nameTextView.onTapGesture {
                             self.onItemTapped?(country)
                         }
                     }
@@ -27,7 +27,23 @@ public struct CountrySelectingList: View {
             }
         }
         .listStyle(.grouped)
-        .navigationBarTitle(L10n.Ui.countriesTitle)
+        .navigationBarTitle(L10n.Ui.countriesTitle.stringValue)
+    }
+}
+
+extension Continent {
+    var titleTextView: Text {
+        return name.isEmpty ? L10n.Ui.invalidTitle.text : Text(name)
+    }
+}
+
+extension Country {
+    var nameTextView: Text {
+        if let countryName = countryName {
+            return Text(countryName)
+        } else {
+            return L10n.Ui.countryNameUnknownTitle.text
+        }
     }
 }
 
@@ -36,7 +52,9 @@ struct CountrySelectingList_Previews: PreviewProvider {
         CountrySelectingList(
             continentList:
                 [Continent(name: "North America",
-                           countries: [Country(regionCode: "us")])]
-        )
+                           countries: [Country(regionCode: "us")]),
+                 Continent(name: "",
+                            countries: [Country(regionCode: "XX")])])
+        .environment(\.locale, .init(identifier: "es"))
     }
 }

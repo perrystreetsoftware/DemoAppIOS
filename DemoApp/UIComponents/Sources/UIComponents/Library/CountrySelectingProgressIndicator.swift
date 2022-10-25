@@ -11,7 +11,7 @@ public struct ProgressIndicator: View {
 
     public var body: some View {
         VStack {
-            Text(L10n.Ui.loading)
+            L10n.Ui.loading.text
             ProgressView()
         }.isHidden(isLoading == false)
     }

@@ -10,6 +10,7 @@ import DomainModels
 import Interfaces
 import Combine
 import Repositories
+import UIComponents
 
 public enum CountrySelectingLogicError: Error {
     case forbidden
@@ -37,7 +38,7 @@ public enum CountrySelectingLogicError: Error {
 }
 
 public class CountrySelectingLogic {
-    private static let InvalidContinent = Continent(name: "Invalid", countries: [Country(regionCode: "xx")])
+    private static let InvalidContinent = Continent(name: "", countries: [Country(regionCode: "xx")])
     @Published public private(set) var continents: [Continent]
     private let countrySelectingRepository: CountrySelectingRepository
 

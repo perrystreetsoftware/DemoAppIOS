@@ -16,7 +16,7 @@
    outputs:
      # We use a custom stencil that lets us use either a LocalizedStringKey or a String
      # https://github.com/SwiftGen/SwiftGen/issues/685#issuecomment-883987135
-     - templateName: structured-swift5
+     - templatePath: swiftui-strings.stencil
        params:
          publicAccess: true
        output: Sources/UIComponents/Stylesheet/Localized+Generated.swift

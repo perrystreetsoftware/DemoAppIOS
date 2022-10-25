@@ -13,9 +13,9 @@ extension CountrySelectingViewModelError {
     var uiError: UIError {
         switch self {
         case .forbidden:
-            return UIError(title: L10n.Errors.forbiddenErrorTitle, messages: [L10n.Errors.forbiddenErrorMessage])
+            return UIError(title: L10n.Errors.forbiddenErrorTitle.stringValue, messages: [L10n.Errors.forbiddenErrorMessage.stringValue])
         default:
-            return UIError(title: L10n.Errors.genericErrorTitle, messages: [L10n.Errors.genericErrorMessage])
+            return UIError(title: L10n.Errors.genericErrorTitle.stringValue, messages: [L10n.Errors.genericErrorMessage.stringValue])
         }
     }
 }
