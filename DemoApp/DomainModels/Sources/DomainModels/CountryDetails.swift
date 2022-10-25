@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CountryDetails {
+public struct CountryDetails: Equatable {
     public let country: Country
     public let detailsText: String?
 

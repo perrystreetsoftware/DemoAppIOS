@@ -28,8 +28,20 @@ public struct CountryDetailsPage: View {
         ZStack {
             ProgressIndicator(isLoading: state.isLoading)
             CountryNotFoundErrorView(viewModelState: _state)
-            CountryDetailsContent(countryName: _state.map { $0.countryName ?? "" }.wrappedValue,
-                                  detailsText: _state.map { $0.countryDetails ?? "" }.wrappedValue)
+            CountryDetailsContent(countryName: $state.map { newState in
+                if case .loaded(let details) = newState {
+                    return details.country.countryName ?? ""
+                } else {
+                    return ""
+                }
+            }.wrappedValue,
+                                  detailsText: $state.map { newState in
+                if case .loaded(let details) = newState {
+                    return details.detailsText ?? ""
+                } else {
+                    return ""
+                }
+            }.wrappedValue)
         }.onPageLoaded {
             self.onPageLoaded?()
         }

@@ -23,7 +23,7 @@ public final class CountryDetailsViewModelBuilder {
     }
 }
 
-public enum CountryDetailsViewModelError: Error {
+public enum CountryDetailsViewModelError: Error, Equatable {
     case countryNotFound
     case unknown
 
@@ -48,37 +48,6 @@ public class CountryDetailsViewModel: ObservableObject {
             switch self {
             case .loading:
                 return true
-            default:
-                return false
-            }
-        }
-
-        public var countryName: String? {
-            if case .loaded(let countryDetails) = self {
-                return countryDetails.country.countryName
-            }
-
-            return nil
-        }
-
-        public var countryDetails: String? {
-            if case .loaded(let countryDetails) = self {
-                return countryDetails.detailsText
-            }
-
-            return nil
-        }
-
-        public static func ==(lhs: State, rhs: State) -> Bool {
-            switch (lhs, rhs) {
-            case (.initial, .initial):
-                return true
-            case (.loading, .loading):
-                return true
-            case (.error, .error):
-                return true
-            case (.loaded(let details), .loaded(let details2)):
-                return details == details2
             default:
                 return false
             }
