@@ -20,8 +20,6 @@ public struct CountryDetailsAdapter: View {
     }
 
     public var body: some View {
-        return CountryDetailsPage(state: $viewModel.state) {
-            viewModel.onPageLoaded()
-        }
+        return CountryDetailsPage(state: $viewModel.state)
     }
 }

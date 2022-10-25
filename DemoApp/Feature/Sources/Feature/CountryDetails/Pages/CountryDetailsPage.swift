@@ -16,12 +16,9 @@ import UIComponents
 /// Pages are the top-most thing that we attempt to preview.
 public struct CountryDetailsPage: View {
     @Binding var state: CountryDetailsViewModel.State
-    private var onPageLoaded: (() -> Void)?
 
-    public init(state: Binding<CountryDetailsViewModel.State>,
-                onPageLoaded: (() -> Void)? = nil) {
+    public init(state: Binding<CountryDetailsViewModel.State>) {
         self._state = state
-        self.onPageLoaded = onPageLoaded
     }
 
     public var body: some View {
@@ -42,8 +39,6 @@ public struct CountryDetailsPage: View {
                     return ""
                 }
             }.wrappedValue)
-        }.onPageLoaded {
-            self.onPageLoaded?()
         }
     }
 }

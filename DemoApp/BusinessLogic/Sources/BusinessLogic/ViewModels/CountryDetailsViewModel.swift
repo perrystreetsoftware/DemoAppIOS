@@ -63,9 +63,11 @@ public class CountryDetailsViewModel: ObservableObject {
     public init(country: Country, logic: CountryDetailsLogic) {
         self.country = country
         self.logic = logic
+
+        onPageLoaded()
     }
 
-    public func onPageLoaded() {
+    private func onPageLoaded() {
         logic.getDetails(country: country)
             .handleEvents(receiveSubscription: { [weak self] _ in
                 self?.state = .loading
