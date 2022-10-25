@@ -45,21 +45,18 @@ final class CountryDetailsViewModelTests: QuickSpec {
                 elements = try! stateRecorder.availableElements.get()
             }
 
-            it("then it transitions to .loading") {
+            it("then it starts having transitioned to .loading") {
                 expect(elements).to(equal([.loading]))
             }
 
-            context("when I advance") {
+            context("#state") {
                 beforeEach {
                     scheduler.testScheduler.advance()
                     _ = try! QuickSpec.current.wait(for: stateRecorder.next(), timeout: 5.0)
                 }
 
                 it("then it transitions to .loaded") {
-                    let last = try! stateRecorder.availableElements.get().last
-                    let details = CountryDetails(country: country, detailsText: "Article 264")
-
-                    expect(last).to(equal(.loaded(details: details)))
+                    expect(try! stateRecorder.availableElements.get().count).to(equal(2))
                 }
 
                 it("then it has loaded content") {
