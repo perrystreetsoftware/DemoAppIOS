@@ -13,7 +13,6 @@
 		610A3CAD28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */; };
 		610A3CAF28EF16E000C8C4D1 /* Feature in Frameworks */ = {isa = PBXBuildFile; productRef = 610A3CAE28EF16E000C8C4D1 /* Feature */; };
 		613871B0290849A000FA9C38 /* Logic in Frameworks */ = {isa = PBXBuildFile; productRef = 613871AF290849A000FA9C38 /* Logic */; };
-		61A7892728D6625F009170DF /* BusinessLogic in Frameworks */ = {isa = PBXBuildFile; productRef = 61A7892628D6625F009170DF /* BusinessLogic */; };
 		61A7892928D6625F009170DF /* DomainModels in Frameworks */ = {isa = PBXBuildFile; productRef = 61A7892828D6625F009170DF /* DomainModels */; };
 		61A7892B28D6625F009170DF /* Interfaces in Frameworks */ = {isa = PBXBuildFile; productRef = 61A7892A28D6625F009170DF /* Interfaces */; };
 		61A7892D28D6625F009170DF /* UIComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 61A7892C28D6625F009170DF /* UIComponents */; };
@@ -87,7 +86,6 @@
 				610A3CAF28EF16E000C8C4D1 /* Feature in Frameworks */,
 				61A7892F28D6625F009170DF /* Utils in Frameworks */,
 				61A7892B28D6625F009170DF /* Interfaces in Frameworks */,
-				61A7892728D6625F009170DF /* BusinessLogic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +214,6 @@
 			);
 			name = "TravelAdvisories (iOS)";
 			packageProductDependencies = (
-				61A7892628D6625F009170DF /* BusinessLogic */,
 				61A7892828D6625F009170DF /* DomainModels */,
 				61A7892A28D6625F009170DF /* Interfaces */,
 				61A7892C28D6625F009170DF /* UIComponents */,
@@ -798,10 +795,6 @@
 		613871AF290849A000FA9C38 /* Logic */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Logic;
-		};
-		61A7892628D6625F009170DF /* BusinessLogic */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = BusinessLogic;
 		};
 		61A7892828D6625F009170DF /* DomainModels */ = {
 			isa = XCSwiftPackageProductDependency;

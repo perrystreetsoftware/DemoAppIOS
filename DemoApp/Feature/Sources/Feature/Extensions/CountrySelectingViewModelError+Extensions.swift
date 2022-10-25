@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import BusinessLogic
 import UIComponents
 import ViewModels
 
@@ -18,6 +17,5 @@ extension CountrySelectingViewModelError {
         default:
             return UIError(title: L10n.genericErrorTitle, messages: [L10n.genericErrorMessage])
         }
-
     }
 }

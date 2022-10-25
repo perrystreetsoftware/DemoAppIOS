@@ -1,7 +1,6 @@
 import SwiftUI
 import Foundation
 import Utils
-import BusinessLogic
 
 public struct ProgressIndicator: View {
     var isLoading: Bool

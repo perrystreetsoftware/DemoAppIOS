@@ -7,7 +7,6 @@
 
 import SwiftUI
 import UIComponents
-import BusinessLogic
 import Utils
 
 struct ContentView: View {
