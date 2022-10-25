@@ -10,6 +10,7 @@ import SwiftUI
 import DomainModels
 import Utils
 import ViewModels
+import UIComponents
 
 /// Content is a component of a page. Content accepts bindings or simple primitive types.
 public struct CountryNotFoundErrorView: View {
@@ -28,10 +29,10 @@ public struct CountryNotFoundErrorView: View {
                         .ignoresSafeArea()
 
                     VStack {
-                        Text("Error")
+                        Text(L10n.countryNotFoundErrorTitle)
                             .bold()
                             .foregroundColor(.white)
-                        Text("Country not found")
+                        Text(L10n.countryNotFoundErrorMessage)
                             .foregroundColor(.white)
                     }
                 }.frame(maxWidth: 200, maxHeight: 200)

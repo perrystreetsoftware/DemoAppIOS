@@ -14,6 +14,10 @@ public enum L10n {
   public static let cancelButtonTitle = L10n.tr("Localizable", "cancel_button_title")
   /// Countries
   public static let countriesTitle = L10n.tr("Localizable", "countries_title")
+  /// Country not found
+  public static let countryNotFoundErrorMessage = L10n.tr("Localizable", "country_not_found_error_message")
+  /// Error
+  public static let countryNotFoundErrorTitle = L10n.tr("Localizable", "country_not_found_error_title")
   /// This operation is forbidden
   public static let forbiddenErrorMessage = L10n.tr("Localizable", "forbidden_error_message")
   /// Error
