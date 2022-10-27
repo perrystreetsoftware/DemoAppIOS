@@ -13,19 +13,19 @@ import UIComponents
 import DomainModels
 import ViewModels
 
-public struct CountrySelectingAdapter: View {
-    @ObservedObject private var viewModel: CountrySelectingViewModel
+public struct CountryListAdapter: View {
+    @ObservedObject private var viewModel: CountryListViewModel
 
     private var onCountrySelected: ((Country) -> Void)?
 
-    public init(viewModel: CountrySelectingViewModel,
+    public init(viewModel: CountryListViewModel,
                 onCountrySelected: ((Country) -> Void)? = nil) {
         self.viewModel = viewModel
         self.onCountrySelected = onCountrySelected
     }
 
     public var body: some View {
-        CountrySelectingPage(state: $viewModel.state, onItemTapped: { country in
+        CountryListPage(state: $viewModel.state, onItemTapped: { country in
             onCountrySelected?(country)
         }) {
             viewModel.onButtonTapped()

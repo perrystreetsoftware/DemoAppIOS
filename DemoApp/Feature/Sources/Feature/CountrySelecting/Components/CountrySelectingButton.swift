@@ -4,7 +4,7 @@ import Utils
 import DomainModels
 import UIComponents
 
-public struct CountrySelectingButton: View {
+public struct CountryListButton: View {
     private var isLoading: Bool
     private var onItemTapped: (() -> Void)?
 
@@ -24,8 +24,8 @@ public struct CountrySelectingButton: View {
     }
 }
 
-struct CountrySelectingButton_Previews: PreviewProvider {
+struct CountryListButton_Previews: PreviewProvider {
     static var previews: some View {
-        CountrySelectingButton(isLoading: false)
+        CountryListButton(isLoading: false)
     }
 }

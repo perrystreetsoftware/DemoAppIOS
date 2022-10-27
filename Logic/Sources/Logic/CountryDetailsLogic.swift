@@ -38,9 +38,9 @@ public class CountryDetailsLogic {
     }
 
     public func getDetails(country: Country) -> AnyPublisher<CountryDetails, CountryDetailsLogicError> {
-        return countryDetailsRepository.getDetails(regionCode: country.regionCode).map { countryDetailsDTO in
-            CountryDetails(countryDetailsDTO: countryDetailsDTO)
-        }.mapError { CountryDetailsLogicError($0) }
-        .eraseToAnyPublisher()
+        return countryDetailsRepository
+            .getDetails(regionCode: country.regionCode)
+            .mapError { CountryDetailsLogicError($0) }
+            .eraseToAnyPublisher()
     }
 }

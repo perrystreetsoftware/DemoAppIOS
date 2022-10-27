@@ -12,12 +12,12 @@ import Combine
 import Repositories
 import UIComponents
 
-public enum CountrySelectingLogicError: Error {
+public enum CountryListLogicError: Error {
     case forbidden
-    case repoError(innerError: CountrySelectingRepositoryError)
+    case repoError(innerError: CountryListRepositoryError)
     case other
 
-    init(_ repoError: CountrySelectingRepositoryError) {
+    init(_ repoError: CountryListRepositoryError) {
         switch repoError {
         case .apiError(let innerError):
             switch innerError {
@@ -37,16 +37,16 @@ public enum CountrySelectingLogicError: Error {
     }
 }
 
-public class CountrySelectingLogic {
+public class CountryListLogic {
     private static let InvalidContinent = Continent(name: "", countries: [Country(regionCode: "xx")])
     @Published public private(set) var continents: [Continent]
-    private let countrySelectingRepository: CountrySelectingRepository
+    private let countryListRepository: CountryListRepository
 
-    public init(countrySelectingRepository: CountrySelectingRepository) {
-        self.countrySelectingRepository = countrySelectingRepository
-        self.continents = countrySelectingRepository.continents
+    public init(countryListRepository: CountryListRepository) {
+        self.countryListRepository = countryListRepository
+        self.continents = countryListRepository.continents
 
-        countrySelectingRepository.$continents
+        countryListRepository.$continents
             .dropFirst()
             .map({ continents in
                 return [Self.InvalidContinent] + continents
@@ -54,15 +54,15 @@ public class CountrySelectingLogic {
             .assign(to: &$continents)
     }
 
-    public func reload() -> AnyPublisher<Void, CountrySelectingLogicError> {
-        return countrySelectingRepository.reload().mapError {
-            CountrySelectingLogicError($0)
+    public func reload() -> AnyPublisher<Void, CountryListLogicError> {
+        return countryListRepository.reload().mapError {
+            CountryListLogicError($0)
         }.eraseToAnyPublisher()
     }
 
-    public func getForbiddenApi() -> AnyPublisher<Void, CountrySelectingLogicError> {
-        countrySelectingRepository.getForbiddenApi().mapError {
-            CountrySelectingLogicError($0)
+    public func getForbiddenApi() -> AnyPublisher<Void, CountryListLogicError> {
+        countryListRepository.getForbiddenApi().mapError {
+            CountryListLogicError($0)
         }.eraseToAnyPublisher()
     }
 }

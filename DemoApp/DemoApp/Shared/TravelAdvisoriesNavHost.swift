@@ -16,7 +16,7 @@ import ViewModels
 public struct TravelAdvisoriesNavHost: View {
     @State var destination: Destinations?
     @Inject var builder: CountryDetailsViewModelBuilder
-    @Inject var countrySelectingViewModel: CountrySelectingViewModel
+    @Inject var countryListViewModel: CountryListViewModel
 
     enum Destinations {
         case details(regionCode: String)
@@ -42,7 +42,7 @@ public struct TravelAdvisoriesNavHost: View {
     }
 
     @ViewBuilder func buildBaseView() -> some View {
-        CountrySelectingAdapter(viewModel: countrySelectingViewModel) { country in
+        CountryListAdapter(viewModel: countryListViewModel) { country in
             self.destination = Destinations.details(regionCode: country.regionCode)
         }
     }

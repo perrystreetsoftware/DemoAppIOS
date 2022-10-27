@@ -5,12 +5,12 @@ import DomainModels
 import UIComponents
 import ViewModels
 
-public struct CountrySelectingPage: View {
-    @Binding var state: CountrySelectingViewModel.UiState
+public struct CountryListPage: View {
+    @Binding var state: CountryListViewModel.UiState
     private var onItemTapped: ((Country) -> Void)?
     private var onButtonTapped: (() -> Void)?
     
-    public init(state: Binding<CountrySelectingViewModel.UiState>,
+    public init(state: Binding<CountryListViewModel.UiState>,
                 onItemTapped: ((Country) -> Void)? = nil,
                 onButtonTapped: (() -> Void)? = nil) {
         self._state = state
@@ -22,7 +22,7 @@ public struct CountrySelectingPage: View {
         ZStack {
             ProgressIndicator(isLoading: state.isLoading)
             VStack {
-                CountrySelectingList(continentList: state.continents, onItemTapped: { country in
+                CountryListView(continentList: state.continents, onItemTapped: { country in
                     self.onItemTapped?(country)
                 })
                 VStack {
@@ -42,17 +42,17 @@ public struct CountrySelectingPage: View {
                         }
                     }
                 }.font(.caption).padding(5)
-                CountrySelectingButton(isLoading: state.isLoading,
+                CountryListButton(isLoading: state.isLoading,
                                        onItemTapped: onButtonTapped)
             }
         }
     }
 }
 
-struct CountrySelectingPage_Previews: PreviewProvider {
+struct CountryListPage_Previews: PreviewProvider {
     static var previews: some View {
         let continents = [Continent(name: "North America", countries: [Country(regionCode: "es")])]
 
-        CountrySelectingPage(state: .constant(CountrySelectingViewModel.UiState(continents:continents)))
+        CountryListPage(state: .constant(CountryListViewModel.UiState(continents:continents)))
     }
 }

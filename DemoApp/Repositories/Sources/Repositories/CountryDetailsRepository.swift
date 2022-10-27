@@ -18,8 +18,18 @@ public class CountryDetailsRepository {
     }
 
     // We do not do any mapping because we are not transforming or defining any new errors
-    public func getDetails(regionCode: String) -> AnyPublisher<CountryDetailsDTO, TravelAdvisoryApiError> {
-        return countryListProviding.getCountryDetails(regionCode: regionCode)
-        .eraseToAnyPublisher()
+    public func getDetails(regionCode: String) -> AnyPublisher<CountryDetails, TravelAdvisoryApiError> {
+        return countryListProviding
+            .getCountryDetails(regionCode: regionCode)
+            .map { CountryDetails(countryDetailsDTO: $0) }
+            .eraseToAnyPublisher()
+    }
+}
+
+
+private extension CountryDetails {
+    init(countryDetailsDTO: CountryDetailsDTO) {
+        self.init(country: Country(regionCode: countryDetailsDTO.regionCode),
+                  detailsText: countryDetailsDTO.legalCodeBody)
     }
 }

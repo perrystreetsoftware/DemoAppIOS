@@ -1,5 +1,5 @@
 //
-//  CountrySelectingViewModel.swift
+//  CountryListViewModel.swift
 //  
 //
 //  Created by Eric Silverberg on 9/17/22.
@@ -10,13 +10,13 @@ import Combine
 import DomainModels
 import Logic
 
-public enum CountrySelectingViewModelError: Error, Identifiable, Equatable {
+public enum CountryListViewModelError: Error, Identifiable, Equatable {
     public var id: Self { self }
 
     case forbidden
     case unknown
 
-    init(_ logicError: CountrySelectingLogicError) {
+    init(_ logicError: CountryListLogicError) {
         switch logicError {
         case .forbidden:
             self = .forbidden
@@ -26,18 +26,18 @@ public enum CountrySelectingViewModelError: Error, Identifiable, Equatable {
     }
 }
 
-public final class CountrySelectingViewModel: ObservableObject {
+public final class CountryListViewModel: ObservableObject {
     public struct UiState: Equatable {
         public let continents: [Continent]
         public let isLoading: Bool
         public let isLoaded: Bool
-        public let error: CountrySelectingViewModelError?
+        public let error: CountryListViewModelError?
         public let serverStatus: ServerStatus?
 
         public init(continents: [Continent] = [],
                     isLoading: Bool = false,
                     isLoaded: Bool = false,
-                    error: CountrySelectingViewModelError? = nil,
+                    error: CountryListViewModelError? = nil,
                     serverStatus: ServerStatus? = nil) {
             self.continents = continents
             self.isLoading = isLoading
@@ -50,7 +50,7 @@ public final class CountrySelectingViewModel: ObservableObject {
             continents: [Continent]? = nil,
             isLoading: Bool? = nil,
             isLoaded: Bool? = nil,
-            error: CountrySelectingViewModelError? = nil,
+            error: CountryListViewModelError? = nil,
             serverStatus: ServerStatus? = nil
         ) -> UiState {
             return UiState(
@@ -64,17 +64,17 @@ public final class CountrySelectingViewModel: ObservableObject {
     }
 
     public enum Event {
-        case error(error: CountrySelectingViewModelError)
+        case error(error: CountryListViewModelError)
     }
 
     @Published public var state: UiState = UiState()
-    @Published public var error: CountrySelectingViewModelError? = nil
+    @Published public var error: CountryListViewModelError? = nil
 
     private var cancellables = Set<AnyCancellable>()
-    private let logic: CountrySelectingLogic
+    private let logic: CountryListLogic
     private let serverStatusLogic: ServerStatusLogic
 
-    public init(logic: CountrySelectingLogic, serverStatusLogic: ServerStatusLogic) {
+    public init(logic: CountryListLogic, serverStatusLogic: ServerStatusLogic) {
         self.logic = logic
         self.serverStatusLogic = serverStatusLogic
 
@@ -103,9 +103,9 @@ public final class CountrySelectingViewModel: ObservableObject {
 
                 self.state = self.state.copy(isLoading: false)
             }).sink(receiveCompletion: { completion in
-                let error: CountrySelectingViewModelError? = {
+                let error: CountryListViewModelError? = {
                     if case .failure(let innerError) = completion {
-                        return CountrySelectingViewModelError(innerError)
+                        return CountryListViewModelError(innerError)
                     } else {
                         return nil
                     }
@@ -135,7 +135,7 @@ public final class CountrySelectingViewModel: ObservableObject {
 
                 switch completion {
                 case .failure(let error):
-                    self.error = CountrySelectingViewModelError(error)
+                    self.error = CountryListViewModelError(error)
                 case .finished:
                     break
                 }

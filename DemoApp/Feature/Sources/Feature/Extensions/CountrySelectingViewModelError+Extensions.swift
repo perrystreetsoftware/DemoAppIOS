@@ -9,7 +9,7 @@ import Foundation
 import UIComponents
 import ViewModels
 
-extension CountrySelectingViewModelError {
+extension CountryListViewModelError {
     var uiError: UIError {
         switch self {
         case .forbidden:

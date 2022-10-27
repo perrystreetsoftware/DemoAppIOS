@@ -55,7 +55,7 @@ public final class MockTravelAdvisoryApi: TravelAdvisoryApiImplementing {
         if let result = getServerStatusResult {
             return result.publisher.eraseToAnyPublisher()
         } else {
-            return Just(DomainModels.ServerStatusDTO.Empty).setFailureType(to: TravelAdvisoryApiError.self).eraseToAnyPublisher()
+            return Just(ServerStatusDTO.Empty).setFailureType(to: TravelAdvisoryApiError.self).eraseToAnyPublisher()
         }
     }
 }

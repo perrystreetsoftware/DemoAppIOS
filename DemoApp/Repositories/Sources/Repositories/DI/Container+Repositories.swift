@@ -12,7 +12,7 @@ import SwinjectAutoregistration
 
 public extension Container {
     func injectBusinessLogicRepositories() -> Container {
-        self.autoregister(CountrySelectingRepository.self, initializer: CountrySelectingRepository.init).inObjectScope(.container)
+        self.autoregister(CountryListRepository.self, initializer: CountryListRepository.init).inObjectScope(.container)
         self.autoregister(CountryDetailsRepository.self, initializer: CountryDetailsRepository.init).inObjectScope(.container)
         self.autoregister(ServerStatusPushBasedRepository.self, initializer: ServerStatusPushBasedRepository.init).inObjectScope(.container)
 

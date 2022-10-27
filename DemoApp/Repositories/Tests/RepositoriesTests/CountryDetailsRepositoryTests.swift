@@ -34,7 +34,7 @@ final class CountryDetailsRepositoryTests: QuickSpec {
             }
 
             describe("#getDetails") {
-                var recorder: Recorder<CountryDetailsDTO, TravelAdvisoryApiError>!
+                var recorder: Recorder<CountryDetails, TravelAdvisoryApiError>!
                 var completion: Subscribers.Completion<TravelAdvisoryApiError>!
                 var apiResult: Result<CountryDetailsDTO, TravelAdvisoryApiError>?
 
@@ -46,7 +46,7 @@ final class CountryDetailsRepositoryTests: QuickSpec {
                 }
 
                 context("success") {
-                    var value: CountryDetailsDTO!
+                    var value: CountryDetails!
 
                     beforeEach {
                         apiResult = nil // use default success
@@ -57,7 +57,12 @@ final class CountryDetailsRepositoryTests: QuickSpec {
                     }
 
                     it("then value is set") {
-                        expect(value).to(equal(CountryDetailsDTO(area: "Asia", regionName: "Nigeria", regionCode: "ng", legalCodeBody: "Article 264")))
+                        expect(value).to(
+                            equal(
+                                CountryDetails(country: Country(regionCode: "ng"),
+                                               detailsText: "Article 264")
+                            )
+                        )
                     }
 
                     it("then recorder has completed") {

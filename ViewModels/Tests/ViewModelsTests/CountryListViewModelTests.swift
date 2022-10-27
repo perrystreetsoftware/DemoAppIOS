@@ -15,11 +15,11 @@ import Interfaces
 import Logic
 @testable import ViewModels
 
-final class CountrySelectingViewModelTests: QuickSpec {
+final class CountryListViewModelTests: QuickSpec {
     override func spec() {
-        describe("CountrySelectingViewModel") {
+        describe("CountryListViewModelTests") {
             var container: Container!
-            var viewModel: CountrySelectingViewModel!
+            var viewModel: CountryListViewModel!
             var mockAppScheduler: MockAppSchedulerProviding!
 
             beforeEach {
@@ -30,11 +30,11 @@ final class CountrySelectingViewModelTests: QuickSpec {
                     .injectInterfaceRemoteMocks()
                 mockAppScheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
                 mockAppScheduler.useTestMainScheduler = true
-                viewModel = container.resolve(CountrySelectingViewModel.self)!
+                viewModel = container.resolve(CountryListViewModel.self)!
             }
 
-            var stateRecorder: Recorder<CountrySelectingViewModel.UiState, Never>!
-            var states: [CountrySelectingViewModel.UiState]!
+            var stateRecorder: Recorder<CountryListViewModel.UiState, Never>!
+            var states: [CountryListViewModel.UiState]!
 
             beforeEach {
                 stateRecorder = viewModel.$state.record()
@@ -42,7 +42,7 @@ final class CountrySelectingViewModelTests: QuickSpec {
 
             it("then it startings having transitioned to .loading") {
                 expect(try! stateRecorder.availableElements.get()).to(equal([
-                    CountrySelectingViewModel.UiState(isLoading: true, serverStatus: .Empty)]))
+                    CountryListViewModel.UiState(isLoading: true, serverStatus: .Empty)]))
             }
 
             context("when I advance") {

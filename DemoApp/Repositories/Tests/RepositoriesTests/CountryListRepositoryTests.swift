@@ -15,11 +15,11 @@ import Interfaces
 import Combine
 import Repositories
 
-final class CountrySelectingRepositoryTests: QuickSpec {
+final class CountryListRepositoryTests: QuickSpec {
     override func spec() {
-        describe("CountrySelectingRepository") {
+        describe("CountryListRepository") {
             var container: Container!
-            var repository: CountrySelectingRepository!
+            var repository: CountryListRepository!
             var mockAppScheduler: MockAppSchedulerProviding!
             var api: MockTravelAdvisoryApi!
             var continentsRecorder: Recorder<[Continent], Never>!
@@ -31,7 +31,7 @@ final class CountrySelectingRepositoryTests: QuickSpec {
                     .injectInterfaceRemoteMocks()
                 mockAppScheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
                 mockAppScheduler.useTestMainScheduler = true
-                repository = container.resolve(CountrySelectingRepository.self)!
+                repository = container.resolve(CountryListRepository.self)!
                 api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! MockTravelAdvisoryApi)
 
                 continentsRecorder = repository.$continents.record()
@@ -43,8 +43,8 @@ final class CountrySelectingRepositoryTests: QuickSpec {
             }
 
             describe("#reload") {
-                var recorder: Recorder<Void, CountrySelectingRepositoryError>!
-                var completion: Subscribers.Completion<CountrySelectingRepositoryError>!
+                var recorder: Recorder<Void, CountryListRepositoryError>!
+                var completion: Subscribers.Completion<CountryListRepositoryError>!
                 var apiResult: Result<CountryListDTO, TravelAdvisoryApiError>?
 
                 beforeEach {

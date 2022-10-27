@@ -15,11 +15,11 @@ import Interfaces
 @testable import Logic
 import Combine
 
-final class CountrySelectingLogicTests: QuickSpec {
+final class CountryListLogicTests: QuickSpec {
     override func spec() {
-        describe("CountrySelectingLogic") {
+        describe("CountryListLogic") {
             var container: Container!
-            var logic: CountrySelectingLogic!
+            var logic: CountryListLogic!
             var mockAppScheduler: MockAppSchedulerProviding!
             var continentsRecorder: Recorder<[Continent], Never>!
             var value: [Continent]!
@@ -31,7 +31,7 @@ final class CountrySelectingLogicTests: QuickSpec {
                     .injectInterfaceRemoteMocks()
                 mockAppScheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
                 mockAppScheduler.useTestMainScheduler = true
-                logic = container.resolve(CountrySelectingLogic.self)!
+                logic = container.resolve(CountryListLogic.self)!
 
                 continentsRecorder = logic.$continents.record()
                 value = try! QuickSpec.current.wait(for: continentsRecorder.next(), timeout: 5.0)
@@ -42,8 +42,8 @@ final class CountrySelectingLogicTests: QuickSpec {
             }
 
             describe("#reload") {
-                var recorder: Recorder<Void, CountrySelectingLogicError>!
-                var completion: Subscribers.Completion<CountrySelectingLogicError>!
+                var recorder: Recorder<Void, CountryListLogicError>!
+                var completion: Subscribers.Completion<CountryListLogicError>!
 
                 beforeEach {
                     recorder = logic.reload().record()

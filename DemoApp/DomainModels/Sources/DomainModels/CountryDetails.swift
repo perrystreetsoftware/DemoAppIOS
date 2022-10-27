@@ -15,11 +15,6 @@ public struct CountryDetails: Equatable {
         self.country = country
         self.detailsText = detailsText
     }
-
-    public init(countryDetailsDTO: CountryDetailsDTO) {
-        self.init(country: Country(regionCode: countryDetailsDTO.regionCode),
-                  detailsText: countryDetailsDTO.legalCodeBody)
-    }
 }
 
 

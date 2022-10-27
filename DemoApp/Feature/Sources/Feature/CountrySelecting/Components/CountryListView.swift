@@ -4,7 +4,7 @@ import Utils
 import DomainModels
 import UIComponents
 
-public struct CountrySelectingList: View {
+public struct CountryListView: View {
     var continentList: [Continent]
     private var onItemTapped: ((Country) -> Void)?
 
@@ -47,9 +47,9 @@ extension Country {
     }
 }
 
-struct CountrySelectingList_Previews: PreviewProvider {
+struct CountryListView_Previews: PreviewProvider {
     static var previews: some View {
-        CountrySelectingList(
+        CountryListView(
             continentList:
                 [Continent(name: "North America",
                            countries: [Country(regionCode: "us")]),
