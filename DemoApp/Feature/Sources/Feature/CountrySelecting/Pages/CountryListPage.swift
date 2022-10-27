@@ -6,7 +6,7 @@ import UIComponents
 import ViewModels
 
 public struct CountryListPage: View {
-    var state: CountryListViewModel.UiState
+    private var state: CountryListViewModel.UiState
     private var onItemTapped: ((Country) -> Void)?
     private var onButtonTapped: (() -> Void)?
     
