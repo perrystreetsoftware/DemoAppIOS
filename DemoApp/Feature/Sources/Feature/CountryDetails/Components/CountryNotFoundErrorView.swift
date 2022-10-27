@@ -14,14 +14,14 @@ import UIComponents
 
 /// Content is a component of a page. Content accepts bindings or simple primitive types.
 public struct CountryNotFoundErrorView: View {
-    private let viewModelState: Binding<CountryDetailsViewModel.State>
+    private let viewModelState: CountryDetailsViewModel.State
 
-    public init(viewModelState: Binding<CountryDetailsViewModel.State>) {
+    public init(viewModelState: CountryDetailsViewModel.State) {
         self.viewModelState = viewModelState
     }
 
     public var body: some View {
-        switch viewModelState.wrappedValue {
+        switch viewModelState {
         case .error(let error):
             if case .countryNotFound = error {
                 ZStack {
@@ -47,6 +47,6 @@ public struct CountryNotFoundErrorView: View {
 
 struct CountryNotFoundErrorView_Previews: PreviewProvider {
     static var previews: some View {
-        CountryNotFoundErrorView(viewModelState: .constant(.error(error: .countryNotFound)))
+        CountryNotFoundErrorView(viewModelState: .error(error: .countryNotFound))
     }
 }
