@@ -15,24 +15,24 @@ import ViewModels
 /// Pages represent the entire thing shown onscreen. Pages take UIState objects.
 /// Pages are the top-most thing that we attempt to preview.
 public struct CountryDetailsPage: View {
-    @Binding var state: CountryDetailsViewModel.State
+    @Binding var detailsUiState: CountryDetailsViewModel.State
 
-    public init(state: Binding<CountryDetailsViewModel.State>) {
-        self._state = state
+    public init(detailsUiState: Binding<CountryDetailsViewModel.State>) {
+        self._detailsUiState = detailsUiState
     }
 
     public var body: some View {
         ZStack {
-            ProgressIndicator(isLoading: state.isLoading)
-            CountryNotFoundErrorView(viewModelState: _state)
-            CountryDetailsContent(countryName: $state.map { newState in
+            ProgressIndicator(isLoading: detailsUiState.isLoading)
+            CountryNotFoundErrorView(viewModelState: _detailsUiState)
+            CountryDetailsContent(countryName: $detailsUiState.map { newState in
                 if case .loaded(let details) = newState {
                     return details.country.countryName ?? ""
                 } else {
                     return ""
                 }
             }.wrappedValue,
-                                  detailsText: $state.map { newState in
+                                  detailsText: $detailsUiState.map { newState in
                 if case .loaded(let details) = newState {
                     return details.detailsText ?? ""
                 } else {

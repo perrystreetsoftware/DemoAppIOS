@@ -6,27 +6,27 @@ import UIComponents
 import ViewModels
 
 public struct CountryListPage: View {
-    private var state: CountryListViewModel.UiState
+    private var listUiState: CountryListViewModel.UiState
     private var onItemTapped: ((Country) -> Void)?
     private var onButtonTapped: (() -> Void)?
     
-    public init(state: CountryListViewModel.UiState,
+    public init(listUiState: CountryListViewModel.UiState,
                 onItemTapped: ((Country) -> Void)? = nil,
                 onButtonTapped: (() -> Void)? = nil) {
-        self.state = state
+        self.listUiState = listUiState
         self.onItemTapped = onItemTapped
         self.onButtonTapped = onButtonTapped
     }
     
     public var body: some View {
         ZStack {
-            ProgressIndicator(isLoading: state.isLoading)
+            ProgressIndicator(isLoading: listUiState.isLoading)
             VStack {
-                CountryListView(continentList: state.continents, onItemTapped: { country in
+                CountryListView(continentList: listUiState.continents, onItemTapped: { country in
                     self.onItemTapped?(country)
                 })
                 VStack {
-                    if state.serverStatus?.success == true {
+                    if listUiState.serverStatus?.success == true {
                         HStack {
                             L10n.Ui.serverStatusOk.text
                             Circle()
@@ -42,7 +42,7 @@ public struct CountryListPage: View {
                         }
                     }
                 }.font(.caption).padding(5)
-                CountryListButton(isLoading: state.isLoading,
+                CountryListButton(isLoading: listUiState.isLoading,
                                        onItemTapped: onButtonTapped)
             }
         }
