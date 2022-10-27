@@ -8,7 +8,6 @@
 import Foundation
 import DomainModels
 import Combine
-import Swinject
 import Logic
 
 public enum CountryDetailsViewModelError: Error, Equatable {
