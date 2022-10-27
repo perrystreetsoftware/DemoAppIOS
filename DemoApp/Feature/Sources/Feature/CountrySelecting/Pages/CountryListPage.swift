@@ -6,14 +6,14 @@ import UIComponents
 import ViewModels
 
 public struct CountryListPage: View {
-    @Binding var state: CountryListViewModel.UiState
+    var state: CountryListViewModel.UiState
     private var onItemTapped: ((Country) -> Void)?
     private var onButtonTapped: (() -> Void)?
     
-    public init(state: Binding<CountryListViewModel.UiState>,
+    public init(state: CountryListViewModel.UiState,
                 onItemTapped: ((Country) -> Void)? = nil,
                 onButtonTapped: (() -> Void)? = nil) {
-        self._state = state
+        self.state = state
         self.onItemTapped = onItemTapped
         self.onButtonTapped = onButtonTapped
     }
@@ -53,6 +53,6 @@ struct CountryListPage_Previews: PreviewProvider {
     static var previews: some View {
         let continents = [Continent(name: "North America", countries: [Country(regionCode: "es")])]
 
-        CountryListPage(state: .constant(CountryListViewModel.UiState(continents:continents)))
+        CountryListPage(state: CountryListViewModel.UiState(continents:continents))
     }
 }
