@@ -7,7 +7,7 @@
 */
 
 "cancel_button_title" = "Cancelar";
-"countries_title" = "Countries";
+"countries_title" = "Países";
 
 "server_status_ok" = "El estado del servidor es correcto";
 "server_status_not_ok" = "El estado del servidor no es correcto";

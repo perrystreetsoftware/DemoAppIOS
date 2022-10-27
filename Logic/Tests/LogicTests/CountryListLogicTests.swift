@@ -42,8 +42,8 @@ final class CountryListLogicTests: QuickSpec {
             }
 
             describe("#reload") {
-                var recorder: Recorder<Void, CountryListLogicError>!
-                var completion: Subscribers.Completion<CountryListLogicError>!
+                var recorder: Recorder<Void, CountryListError>!
+                var completion: Subscribers.Completion<CountryListError>!
 
                 beforeEach {
                     recorder = logic.reload().record()

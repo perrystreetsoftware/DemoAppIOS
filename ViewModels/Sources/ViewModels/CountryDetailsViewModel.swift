@@ -10,26 +10,12 @@ import DomainModels
 import Combine
 import Logic
 
-public enum CountryDetailsViewModelError: Error, Equatable {
-    case countryNotFound
-    case unknown
-
-    init(_ logicError: CountryDetailsLogicError) {
-        switch logicError {
-        case .countryNotFound:
-            self = .countryNotFound
-        default:
-            self = .unknown
-        }
-    }
-}
-
 public class CountryDetailsViewModel: ObservableObject {
     public enum State: Equatable {
         case initial
         case loading
         case loaded(details: CountryDetails)
-        case error(error: CountryDetailsViewModelError)
+        case error(error: CountryDetailsError)
 
         public var isLoading: Bool {
             switch self {
@@ -65,7 +51,7 @@ public class CountryDetailsViewModel: ObservableObject {
             }).sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .failure(let error):
-                    self?.state = .error(error: CountryDetailsViewModelError(error))
+                    self?.state = .error(error: error)
                 case .finished:
                     break
                 }

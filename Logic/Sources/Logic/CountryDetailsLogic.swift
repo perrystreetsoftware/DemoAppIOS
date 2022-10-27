@@ -11,25 +11,6 @@ import Interfaces
 import Combine
 import Repositories
 
-public enum CountryDetailsLogicError: Error {
-    case countryNotFound
-    case other(error: TravelAdvisoryApiError)
-
-    init(_ travelAdvisoryError: TravelAdvisoryApiError) {
-        switch travelAdvisoryError {
-        case .domainError(let apiError, _):
-            switch apiError {
-            case .countryNotFound:
-                self = .countryNotFound
-            case .forbidden:
-                self = .other(error: travelAdvisoryError)
-            }
-        default:
-            self = .other(error: travelAdvisoryError)
-        }
-    }
-}
-
 public class CountryDetailsLogic {
     private let countryDetailsRepository: CountryDetailsRepository
 
@@ -37,10 +18,9 @@ public class CountryDetailsLogic {
         self.countryDetailsRepository = countryDetailsRepository
     }
 
-    public func getDetails(country: Country) -> AnyPublisher<CountryDetails, CountryDetailsLogicError> {
+    public func getDetails(country: Country) -> AnyPublisher<CountryDetails, CountryDetailsError> {
         return countryDetailsRepository
             .getDetails(regionCode: country.regionCode)
-            .mapError { CountryDetailsLogicError($0) }
             .eraseToAnyPublisher()
     }
 }

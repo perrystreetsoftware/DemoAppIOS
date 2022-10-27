@@ -43,8 +43,8 @@ final class CountryListRepositoryTests: QuickSpec {
             }
 
             describe("#reload") {
-                var recorder: Recorder<Void, CountryListRepositoryError>!
-                var completion: Subscribers.Completion<CountryListRepositoryError>!
+                var recorder: Recorder<Void, CountryListError>!
+                var completion: Subscribers.Completion<CountryListError>!
                 var apiResult: Result<CountryListDTO, TravelAdvisoryApiError>?
 
                 beforeEach {
@@ -53,7 +53,7 @@ final class CountryListRepositoryTests: QuickSpec {
                     mockAppScheduler.testScheduler.advance()
                 }
 
-                fcontext("success") {
+                context("success") {
                     beforeEach {
                         apiResult = nil // use default success
                     }

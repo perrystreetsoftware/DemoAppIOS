@@ -36,8 +36,8 @@ final class CountryDetailsLogicTests: QuickSpec {
             }
 
             describe("#getDetails") {
-                var recorder: Recorder<CountryDetails, CountryDetailsLogicError>!
-                var completion: Subscribers.Completion<CountryDetailsLogicError>!
+                var recorder: Recorder<CountryDetails, CountryDetailsError>!
+                var completion: Subscribers.Completion<CountryDetailsError>!
 
                 beforeEach {
                     recorder = logic.getDetails(country: country).record()

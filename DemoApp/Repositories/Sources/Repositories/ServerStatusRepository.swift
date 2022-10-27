@@ -45,9 +45,9 @@ public class ServerStatusPushBasedRepository {
         .eraseToAnyPublisher()
     }
 
-    public func getForbiddenApi() -> AnyPublisher<Void, CountryListRepositoryError> {
+    public func getForbiddenApi() -> AnyPublisher<Void, CountryListError> {
         return countryListProviding.getForbiddenApi().mapError { error in
-            CountryListRepositoryError.apiError(innerError: error)
+            CountryListError.connectionError(innerError: error)
         }.eraseToAnyPublisher()
     }
 }

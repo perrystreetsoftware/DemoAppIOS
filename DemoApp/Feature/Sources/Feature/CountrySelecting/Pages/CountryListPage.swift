@@ -53,6 +53,6 @@ struct CountryListPage_Previews: PreviewProvider {
     static var previews: some View {
         let continents = [Continent(name: "North America", countries: [Country(regionCode: "es")])]
 
-        CountryListPage(state: CountryListViewModel.UiState(continents:continents))
+        CountryListPage(listUiState: CountryListViewModel.UiState(continents:continents))
     }
 }

@@ -10,34 +10,18 @@ import Combine
 import DomainModels
 import Logic
 
-public enum CountryListViewModelError: Error, Identifiable, Equatable {
-    public var id: Self { self }
-
-    case forbidden
-    case unknown
-
-    init(_ logicError: CountryListLogicError) {
-        switch logicError {
-        case .forbidden:
-            self = .forbidden
-        default:
-            self = .unknown
-        }
-    }
-}
-
 public final class CountryListViewModel: ObservableObject {
     public struct UiState: Equatable {
         public let continents: [Continent]
         public let isLoading: Bool
         public let isLoaded: Bool
-        public let error: CountryListViewModelError?
+        public let error: CountryListError?
         public let serverStatus: ServerStatus?
 
         public init(continents: [Continent] = [],
                     isLoading: Bool = false,
                     isLoaded: Bool = false,
-                    error: CountryListViewModelError? = nil,
+                    error: CountryListError? = nil,
                     serverStatus: ServerStatus? = nil) {
             self.continents = continents
             self.isLoading = isLoading
@@ -50,7 +34,7 @@ public final class CountryListViewModel: ObservableObject {
             continents: [Continent]? = nil,
             isLoading: Bool? = nil,
             isLoaded: Bool? = nil,
-            error: CountryListViewModelError? = nil,
+            error: CountryListError? = nil,
             serverStatus: ServerStatus? = nil
         ) -> UiState {
             return UiState(
@@ -63,12 +47,8 @@ public final class CountryListViewModel: ObservableObject {
         }
     }
 
-    public enum Event {
-        case error(error: CountryListViewModelError)
-    }
-
     @Published public var state: UiState = UiState()
-    @Published public var error: CountryListViewModelError? = nil
+    @Published public var error: CountryListError? = nil
 
     private var cancellables = Set<AnyCancellable>()
     private let logic: CountryListLogic
@@ -105,9 +85,9 @@ public final class CountryListViewModel: ObservableObject {
             }).sink(receiveCompletion: { [weak self] completion in
                 guard let self = self else { return }
                 
-                let error: CountryListViewModelError? = {
+                let error: CountryListError? = {
                     if case .failure(let innerError) = completion {
-                        return CountryListViewModelError(innerError)
+                        return innerError
                     } else {
                         return nil
                     }
@@ -137,7 +117,7 @@ public final class CountryListViewModel: ObservableObject {
 
                 switch completion {
                 case .failure(let error):
-                    self.error = CountryListViewModelError(error)
+                    self.error = error
                 case .finished:
                     break
                 }

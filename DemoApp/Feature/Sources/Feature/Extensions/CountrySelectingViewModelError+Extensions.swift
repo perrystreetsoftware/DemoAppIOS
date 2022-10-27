@@ -8,8 +8,9 @@
 import Foundation
 import UIComponents
 import ViewModels
+import DomainModels
 
-extension CountryListViewModelError {
+extension CountryListError {
     var uiError: UIError {
         switch self {
         case .forbidden:

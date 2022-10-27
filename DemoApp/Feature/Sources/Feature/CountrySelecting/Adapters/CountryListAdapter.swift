@@ -25,7 +25,7 @@ public struct CountryListAdapter: View {
     }
 
     public var body: some View {
-        CountryListPage(state: viewModel.state, onItemTapped: { country in
+        CountryListPage(listUiState: viewModel.state, onItemTapped: { country in
             onCountrySelected?(country)
         }) {
             viewModel.onButtonTapped()

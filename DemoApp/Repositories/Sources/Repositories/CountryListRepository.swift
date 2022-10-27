@@ -10,22 +10,6 @@ import Interfaces
 import DomainModels
 import Combine
 
-public enum CountryListRepositoryError: Error, Equatable {
-    case apiError(innerError: TravelAdvisoryApiError)
-    case other
-
-    public static func == (lhs: CountryListRepositoryError, rhs: CountryListRepositoryError) -> Bool {
-        switch (lhs, rhs) {
-        case (.apiError(let inner1), .apiError(let inner2)):
-            return inner1 == inner2
-        case (.other, .other):
-            return true
-        default:
-            return false
-        }
-    }
-}
-
 public class CountryListRepository {
     @Published public private(set) var continents: [Continent] = []
     private let countryListProviding: TravelAdvisoryApiImplementing
@@ -34,7 +18,7 @@ public class CountryListRepository {
         self.countryListProviding = countryListProviding
     }
 
-    public func reload() -> AnyPublisher<Void, CountryListRepositoryError> {
+    public func reload() -> AnyPublisher<Void, CountryListError> {
         return countryListProviding.getCountryList()
             .handleEvents(receiveOutput: { countryList in
                 self.continents = [
@@ -48,13 +32,21 @@ public class CountryListRepository {
                 }
             })
             .map { _ in }
-            .mapError { .apiError(innerError: $0) }
+            .mapError { error in
+                CountryListError(apiError: error)
+            }
         .eraseToAnyPublisher()
     }
 
-    public func getForbiddenApi() -> AnyPublisher<Void, CountryListRepositoryError> {
+    public func getForbiddenApi() -> AnyPublisher<Void, CountryListError> {
         return countryListProviding.getForbiddenApi().mapError { error in
-            CountryListRepositoryError.apiError(innerError: error)
+            CountryListError(apiError: error)
         }.eraseToAnyPublisher()
+    }
+}
+
+extension CountryListError {
+    init(apiError: TravelAdvisoryApiError) {
+        self = .connectionError(innerError: apiError)
     }
 }

@@ -48,6 +48,6 @@ struct CountryDetailsPage_Previews: PreviewProvider {
         let countryDetails = CountryDetails(country: Country(regionCode: "us"),
                                             detailsText: "Now is the time for all good men to come to the aid of their country.")
 
-        CountryDetailsPage(state: .constant(.loaded(details: countryDetails)))
+        CountryDetailsPage(detailsUiState: .constant(.loaded(details: countryDetails)))
     }
 }

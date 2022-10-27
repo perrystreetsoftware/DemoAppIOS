@@ -34,8 +34,8 @@ final class CountryDetailsRepositoryTests: QuickSpec {
             }
 
             describe("#getDetails") {
-                var recorder: Recorder<CountryDetails, TravelAdvisoryApiError>!
-                var completion: Subscribers.Completion<TravelAdvisoryApiError>!
+                var recorder: Recorder<CountryDetails, CountryDetailsError>!
+                var completion: Subscribers.Completion<CountryDetailsError>!
                 var apiResult: Result<CountryDetailsDTO, TravelAdvisoryApiError>?
 
                 justBeforeEach {
@@ -89,7 +89,7 @@ final class CountryDetailsRepositoryTests: QuickSpec {
                     it("then recorder has failed") {
                         switch completion {
                         case .failure(let error):
-                            expect(error).to(equal(TravelAdvisoryApiError.domainError(.forbidden, responseCode: .forbidden)))
+                            expect(error).to(equal(CountryDetailsError.other))
                         case .finished:
                             fail("Unexpected state")
                         case .none:
