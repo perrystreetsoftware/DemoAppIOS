@@ -102,7 +102,9 @@ public final class CountryListViewModel: ObservableObject {
                 guard let self = self else { return }
 
                 self.state = self.state.copy(isLoading: false)
-            }).sink(receiveCompletion: { completion in
+            }).sink(receiveCompletion: { [weak self] completion in
+                guard let self = self else { return }
+                
                 let error: CountryListViewModelError? = {
                     if case .failure(let innerError) = completion {
                         return CountryListViewModelError(innerError)
