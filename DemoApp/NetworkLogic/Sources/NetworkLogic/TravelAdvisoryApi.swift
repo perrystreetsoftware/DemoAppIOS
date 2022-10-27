@@ -1,7 +1,6 @@
 import Interfaces
 import Combine
 import Foundation
-import DomainModels
 
 public final class TravelAdvisoryApi: TravelAdvisoryApiImplementing {
     private let appScheduler: AppSchedulerProviding
