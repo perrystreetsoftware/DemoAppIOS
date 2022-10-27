@@ -50,7 +50,7 @@ public struct TravelAdvisoriesNavHost: View {
     @ViewBuilder func buildChildViewFromState() -> some View {
         switch destination {
         case .details(let regionCode):
-            let viewModel = factory.build(country: Country(regionCode: regionCode))
+            let viewModel = factory.make(country: Country(regionCode: regionCode))
 
             CountryDetailsAdapter(viewModel: viewModel)
         case .none:

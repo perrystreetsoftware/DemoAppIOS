@@ -34,7 +34,7 @@ final class CountryDetailsViewModelTests: QuickSpec {
                 scheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
                 scheduler.useTestMainScheduler = true
                 viewModelFactory = container.resolve(CountryDetailsViewModelFactory.self)!
-                viewModel = viewModelFactory.build(country: country)
+                viewModel = viewModelFactory.make(country: country)
             }
 
             var stateRecorder: Recorder<CountryDetailsViewModel.State, Never>!

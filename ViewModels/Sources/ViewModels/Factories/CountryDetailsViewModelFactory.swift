@@ -10,7 +10,7 @@ public final class CountryDetailsViewModelFactory {
         self.resolver = resolver
     }
 
-    public func build(country: Country) -> CountryDetailsViewModel {
+    public func make(country: Country) -> CountryDetailsViewModel {
         return CountryDetailsViewModel(country: country,
                                        logic: resolver.resolve(CountryDetailsLogic.self)!)
     }
