@@ -11,19 +11,6 @@ import Combine
 import Swinject
 import Logic
 
-public final class CountryDetailsViewModelBuilder {
-    private var resolver: Swinject.Resolver
-
-    init(resolver: Swinject.Resolver) {
-        self.resolver = resolver
-    }
-
-    public func build(country: Country) -> CountryDetailsViewModel {
-        return CountryDetailsViewModel(country: country,
-                                       logic: resolver.resolve(CountryDetailsLogic.self)!)
-    }
-}
-
 public enum CountryDetailsViewModelError: Error, Equatable {
     case countryNotFound
     case unknown
@@ -57,7 +44,7 @@ public class CountryDetailsViewModel: ObservableObject {
 
     @Published public var state: State = .initial
 
-    public let country: Country
+    private let country: Country
     private let logic: CountryDetailsLogic
     private var cancellables = Set<AnyCancellable>()
 

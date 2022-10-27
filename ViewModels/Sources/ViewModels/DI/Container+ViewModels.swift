@@ -13,8 +13,8 @@ import SwinjectAutoregistration
 public extension Container {
     func injectBusinessLogicViewModels() -> Container {
         self.autoregister(CountryListViewModel.self, initializer: CountryListViewModel.init).inObjectScope(.transient)
-        self.register(CountryDetailsViewModelBuilder.self) { resolver in
-            CountryDetailsViewModelBuilder(resolver: resolver)
+        self.register(CountryDetailsViewModelFactory.self) { resolver in
+            CountryDetailsViewModelFactory(resolver: resolver)
         }.inObjectScope(.transient)
 
         return self
