@@ -38,6 +38,96 @@
                ReferencedContainer = "container:TravelAdvisories.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DomainModelsTests"
+               BuildableName = "DomainModelsTests"
+               BlueprintName = "DomainModelsTests"
+               ReferencedContainer = "container:Packages/DomainModels">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FeatureTests"
+               BuildableName = "FeatureTests"
+               BlueprintName = "FeatureTests"
+               ReferencedContainer = "container:Packages/Feature">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "InterfacesTests"
+               BuildableName = "InterfacesTests"
+               BlueprintName = "InterfacesTests"
+               ReferencedContainer = "container:Packages/Interfaces">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "LogicTests"
+               BuildableName = "LogicTests"
+               BlueprintName = "LogicTests"
+               ReferencedContainer = "container:Packages/Logic">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "NetworkLogicTests"
+               BuildableName = "NetworkLogicTests"
+               BlueprintName = "NetworkLogicTests"
+               ReferencedContainer = "container:Packages/NetworkLogic">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "RepositoriesTests"
+               BuildableName = "RepositoriesTests"
+               BlueprintName = "RepositoriesTests"
+               ReferencedContainer = "container:Packages/Repositories">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "UIComponentsTests"
+               BuildableName = "UIComponentsTests"
+               BlueprintName = "UIComponentsTests"
+               ReferencedContainer = "container:Packages/UIComponents">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "UtilsTests"
+               BuildableName = "UtilsTests"
+               BlueprintName = "UtilsTests"
+               ReferencedContainer = "container:Packages/Utils">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ViewModelsTests"
+               BuildableName = "ViewModelsTests"
+               BlueprintName = "ViewModelsTests"
+               ReferencedContainer = "container:Packages/ViewModels">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
