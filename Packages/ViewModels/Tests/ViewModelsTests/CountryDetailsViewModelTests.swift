@@ -62,7 +62,7 @@ final class CountryDetailsViewModelTests: QuickSpec {
                 it("then it has loaded content") {
                     switch viewModel.state {
                     case .loaded(let details):
-                        expect(details.country.countryName).to(equal("Nigeria"))
+                        expect(details.country.countryName).to(equal("Nigéria"))
                         expect(details.detailsText).to(equal("Article 264"))
                         break
                     default:
