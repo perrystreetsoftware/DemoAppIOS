@@ -53,7 +53,7 @@
 		61C9EEC128CD3A9500ACDF3E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		61C9EEC628CD3A9500ACDF3E /* TravelAdvisories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelAdvisories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61C9EECE28CD3A9500ACDF3E /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
-		61C9EED328CD3A9500ACDF3E /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		61C9EED328CD3A9500ACDF3E /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		61C9EED728CD3A9500ACDF3E /* Tests_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOS.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -144,7 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				61C9EEC628CD3A9500ACDF3E /* TravelAdvisories.app */,
-				61C9EED328CD3A9500ACDF3E /* Tests iOS.xctest */,
+				61C9EED328CD3A9500ACDF3E /* UnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -196,9 +196,9 @@
 			productReference = 61C9EEC628CD3A9500ACDF3E /* TravelAdvisories.app */;
 			productType = "com.apple.product-type.application";
 		};
-		61C9EED228CD3A9500ACDF3E /* Tests iOS */ = {
+		61C9EED228CD3A9500ACDF3E /* UnitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 61C9EEF528CD3A9500ACDF3E /* Build configuration list for PBXNativeTarget "Tests iOS" */;
+			buildConfigurationList = 61C9EEF528CD3A9500ACDF3E /* Build configuration list for PBXNativeTarget "UnitTests" */;
 			buildPhases = (
 				61C9EECF28CD3A9500ACDF3E /* Sources */,
 				61C9EED028CD3A9500ACDF3E /* Frameworks */,
@@ -209,9 +209,9 @@
 			dependencies = (
 				051EAF96290C240A0091E365 /* PBXTargetDependency */,
 			);
-			name = "Tests iOS";
+			name = UnitTests;
 			productName = "Tests iOS";
-			productReference = 61C9EED328CD3A9500ACDF3E /* Tests iOS.xctest */;
+			productReference = 61C9EED328CD3A9500ACDF3E /* UnitTests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -248,7 +248,7 @@
 			projectRoot = "";
 			targets = (
 				61C9EEC528CD3A9500ACDF3E /* TravelAdvisories (iOS) */,
-				61C9EED228CD3A9500ACDF3E /* Tests iOS */,
+				61C9EED228CD3A9500ACDF3E /* UnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -556,7 +556,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		61C9EEF528CD3A9500ACDF3E /* Build configuration list for PBXNativeTarget "Tests iOS" */ = {
+		61C9EEF528CD3A9500ACDF3E /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				61C9EEF628CD3A9500ACDF3E /* Debug */,
