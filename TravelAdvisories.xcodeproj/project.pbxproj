@@ -19,19 +19,18 @@
 		610A3CAC28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */; };
 		6130549B29085FCD00B54AF9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6130549D29085FCD00B54AF9 /* Localizable.strings */; };
 		61C9EED828CD3A9500ACDF3E /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C9EED728CD3A9500ACDF3E /* Tests_iOS.swift */; };
-		61C9EEDA28CD3A9500ACDF3E /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C9EED928CD3A9500ACDF3E /* Tests_iOSLaunchTests.swift */; };
 		61C9EEE728CD3A9500ACDF3E /* TravelAdvisoriesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C9EEBF28CD3A9400ACDF3E /* TravelAdvisoriesApp.swift */; };
 		61C9EEE928CD3A9500ACDF3E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C9EEC028CD3A9400ACDF3E /* ContentView.swift */; };
 		61C9EEEB28CD3A9500ACDF3E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61C9EEC128CD3A9500ACDF3E /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		61C9EED428CD3A9500ACDF3E /* PBXContainerItemProxy */ = {
+		051EAF95290C240A0091E365 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 61C9EEBA28CD3A9400ACDF3E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 61C9EEC528CD3A9500ACDF3E;
-			remoteInfo = "DemoApp (iOS)";
+			remoteInfo = "TravelAdvisories (iOS)";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -56,9 +55,6 @@
 		61C9EECE28CD3A9500ACDF3E /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		61C9EED328CD3A9500ACDF3E /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		61C9EED728CD3A9500ACDF3E /* Tests_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOS.swift; sourceTree = "<group>"; };
-		61C9EED928CD3A9500ACDF3E /* Tests_iOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOSLaunchTests.swift; sourceTree = "<group>"; };
-		61C9EEE328CD3A9500ACDF3E /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
-		61C9EEE528CD3A9500ACDF3E /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,7 +124,6 @@
 				6130549829085FAC00B54AF9 /* Resources */,
 				61C9EECD28CD3A9500ACDF3E /* macOS */,
 				61C9EED628CD3A9500ACDF3E /* Tests iOS */,
-				61C9EEE228CD3A9500ACDF3E /* Tests macOS */,
 				61C9EEC728CD3A9500ACDF3E /* Products */,
 				61A7890C28D655D2009170DF /* Frameworks */,
 			);
@@ -166,18 +161,8 @@
 			isa = PBXGroup;
 			children = (
 				61C9EED728CD3A9500ACDF3E /* Tests_iOS.swift */,
-				61C9EED928CD3A9500ACDF3E /* Tests_iOSLaunchTests.swift */,
 			);
 			path = "Tests iOS";
-			sourceTree = "<group>";
-		};
-		61C9EEE228CD3A9500ACDF3E /* Tests macOS */ = {
-			isa = PBXGroup;
-			children = (
-				61C9EEE328CD3A9500ACDF3E /* Tests_macOS.swift */,
-				61C9EEE528CD3A9500ACDF3E /* Tests_macOSLaunchTests.swift */,
-			);
-			path = "Tests macOS";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,7 +207,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				61C9EED528CD3A9500ACDF3E /* PBXTargetDependency */,
+				051EAF96290C240A0091E365 /* PBXTargetDependency */,
 			);
 			name = "Tests iOS";
 			productName = "Tests iOS";
@@ -302,7 +287,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				61C9EEDA28CD3A9500ACDF3E /* Tests_iOSLaunchTests.swift in Sources */,
 				61C9EED828CD3A9500ACDF3E /* Tests_iOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,10 +294,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		61C9EED528CD3A9500ACDF3E /* PBXTargetDependency */ = {
+		051EAF96290C240A0091E365 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 61C9EEC528CD3A9500ACDF3E /* TravelAdvisories (iOS) */;
-			targetProxy = 61C9EED428CD3A9500ACDF3E /* PBXContainerItemProxy */;
+			targetProxy = 051EAF95290C240A0091E365 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -514,11 +498,15 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.Tests-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "DemoApp (iOS)";
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = "TravelAdvisories (iOS)";
 			};
 			name = Debug;
 		};
@@ -534,11 +522,15 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.Tests-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "DemoApp (iOS)";
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = "TravelAdvisories (iOS)";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
