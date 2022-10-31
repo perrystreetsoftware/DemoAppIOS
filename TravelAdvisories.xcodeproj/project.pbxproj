@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		051EAF72290C20FA0091E365 /* DomainModels in Frameworks */ = {isa = PBXBuildFile; productRef = 051EAF71290C20FA0091E365 /* DomainModels */; };
 		051EAF74290C20FA0091E365 /* Feature in Frameworks */ = {isa = PBXBuildFile; productRef = 051EAF73290C20FA0091E365 /* Feature */; };
 		051EAF76290C20FA0091E365 /* Interfaces in Frameworks */ = {isa = PBXBuildFile; productRef = 051EAF75290C20FA0091E365 /* Interfaces */; };
 		051EAF78290C20FA0091E365 /* Logic in Frameworks */ = {isa = PBXBuildFile; productRef = 051EAF77290C20FA0091E365 /* Logic */; };
@@ -40,11 +39,10 @@
 		0517FE1D290C1EFB00326D9B /* Repositories */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Repositories; path = Packages/Repositories; sourceTree = "<group>"; };
 		0517FE1E290C1EFB00326D9B /* NetworkLogic */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = NetworkLogic; path = Packages/NetworkLogic; sourceTree = "<group>"; };
 		0517FE1F290C1EFB00326D9B /* UIComponents */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = UIComponents; path = Packages/UIComponents; sourceTree = "<group>"; };
-		0517FE20290C1EFB00326D9B /* DomainModels */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DomainModels; path = Packages/DomainModels; sourceTree = "<group>"; };
 		0517FE21290C1EFB00326D9B /* Feature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Feature; path = Packages/Feature; sourceTree = "<group>"; };
 		0517FE22290C1EFB00326D9B /* Interfaces */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Interfaces; path = Packages/Interfaces; sourceTree = "<group>"; };
 		0517FE23290C1EFB00326D9B /* Utils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utils; path = Packages/Utils; sourceTree = "<group>"; };
-		0517FE25290C1F3F00326D9B /* DomainModels */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DomainModels; path = Packages/DomainModels; sourceTree = "<group>"; };
+		05F2CCC329105C6A001010B7 /* DomainModels */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DomainModels; path = Packages/DomainModels; sourceTree = "<group>"; };
 		610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAdvisoriesNavHost.swift; sourceTree = "<group>"; };
 		6130549C29085FCD00B54AF9 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6130549E29085FD100B54AF9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -63,7 +61,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				051EAF7C290C20FA0091E365 /* Repositories in Frameworks */,
-				051EAF72290C20FA0091E365 /* DomainModels in Frameworks */,
 				051EAF82290C20FA0091E365 /* ViewModels in Frameworks */,
 				051EAF76290C20FA0091E365 /* Interfaces in Frameworks */,
 				051EAF7E290C20FA0091E365 /* UIComponents in Frameworks */,
@@ -95,7 +92,6 @@
 		61A7890928D6557B009170DF /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				0517FE20290C1EFB00326D9B /* DomainModels */,
 				0517FE21290C1EFB00326D9B /* Feature */,
 				0517FE22290C1EFB00326D9B /* Interfaces */,
 				0517FE1E290C1EFB00326D9B /* NetworkLogic */,
@@ -104,7 +100,7 @@
 				0517FE23290C1EFB00326D9B /* Utils */,
 				0517FE1C290C1EFB00326D9B /* ViewModels */,
 				0517FE1B290C1EF200326D9B /* Logic */,
-				0517FE25290C1F3F00326D9B /* DomainModels */,
+				05F2CCC329105C6A001010B7 /* DomainModels */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -182,7 +178,6 @@
 			);
 			name = TravelAdvisories;
 			packageProductDependencies = (
-				051EAF71290C20FA0091E365 /* DomainModels */,
 				051EAF73290C20FA0091E365 /* Feature */,
 				051EAF75290C20FA0091E365 /* Interfaces */,
 				051EAF77290C20FA0091E365 /* Logic */,
@@ -568,10 +563,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		051EAF71290C20FA0091E365 /* DomainModels */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DomainModels;
-		};
 		051EAF73290C20FA0091E365 /* Feature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Feature;
