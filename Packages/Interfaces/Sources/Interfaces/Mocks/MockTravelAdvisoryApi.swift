@@ -24,7 +24,13 @@ public final class MockTravelAdvisoryApi: TravelAdvisoryApiImplementing {
     }
 
     public var getCountryDetailsResult: Result<CountryDetailsDTO, TravelAdvisoryApiError>?
+    public private(set) var getCountryDetailsRegionCodePassed: String?
+    public private(set) var getCountryDetailsRegionCallsCount: Int = 0
+
     public func getCountryDetails(regionCode: String) -> AnyPublisher<CountryDetailsDTO, TravelAdvisoryApiError> {
+        getCountryDetailsRegionCallsCount += 1
+        getCountryDetailsRegionCodePassed = regionCode
+        
         if let result = getCountryDetailsResult {
             return result.publisher.eraseToAnyPublisher()
         } else {

@@ -13,7 +13,8 @@ import DomainModels
 import CombineExpectations
 import Interfaces
 import Combine
-import Repositories
+
+@testable import Repositories
 
 final class CountryDetailsRepositoryTests: QuickSpec {
     override func spec() {
@@ -40,64 +41,91 @@ final class CountryDetailsRepositoryTests: QuickSpec {
 
                 justBeforeEach {
                     api.getCountryDetailsResult = apiResult
-                    recorder = repository.getDetails(regionCode: "ng").record()
+                    recorder = repository.getDetails(regionCode: "rc").record()
                     mockAppScheduler.testScheduler.advance()
-                    completion = try! QuickSpec.current.wait(for: recorder.completion, timeout: 5.0)
+                    completion = try! QuickSpec.current.wait(for: recorder.completion, timeout: 1.0)
                 }
 
-                context("success") {
+                context("when api succeeds") {
                     var value: CountryDetails!
 
                     beforeEach {
-                        apiResult = nil // use default success
+                        let countryDetailsDTO = CountryDetailsDTO.fixture(regionCode: "region code value")
+                        apiResult = .success(countryDetailsDTO)
                     }
 
                     justBeforeEach {
                         value = try! recorder.availableElements.get().last
                     }
 
-                    it("then value is set") {
-                        expect(value).to(
-                            equal(
-                                CountryDetails(country: Country(regionCode: "ng"),
-                                               detailsText: "Article 264")
-                            )
+                    it("then should return country details") {
+                        let countryDetails = CountryDetails.fixture(
+                            country: .fixture(regionCode: "region code value")
                         )
-                    }
-
-                    it("then recorder has completed") {
-                        switch completion {
-                        case .failure:
-                            fail("Unexpected state")
-                        case .finished:
-                            // ok
-                            break
-                        case .none:
-                            fail("Unexpected state")
-                        }
+                        
+                        expect(api.getCountryDetailsRegionCallsCount) == 1
+                        expect(api.getCountryDetailsRegionCodePassed) == "rc"
+                        expect(value).to(equal(countryDetails))
                     }
                 }
 
-                context("failure") {
+                context("when api fails") {
                     beforeEach {
                         apiResult = .failure(.domainError(.forbidden, responseCode: .forbidden))
                     }
 
-                    justBeforeEach {
-                    }
-
-                    it("then recorder has failed") {
-                        switch completion {
-                        case .failure(let error):
-                            expect(error).to(equal(CountryDetailsError.other))
-                        case .finished:
-                            fail("Unexpected state")
-                        case .none:
-                            fail("Unexpected state")
-                        }
+                    it("then should return a country details error") {
+                        expect(completion.error) == CountryDetailsError.other
                     }
                 }
             }
+        }
+    }
+}
+ 
+extension CountryDetailsDTO {
+    static func fixture(
+        area: String = "",
+        regionName: String = "",
+        regionCode: String = "",
+        legalCodeBody: String? = nil
+    ) -> Self {
+        .init(
+            area: area,
+            regionName: regionName,
+            regionCode: regionCode,
+            legalCodeBody: legalCodeBody
+        )
+    }
+}
+
+extension CountryDetails {
+    static func fixture(
+        country: Country = .fixture(),
+        detailsText: String? = nil
+    ) -> Self {
+        .init(
+            country: country,
+            detailsText: detailsText
+        )
+    }
+}
+
+extension Country {
+    static func fixture(regionCode: String = "") -> Self {
+        .init(
+            regionCode: regionCode
+        )
+    }
+}
+
+extension Subscribers.Completion {
+    var error: Failure? {
+        switch self {
+        case .finished:
+            return nil
+        case .failure(let resultError):
+            return resultError
         }
     }
 }
