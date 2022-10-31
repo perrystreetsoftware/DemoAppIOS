@@ -7,11 +7,12 @@
 
 import Foundation
 import Swinject
+import Mockingbird
 
 public extension Container {
     func injectInterfaceRemoteMocks() -> Container {
         self.register(TravelAdvisoryApiImplementing.self) { resolver in
-            MockTravelAdvisoryApi(scheduler: resolver.resolve(AppSchedulerProviding.self)!)
+            mock(TravelAdvisoryApiImplementing.self)
         }.inObjectScope(.container)
 
         return self
