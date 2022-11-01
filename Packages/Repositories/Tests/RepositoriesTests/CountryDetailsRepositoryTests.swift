@@ -15,7 +15,7 @@ import Interfaces
 import Combine
 
 @testable import Repositories
-//
+
 //final class CountryDetailsRepositoryTests: QuickSpec {
 //    override func spec() {
 //        describe("CountryDetailsRepository") {
@@ -62,7 +62,7 @@ import Combine
 //                        let countryDetails = CountryDetails.fixture(
 //                            country: .fixture(regionCode: "region code value")
 //                        )
-//                        
+//
 //                        expect(api.getCountryDetailsRegionCallsCount) == 1
 //                        expect(api.getCountryDetailsRegionCodePassed) == "rc"
 //                        expect(value).to(equal(countryDetails))
@@ -82,50 +82,3 @@ import Combine
 //        }
 //    }
 //}
-// 
-extension CountryDetailsDTO {
-    static func fixture(
-        area: String = "",
-        regionName: String = "",
-        regionCode: String = "",
-        legalCodeBody: String? = nil
-    ) -> Self {
-        .init(
-            area: area,
-            regionName: regionName,
-            regionCode: regionCode,
-            legalCodeBody: legalCodeBody
-        )
-    }
-}
-
-extension CountryDetails {
-    static func fixture(
-        country: Country = .fixture(),
-        detailsText: String? = nil
-    ) -> Self {
-        .init(
-            country: country,
-            detailsText: detailsText
-        )
-    }
-}
-
-extension Country {
-    static func fixture(regionCode: String = "") -> Self {
-        .init(
-            regionCode: regionCode
-        )
-    }
-}
-
-extension Subscribers.Completion {
-    var error: Failure? {
-        switch self {
-        case .finished:
-            return nil
-        case .failure(let resultError):
-            return resultError
-        }
-    }
-}
