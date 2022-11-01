@@ -50,7 +50,7 @@ final class CountryDetailsRepositoryMockingBirdTests: QuickSpec {
                             .setFailureType(to: TravelAdvisoryApiError.self)
                             .eraseToAnyPublisher()
                         
-                        given(api.getCountryDetails(regionCode: "rc")).willReturn(publisherToBeReturned)
+                        given(api.getCountryDetails(regionCode: "rc")).willReturn(publisherToBeReturned) // Mockingbird stubbing
                     }
                     
                     justBeforeEach {
@@ -62,7 +62,7 @@ final class CountryDetailsRepositoryMockingBirdTests: QuickSpec {
                             country: .fixture(regionCode: "region code value")
                         )
                         
-                        verify(api.getCountryDetails(regionCode: "rc")).wasCalled(1)
+                        verify(api.getCountryDetails(regionCode: "rc")).wasCalled(1) // Mockingbird verification
                         expect(value).to(equal(countryDetails))
                     }
                 }
@@ -71,7 +71,7 @@ final class CountryDetailsRepositoryMockingBirdTests: QuickSpec {
                     beforeEach {
                         let publisherToBeReturned = Fail<CountryDetailsDTO, TravelAdvisoryApiError>(error: .domainError(.forbidden, responseCode: .forbidden)).eraseToAnyPublisher()
                         
-                        given(api.getCountryDetails(regionCode: "rc")).willReturn(publisherToBeReturned)
+                        given(api.getCountryDetails(regionCode: "rc")).willReturn(publisherToBeReturned) // Mockingbird stubbing
                     }
 
                     it("then should return a country details error") {
