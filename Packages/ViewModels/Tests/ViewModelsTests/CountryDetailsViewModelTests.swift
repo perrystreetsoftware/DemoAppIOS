@@ -19,7 +19,6 @@ final class CountryDetailsViewModelTests: QuickSpec {
     override func spec() {
         describe("CountryDetailsViewModel") {
             var container: Container!
-            var viewModelFactory: CountryDetailsViewModelFactory!
             var viewModel: CountryDetailsViewModel!
             var scheduler: MockAppSchedulerProviding!
 
@@ -33,8 +32,7 @@ final class CountryDetailsViewModelTests: QuickSpec {
                     .injectInterfaceRemoteMocks()
                 scheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
                 scheduler.useTestMainScheduler = true
-                viewModelFactory = container.resolve(CountryDetailsViewModelFactory.self)!
-                viewModel = viewModelFactory.make(country: country)
+                viewModel = container.resolve(CountryDetailsViewModel.self, argument: country)
             }
 
             var stateRecorder: Recorder<CountryDetailsViewModel.State, Never>!
