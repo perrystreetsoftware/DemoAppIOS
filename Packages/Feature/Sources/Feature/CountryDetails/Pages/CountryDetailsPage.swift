@@ -23,27 +23,31 @@ public struct CountryDetailsPage: View {
 
     public var body: some View {
         ZStack {
-            ProgressIndicator(isLoading: detailsUiState.isLoading)
-            CountryNotFoundErrorView(viewModelState: detailsUiState)
-            CountryDetailsContent(countryName: extractCountryName(from: detailsUiState),
-                                  detailsText: extractCountryDetails(from: detailsUiState))
+            switch detailsUiState {
+            case .loading: renderLoading()
+            case .loaded(let details): renderDetails(details: details)
+            case .error(let error) where error == .other: renderEmptyView()
+            case .error(let error): renderError(error: error)
+            default: EmptyView().hidden()
+            }
         }
     }
-
-    private func extractCountryName(from detailsUiState: CountryDetailsViewModel.State) -> String {
-        if case .loaded(let details) = detailsUiState {
-            return details.country.countryName ?? ""
-        } else {
-            return ""
-        }
+    
+    private func renderLoading() -> some View {
+        ProgressIndicator(isLoading: detailsUiState.isLoading)
     }
-
-    private func extractCountryDetails(from detailsUiState: CountryDetailsViewModel.State) -> String {
-        if case .loaded(let details) = detailsUiState {
-            return details.detailsText ?? ""
-        } else {
-            return ""
-        }
+    
+    private func renderEmptyView() -> some View {
+        EmptyView().hidden()
+    }
+    
+    private func renderDetails(details: CountryDetails) -> some View {
+        CountryDetailsContent(countryName: details.country.countryName ?? "",
+                              detailsText: details.detailsText ?? "")
+    }
+    
+    private func renderError(error: CountryDetailsUIError) -> some View {
+        CountryNotFoundErrorView(error: error)
     }
 }
 

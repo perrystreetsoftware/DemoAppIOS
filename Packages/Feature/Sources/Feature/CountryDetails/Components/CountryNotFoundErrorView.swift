@@ -14,39 +14,42 @@ import UIComponents
 
 /// Content is a component of a page. Content accepts bindings or simple primitive types.
 public struct CountryNotFoundErrorView: View {
-    private let viewModelState: CountryDetailsViewModel.State
+    private let uiError: CountryDetailsUIError
 
-    public init(viewModelState: CountryDetailsViewModel.State) {
-        self.viewModelState = viewModelState
+    public init(error: CountryDetailsUIError) {
+        self.uiError = error
     }
 
     public var body: some View {
-        switch viewModelState {
-        case .error(let error):
-            if case .countryNotFound = error {
-                ZStack {
-                    Color.red
-                        .ignoresSafeArea()
+        ZStack {
+            Color.red
+                .ignoresSafeArea()
 
-                    VStack {
-                        L10n.Errors.countryNotFoundErrorTitle.text
-                            .bold()
-                            .foregroundColor(.white)
-                        L10n.Errors.countryNotFoundErrorMessage.text
-                            .foregroundColor(.white)
-                    }
-                }.frame(maxWidth: 200, maxHeight: 200)
-            } else {
-                Spacer().hidden()
+            VStack {
+                uiError.title
+                    .text
+                    .bold()
+                    .foregroundColor(.white)
+                uiError.message
+                    .text
+                    .foregroundColor(.white)
             }
-        default:
-            EmptyView().hidden()
-        }
+        }.frame(maxWidth: 200, maxHeight: 200)
     }
 }
 
 struct CountryNotFoundErrorView_Previews: PreviewProvider {
     static var previews: some View {
-        CountryNotFoundErrorView(viewModelState: .error(error: .countryNotFound))
+        CountryNotFoundErrorView(error: .notFound)
+    }
+}
+
+extension CountryDetailsUIError {
+    var title: LocalizedString {
+        L10n.Errors.countryNotFoundErrorTitle
+    }
+    
+    var message: LocalizedString {
+        L10n.Errors.countryNotFoundErrorMessage
     }
 }

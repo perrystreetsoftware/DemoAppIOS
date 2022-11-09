@@ -15,7 +15,7 @@ public class CountryDetailsViewModel: ObservableObject {
         case initial
         case loading
         case loaded(details: CountryDetails)
-        case error(error: CountryDetailsError)
+        case error(error: CountryDetailsUIError)
 
         public var isLoading: Bool {
             switch self {
@@ -51,7 +51,7 @@ public class CountryDetailsViewModel: ObservableObject {
             }).sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .failure(let error):
-                    self?.state = .error(error: error)
+                    self?.state = .error(error: error.uiError())
                 case .finished:
                     break
                 }
@@ -59,4 +59,17 @@ public class CountryDetailsViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
+}
+
+/// Domain Errors mapping to UI Error
+extension CountryDetailsError {
+    func uiError() -> CountryDetailsUIError {
+        switch self {
+        case .countryNotFound:
+            return .notFound
+        case .other:
+            return .other
+        }
+    }
+    
 }
