@@ -29,14 +29,9 @@ public struct CountryListAdapter: View {
             onCountrySelected?(country)
         }) {
             viewModel.onButtonTapped()
-        }.alert(item: $viewModel.error) { error in
-            let uiError = error.uiError
-
-            return Alert(
-                title: Text(uiError.title),
-                message: Text(uiError.messages.joined(separator: " ")),
-                dismissButton: .cancel(L10n.Ui.cancelButtonTitle.text)
-            )
+        }
+        .alert(item: $viewModel.error) { error in
+            return Alert(countryListError: error)
         }
     }
 }

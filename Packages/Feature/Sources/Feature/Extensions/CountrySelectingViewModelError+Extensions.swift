@@ -9,14 +9,23 @@ import Foundation
 import UIComponents
 import ViewModels
 import DomainModels
+import SwiftUI
 
-extension CountryListError {
-    var uiError: UIError {
-        switch self {
+extension Alert {
+    init(countryListError error: CountryListError) {
+        switch error {
         case .forbidden:
-            return UIError(title: L10n.Errors.forbiddenErrorTitle.stringValue, messages: [L10n.Errors.forbiddenErrorMessage.stringValue])
-        default:
-            return UIError(title: L10n.Errors.genericErrorTitle.stringValue, messages: [L10n.Errors.genericErrorMessage.stringValue])
+            self.init(
+                title: Text(L10n.Errors.forbiddenErrorTitle.stringValue),
+                message: Text(L10n.Errors.forbiddenErrorMessage.stringValue),
+                dismissButton: .cancel(L10n.Ui.cancelButtonTitle.text)
+            )
+        case .connectionError, .other, .userNotLoggedIn:
+            self.init(
+                title: Text(L10n.Errors.genericErrorTitle.stringValue),
+                message: Text(L10n.Errors.genericErrorMessage.stringValue),
+                dismissButton: .cancel(L10n.Ui.cancelButtonTitle.text)
+            )
         }
     }
 }
