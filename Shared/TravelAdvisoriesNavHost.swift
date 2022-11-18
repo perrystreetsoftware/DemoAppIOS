@@ -12,17 +12,20 @@ import Combine
 import DomainModels
 import Feature
 import ViewModels
+import Swinject
 
 public struct TravelAdvisoriesNavHost: View {
+    private let resolver: Swinject.Resolver
+
     @State var destination: Destinations?
-    @Inject var factory: CountryDetailsViewModelFactory
     @Inject var countryListViewModel: CountryListViewModel
 
     enum Destinations {
         case details(regionCode: String)
     }
 
-    public init() {
+    public init(resolver: Swinject.Resolver = InjectSettings.resolver!) {
+        self.resolver = resolver
     }
 
     public var body: some View {
@@ -50,7 +53,7 @@ public struct TravelAdvisoriesNavHost: View {
     @ViewBuilder func buildChildViewFromState() -> some View {
         switch destination {
         case .details(let regionCode):
-            let viewModel = factory.make(country: Country(regionCode: regionCode))
+            let viewModel = resolver.resolve(CountryDetailsViewModel.self, argument: Country(regionCode: regionCode))!
 
             CountryDetailsAdapter(viewModel: viewModel)
         case .none:
