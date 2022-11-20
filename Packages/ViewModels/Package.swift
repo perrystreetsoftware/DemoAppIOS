@@ -18,6 +18,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
         .package(path: "../Logic"),
+        .package(path: "../Interfaces"),
         .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0"),
         .package(url: "https://github.com/Quick/Quick.git", branch: "main"),
         .package(url: "https://github.com/Quick/Nimble.git", from: "10.0.0"),
@@ -32,6 +33,6 @@ let package = Package(
             dependencies: ["Swinject", "SwinjectAutoregistration", "Logic"]),
         .testTarget(
             name: "ViewModelsTests",
-            dependencies: ["ViewModels", "Quick", "Nimble", "CombineExpectations"]),
+            dependencies: ["ViewModels", "Quick", "Nimble", "CombineExpectations", .product(name: "InterfacesMocks", package: "Interfaces")]),
     ]
 )
