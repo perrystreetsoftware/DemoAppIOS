@@ -103,7 +103,8 @@
         "DTOs/CountryListDTO.swift",
         "DTOs/ServerStatusDTO.swift",
         "Mocks/MockAppSchedulerProviding.swift",
-        "Mocks/MockTravelAdvisoryApi.swift"
+        "Mocks/MockTravelAdvisoryApi.swift",
+        "Mocks/MockingbirdMocks/Mocks.generated.swift"
       ],
       "type" : "library"
     }
