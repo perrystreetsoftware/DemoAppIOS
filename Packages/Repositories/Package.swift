@@ -38,7 +38,7 @@ let package = Package(
         ),
         .target(
             name: "RepositoriesMocks",
-            dependencies: ["Repositories"]
+            dependencies: ["Repositories", "Interfaces"]
         ),
         .testTarget(
             name: "RepositoriesTests",

@@ -13,8 +13,10 @@ import DomainModels
 import CombineExpectations
 import Interfaces
 import InterfacesMocks
-@testable import Logic
 import Combine
+import Mockingbird
+
+@testable import Logic
 
 final class CountryListLogicTests: QuickSpec {
     override func spec() {
@@ -24,6 +26,7 @@ final class CountryListLogicTests: QuickSpec {
             var mockAppScheduler: MockAppSchedulerProviding!
             var continentsRecorder: Recorder<[Continent], Never>!
             var value: [Continent]!
+            var api: TravelAdvisoryApiImplementingMock!
 
             beforeEach {
                 container = Container().injectBusinessLogicRepositories()
@@ -33,6 +36,7 @@ final class CountryListLogicTests: QuickSpec {
                 mockAppScheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
                 mockAppScheduler.useTestMainScheduler = true
                 logic = container.resolve(CountryListLogic.self)!
+                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
 
                 continentsRecorder = logic.$continents.record()
                 value = try! QuickSpec.current.wait(for: continentsRecorder.next(), timeout: 5.0)
@@ -47,6 +51,12 @@ final class CountryListLogicTests: QuickSpec {
                 var completion: Subscribers.Completion<CountryListError>!
 
                 beforeEach {
+                    let publisherToBeReturned = Just(CountryListDTO.init())
+                        .setFailureType(to: TravelAdvisoryApiError.self)
+                        .eraseToAnyPublisher()
+                    
+                    given(api.getCountryList()).willReturn(publisherToBeReturned)
+                    
                     recorder = logic.reload().record()
                     mockAppScheduler.testScheduler.advance()
                 }

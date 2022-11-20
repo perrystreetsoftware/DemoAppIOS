@@ -13,8 +13,11 @@ import DomainModels
 import CombineExpectations
 import Interfaces
 import InterfacesMocks
-@testable import Logic
 import Combine
+import Mockingbird
+import RepositoriesMocks
+
+@testable import Logic
 
 final class CountryDetailsLogicTests: QuickSpec {
     override func spec() {
@@ -22,6 +25,7 @@ final class CountryDetailsLogicTests: QuickSpec {
             var container: Container!
             var logic: CountryDetailsLogic!
             var mockAppScheduler: MockAppSchedulerProviding!
+            var api: TravelAdvisoryApiImplementingMock!
 
             let country = Country(regionCode: "ng")
 
@@ -34,6 +38,7 @@ final class CountryDetailsLogicTests: QuickSpec {
                 mockAppScheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
                 mockAppScheduler.useTestMainScheduler = true
                 logic = container.resolve(CountryDetailsLogic.self)!
+                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
             }
 
             describe("#getDetails") {
@@ -41,6 +46,11 @@ final class CountryDetailsLogicTests: QuickSpec {
                 var completion: Subscribers.Completion<CountryDetailsError>!
 
                 beforeEach {
+                    let publisherToBeReturned = Just(CountryDetailsDTO.asia)
+                        .setFailureType(to: TravelAdvisoryApiError.self)
+                        .eraseToAnyPublisher()
+                    
+                    given(api.getCountryDetails(regionCode: "ng")).willReturn(publisherToBeReturned)
                     recorder = logic.getDetails(country: country).record()
                     mockAppScheduler.testScheduler.advance()
                 }
@@ -71,5 +81,16 @@ final class CountryDetailsLogicTests: QuickSpec {
                 }
             }
         }
+    }
+}
+
+extension CountryDetailsDTO {
+    static var asia: Self {
+        CountryDetailsDTO(
+            area: "Asia",
+            regionName: Locale.current.localizedString(forRegionCode: "ng")!,
+            regionCode: "ng",
+            legalCodeBody: "Article 264"
+        )
     }
 }
