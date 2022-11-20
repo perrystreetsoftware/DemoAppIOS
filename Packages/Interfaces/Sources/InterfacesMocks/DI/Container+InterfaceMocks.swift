@@ -13,7 +13,7 @@ import Interfaces
 public extension Container {
     func injectInterfaceRemoteMocks() -> Container {
         self.register(TravelAdvisoryApiImplementing.self) { resolver in
-            TravelAdvisoryApiImplementingMock()
+            mock(TravelAdvisoryApiImplementing.self)
         }.inObjectScope(.container)
 
         return self
