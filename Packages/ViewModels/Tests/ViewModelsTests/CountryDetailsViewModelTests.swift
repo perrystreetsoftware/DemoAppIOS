@@ -28,7 +28,6 @@ final class CountryDetailsViewModelTests: QuickSpec {
             let country = Country(regionCode: "ng")
             var elements: [CountryDetailsViewModel.State]!
             var stateRecorder: Recorder<CountryDetailsViewModel.State, Never>!
-            
             let countryToBeReturned = PassthroughSubject<CountryDetailsDTO, TravelAdvisoryApiError>()
             
             beforeEach {
@@ -39,11 +38,8 @@ final class CountryDetailsViewModelTests: QuickSpec {
                     .injectInterfaceRemoteMocks()
                 
                 api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
-    
                 given(api.getCountryDetails(regionCode: "ng")).willReturn(countryToBeReturned.eraseToAnyPublisher())
-
                 viewModel = container.resolve(CountryDetailsViewModel.self, argument: country)
-    
                 stateRecorder = viewModel.$state.record()
             }
    

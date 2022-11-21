@@ -48,7 +48,8 @@ final class CountryDetailsRepositoryTests: QuickSpec {
                     var value: CountryDetails!
 
                     beforeEach {
-                        given(api.getCountryDetails(regionCode: "rc")).willReturn(.just(CountryDetailsDTO.fixture(regionCode: "region code value")))
+                        let country = CountryDetailsDTO.fixture(regionCode: "region code value")
+                        given(api.getCountryDetails(regionCode: "rc")).willReturn(.just(country))
                     }
                     
                     justBeforeEach {
@@ -67,7 +68,8 @@ final class CountryDetailsRepositoryTests: QuickSpec {
 
                 context("when api fails") {
                     beforeEach {
-                        given(api.getCountryDetails(regionCode: "rc")).willReturn(.error(.domainError(.forbidden, responseCode: .forbidden)))
+                        let forbiddenError = TravelAdvisoryApiError.domainError(.forbidden, responseCode: .forbidden)
+                        given(api.getCountryDetails(regionCode: "rc")).willReturn(.error(forbiddenError))
                     }
 
                     it("then should return a country details error") {
