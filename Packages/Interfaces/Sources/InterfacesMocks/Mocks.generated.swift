@@ -10,11 +10,8 @@
 @testable import Mockingbird
 import Combine
 import CombineSchedulers
-import DomainModels
 import Foundation
-import Mockingbird
 import Swift
-import Swinject
 
 private let mkbGenericStaticMockContext = Mockingbird.GenericStaticMockContext()
 

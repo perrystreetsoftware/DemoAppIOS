@@ -1,6 +1,11 @@
 {
   "dependencies" : [
     {
+      "identity" : "domainmodels",
+      "path" : "/Users/matheusdutra/Desktop/DemoAppIOS/Packages/DomainModels",
+      "type" : "fileSystem"
+    },
+    {
       "identity" : "swinject",
       "requirement" : {
         "range" : [
@@ -64,6 +69,17 @@
           "automatic"
         ]
       }
+    },
+    {
+      "name" : "InterfacesMocks",
+      "targets" : [
+        "InterfacesMocks"
+      ],
+      "type" : {
+        "library" : [
+          "automatic"
+        ]
+      }
     }
   ],
   "targets" : [
@@ -72,13 +88,39 @@
       "module_type" : "SwiftTarget",
       "name" : "InterfacesTests",
       "path" : "Tests/InterfacesTests",
+      "product_dependencies" : [
+        "Mockingbird"
+      ],
       "sources" : [
-        "InterfacesTests.swift"
+        "GenerateMocksTestCase.swift"
       ],
       "target_dependencies" : [
         "Interfaces"
       ],
       "type" : "test"
+    },
+    {
+      "c99name" : "InterfacesMocks",
+      "module_type" : "SwiftTarget",
+      "name" : "InterfacesMocks",
+      "path" : "Sources/InterfacesMocks",
+      "product_dependencies" : [
+        "DomainModels",
+        "Mockingbird"
+      ],
+      "product_memberships" : [
+        "InterfacesMocks"
+      ],
+      "sources" : [
+        "DI/Container+InterfaceMocks.swift",
+        "MockAppSchedulerProviding.swift",
+        "Mocks.generated.swift",
+        "PublisherExtensions.swift"
+      ],
+      "target_dependencies" : [
+        "Interfaces"
+      ],
+      "type" : "library"
     },
     {
       "c99name" : "Interfaces",
@@ -87,24 +129,20 @@
       "path" : "Sources/Interfaces",
       "product_dependencies" : [
         "Swinject",
-        "CombineSchedulers",
-        "Mockingbird"
+        "CombineSchedulers"
       ],
       "product_memberships" : [
-        "Interfaces"
+        "Interfaces",
+        "InterfacesMocks"
       ],
       "sources" : [
         "APIs/TravelAdvisoryApiImplementing.swift",
         "Common/ApiError.swift",
         "Common/ApiResponseCode.swift",
         "Common/AppSchedulerProviding.swift",
-        "DI/Container+InterfaceMocks.swift",
         "DTOs/CountryDetailsDTO.swift",
         "DTOs/CountryListDTO.swift",
-        "DTOs/ServerStatusDTO.swift",
-        "Mocks/MockAppSchedulerProviding.swift",
-        "Mocks/MockTravelAdvisoryApi.swift",
-        "Mocks/MockingbirdMocks/Mocks.generated.swift"
+        "DTOs/ServerStatusDTO.swift"
       ],
       "type" : "library"
     }

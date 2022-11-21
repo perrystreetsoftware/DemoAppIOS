@@ -21,6 +21,7 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
+        .package(path: "../DomainModels"),
         .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0"),
         .package(url: "https://github.com/pointfreeco/combine-schedulers.git", from: "0.4.1"),
         .package(url: "https://github.com/birdrides/mockingbird.git", from: "0.20.0")
@@ -33,10 +34,10 @@ let package = Package(
             dependencies: ["Swinject", .product(name: "CombineSchedulers", package: "combine-schedulers")]),
         .testTarget(
             name: "InterfacesTests",
-            dependencies: ["Interfaces"]),
+            dependencies: ["Interfaces", .product(name: "Mockingbird", package: "mockingbird")]),
         .target(
             name: "InterfacesMocks",
-            dependencies: ["Interfaces", .product(name: "Mockingbird", package: "mockingbird")]
+            dependencies: ["Interfaces", "DomainModels", .product(name: "Mockingbird", package: "mockingbird")]
         )
     ]
 )
