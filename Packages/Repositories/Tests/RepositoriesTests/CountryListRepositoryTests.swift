@@ -54,7 +54,7 @@ final class CountryListRepositoryTests: QuickSpec {
                     }
 
                     beforeEach {
-                        given(api.getCountryList()).willReturn(Just(.init()).setFailureType(to: TravelAdvisoryApiError.self).eraseToAnyPublisher())
+                        given(api.getCountryList()).willReturn(.just(.init()))
                         recorder = repository.reload().record()
                     }
                     
@@ -78,7 +78,7 @@ final class CountryListRepositoryTests: QuickSpec {
                 context("failure") {
     
                     beforeEach {
-                        given(api.getCountryList()).willReturn(Fail(error: TravelAdvisoryApiError(statusCode: 10)).eraseToAnyPublisher())
+                        given(api.getCountryList()).willReturn(.error(TravelAdvisoryApiError(statusCode: 10)))
                         recorder = repository.reload().record()
                     }
 
