@@ -52,7 +52,7 @@ final class CountryDetailsRepositoryTests: QuickSpec {
                             .setFailureType(to: TravelAdvisoryApiError.self)
                             .eraseToAnyPublisher()
                         
-                        given(api.getCountryDetails(regionCode: "rc")).willReturn(publisherToBeReturned) // Mockingbird stubbing
+                        given(api.getCountryDetails(regionCode: "rc")).willReturn(publisherToBeReturned)
                     }
                     
                     justBeforeEach {
@@ -73,7 +73,7 @@ final class CountryDetailsRepositoryTests: QuickSpec {
                     beforeEach {
                         let publisherToBeReturned = Fail<CountryDetailsDTO, TravelAdvisoryApiError>(error: .domainError(.forbidden, responseCode: .forbidden)).eraseToAnyPublisher()
                         
-                        given(api.getCountryDetails(regionCode: "rc")).willReturn(publisherToBeReturned) // Mockingbird stubbing
+                        given(api.getCountryDetails(regionCode: "rc")).willReturn(publisherToBeReturned)
                     }
 
                     it("then should return a country details error") {
