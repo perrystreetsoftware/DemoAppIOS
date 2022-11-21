@@ -23,7 +23,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0"),
         .package(url: "https://github.com/pointfreeco/combine-schedulers.git", from: "0.4.1"),
-        .package(name: "Mockingbird", url: "https://github.com/birdrides/mockingbird.git", from: "0.20.0")
+        .package(url: "https://github.com/birdrides/mockingbird.git", from: "0.20.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -36,7 +36,7 @@ let package = Package(
             dependencies: ["Interfaces"]),
         .target(
             name: "InterfacesMocks",
-            dependencies: ["Interfaces", "Mockingbird"]
+            dependencies: ["Interfaces", .product(name: "Mockingbird", package: "mockingbird")]
         )
     ]
 )
