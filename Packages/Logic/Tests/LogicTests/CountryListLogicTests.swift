@@ -23,7 +23,6 @@ final class CountryListLogicTests: QuickSpec {
         describe("CountryListLogic") {
             var container: Container!
             var logic: CountryListLogic!
-            var mockAppScheduler: MockAppSchedulerProviding!
             var continentsRecorder: Recorder<[Continent], Never>!
             var value: [Continent]!
             var api: TravelAdvisoryApiImplementingMock!
@@ -33,8 +32,6 @@ final class CountryListLogicTests: QuickSpec {
                     .injectBusinessLogicLogic()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
-                mockAppScheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
-                mockAppScheduler.useTestMainScheduler = true
                 logic = container.resolve(CountryListLogic.self)!
                 api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
 
@@ -58,7 +55,6 @@ final class CountryListLogicTests: QuickSpec {
                     given(api.getCountryList()).willReturn(publisherToBeReturned)
                     
                     recorder = logic.reload().record()
-                    mockAppScheduler.testScheduler.advance()
                 }
 
                 context("success") {

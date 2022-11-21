@@ -24,19 +24,15 @@ final class CountryDetailsLogicTests: QuickSpec {
         describe("CountryDetailsLogic") {
             var container: Container!
             var logic: CountryDetailsLogic!
-            var mockAppScheduler: MockAppSchedulerProviding!
             var api: TravelAdvisoryApiImplementingMock!
 
             let country = Country(regionCode: "ng")
-
 
             beforeEach {
                 container = Container().injectBusinessLogicRepositories()
                     .injectBusinessLogicLogic()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
-                mockAppScheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
-                mockAppScheduler.useTestMainScheduler = true
                 logic = container.resolve(CountryDetailsLogic.self)!
                 api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
             }
@@ -52,7 +48,6 @@ final class CountryDetailsLogicTests: QuickSpec {
                     
                     given(api.getCountryDetails(regionCode: "ng")).willReturn(publisherToBeReturned)
                     recorder = logic.getDetails(country: country).record()
-                    mockAppScheduler.testScheduler.advance()
                 }
 
                 context("success") {
