@@ -8,6 +8,7 @@
 import Foundation
 import Interfaces
 import Mockingbird
+import InterfacesMocks
 
 class GenerateMocksTestCase: XCTestCase {
     func test_generate_mockingbird_mocks() {
