@@ -19,6 +19,7 @@ let package = Package(
         // .package(url: /* package url */, from: "1.0.0"),
         .package(path: "../Logic"),
         .package(path: "../Interfaces"),
+        .package(path: "../Repositories"),
         .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0"),
         .package(url: "https://github.com/Quick/Quick.git", branch: "main"),
         .package(url: "https://github.com/Quick/Nimble.git", from: "10.0.0"),
@@ -33,6 +34,6 @@ let package = Package(
             dependencies: ["Swinject", "SwinjectAutoregistration", "Logic"]),
         .testTarget(
             name: "ViewModelsTests",
-            dependencies: ["ViewModels", "Quick", "Nimble", "CombineExpectations", .product(name: "InterfacesMocks", package: "Interfaces")]),
+            dependencies: ["ViewModels", "Quick", "Nimble", "CombineExpectations", .product(name: "InterfacesMocks", package: "Interfaces"), .product(name: "RepositoriesMocks", package: "Repositories")]),
     ]
 )

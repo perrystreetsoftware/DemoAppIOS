@@ -14,6 +14,9 @@ import CombineExpectations
 import Interfaces
 import InterfacesMocks
 import Logic
+import Combine
+import Mockingbird
+import RepositoriesMocks
 @testable import ViewModels
 
 final class CountryDetailsViewModelTests: QuickSpec {
@@ -21,47 +24,50 @@ final class CountryDetailsViewModelTests: QuickSpec {
         describe("CountryDetailsViewModel") {
             var container: Container!
             var viewModel: CountryDetailsViewModel!
-            var scheduler: MockAppSchedulerProviding!
-
+            var api: TravelAdvisoryApiImplementingMock!
             let country = Country(regionCode: "ng")
-
+            var elements: [CountryDetailsViewModel.State]!
+            var stateRecorder: Recorder<CountryDetailsViewModel.State, Never>!
+            
+            let countryToBeReturned = PassthroughSubject<CountryDetailsDTO, TravelAdvisoryApiError>()
+            
             beforeEach {
                 container = Container().injectBusinessLogicRepositories()
                     .injectBusinessLogicLogic()
                     .injectBusinessLogicViewModels()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
-                scheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
-                scheduler.useTestMainScheduler = true
+                
+                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
+    
+                given(api.getCountryDetails(regionCode: "ng")).willReturn(countryToBeReturned.eraseToAnyPublisher())
+
                 viewModel = container.resolve(CountryDetailsViewModel.self, argument: country)
-            }
-
-            var stateRecorder: Recorder<CountryDetailsViewModel.State, Never>!
-            var elements: [CountryDetailsViewModel.State]!
-
-            beforeEach {
+    
                 stateRecorder = viewModel.$state.record()
-                elements = try! stateRecorder.availableElements.get()
             }
-
+   
             it("then it starts having transitioned to .loading") {
+                elements = try! stateRecorder.availableElements.get()
+
                 expect(elements).to(equal([.loading]))
             }
 
             context("#state") {
                 beforeEach {
-                    scheduler.testScheduler.advance()
-                    _ = try! QuickSpec.current.wait(for: stateRecorder.next(), timeout: 5.0)
+                    countryToBeReturned.send(.asia)
                 }
 
                 it("then it transitions to .loaded") {
-                    expect(try! stateRecorder.availableElements.get().count).to(equal(2))
+                    elements = try! stateRecorder.availableElements.get()
+
+                    expect(elements.count).to(equal(2))
                 }
 
                 it("then it has loaded content") {
                     switch viewModel.state {
                     case .loaded(let details):
-                        expect(details.country.countryName).to(equal("Nigéria"))
+                        expect(details.country.countryName).to(equal("Nigeria"))
                         expect(details.detailsText).to(equal("Article 264"))
                         break
                     default:

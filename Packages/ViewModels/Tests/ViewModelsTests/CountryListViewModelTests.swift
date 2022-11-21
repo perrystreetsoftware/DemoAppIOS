@@ -14,6 +14,9 @@ import CombineExpectations
 import Interfaces
 import InterfacesMocks
 import Logic
+import Combine
+import Mockingbird
+
 @testable import ViewModels
 
 final class CountryListViewModelTests: QuickSpec {
@@ -21,7 +24,10 @@ final class CountryListViewModelTests: QuickSpec {
         describe("CountryListViewModelTests") {
             var container: Container!
             var viewModel: CountryListViewModel!
-            var mockAppScheduler: MockAppSchedulerProviding!
+            var api: TravelAdvisoryApiImplementingMock!
+            let countryToBeReturned = PassthroughSubject<CountryListDTO, TravelAdvisoryApiError>()
+            let serverStatusToBeReturned = PassthroughSubject<ServerStatusDTO, TravelAdvisoryApiError>()
+            var stateRecorder: Recorder<CountryListViewModel.UiState, Never>!
 
             beforeEach {
                 container = Container().injectBusinessLogicRepositories()
@@ -29,17 +35,17 @@ final class CountryListViewModelTests: QuickSpec {
                     .injectBusinessLogicViewModels()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
-                mockAppScheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
-                mockAppScheduler.useTestMainScheduler = true
+                
+                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
+    
+                given(api.getCountryList()).willReturn(countryToBeReturned.eraseToAnyPublisher())
+                given(api.getServerStatus()).willReturn(serverStatusToBeReturned.eraseToAnyPublisher())
+
                 viewModel = container.resolve(CountryListViewModel.self)!
-            }
-
-            var stateRecorder: Recorder<CountryListViewModel.UiState, Never>!
-            var states: [CountryListViewModel.UiState]!
-
-            beforeEach {
                 stateRecorder = viewModel.$state.record()
             }
+
+            var states: [CountryListViewModel.UiState]!
 
             it("then it startings having transitioned to .loading") {
                 expect(try! stateRecorder.availableElements.get()).to(equal([
@@ -48,7 +54,9 @@ final class CountryListViewModelTests: QuickSpec {
 
             context("when I advance") {
                 beforeEach {
-                    mockAppScheduler.testScheduler.advance()
+                    countryToBeReturned.send(.init())
+                    countryToBeReturned.send(completion: .finished)
+
                     states = try! stateRecorder.availableElements.get()
                 }
 
@@ -58,7 +66,7 @@ final class CountryListViewModelTests: QuickSpec {
                     expect(states[1].continents.isEmpty).to(beFalse())
                 }
 
-                it("then the final emission has loaded") {
+                fit("then the final emission has loaded") {
                     expect(states[2].isLoading).to(beFalse())
                     expect(states[2].isLoaded).to(beTrue())
                     expect(states[2].continents.isEmpty).to(beFalse())

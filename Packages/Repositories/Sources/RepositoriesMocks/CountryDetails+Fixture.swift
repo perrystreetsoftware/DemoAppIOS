@@ -51,3 +51,14 @@ public extension Subscribers.Completion {
         }
     }
 }
+
+public extension CountryDetailsDTO {
+    static var asia: Self {
+        CountryDetailsDTO(
+            area: "Asia",
+            regionName: Locale.current.localizedString(forRegionCode: "ng")!,
+            regionCode: "ng",
+            legalCodeBody: "Article 264"
+        )
+    }
+}

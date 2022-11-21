@@ -83,14 +83,3 @@ final class CountryDetailsLogicTests: QuickSpec {
         }
     }
 }
-
-extension CountryDetailsDTO {
-    static var asia: Self {
-        CountryDetailsDTO(
-            area: "Asia",
-            regionName: Locale.current.localizedString(forRegionCode: "ng")!,
-            regionCode: "ng",
-            legalCodeBody: "Article 264"
-        )
-    }
-}
