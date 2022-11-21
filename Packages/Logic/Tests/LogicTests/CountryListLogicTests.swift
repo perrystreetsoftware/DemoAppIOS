@@ -48,11 +48,7 @@ final class CountryListLogicTests: QuickSpec {
                 var completion: Subscribers.Completion<CountryListError>!
 
                 beforeEach {
-                    let publisherToBeReturned = Just(CountryListDTO.init())
-                        .setFailureType(to: TravelAdvisoryApiError.self)
-                        .eraseToAnyPublisher()
-                    
-                    given(api.getCountryList()).willReturn(publisherToBeReturned)
+                    given(api.getCountryList()).willReturn(.just(.init()))
                     
                     recorder = logic.reload().record()
                 }

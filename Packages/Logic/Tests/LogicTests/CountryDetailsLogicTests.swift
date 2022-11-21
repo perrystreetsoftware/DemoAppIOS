@@ -42,11 +42,7 @@ final class CountryDetailsLogicTests: QuickSpec {
                 var completion: Subscribers.Completion<CountryDetailsError>!
 
                 beforeEach {
-                    let publisherToBeReturned = Just(CountryDetailsDTO.asia)
-                        .setFailureType(to: TravelAdvisoryApiError.self)
-                        .eraseToAnyPublisher()
-                    
-                    given(api.getCountryDetails(regionCode: "ng")).willReturn(publisherToBeReturned)
+                    given(api.getCountryDetails(regionCode: "ng")).willReturn(.just(.asia))
                     recorder = logic.getDetails(country: country).record()
                 }
 

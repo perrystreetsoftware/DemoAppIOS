@@ -9,6 +9,7 @@ import Foundation
 import Swinject
 import Mockingbird
 import Interfaces
+import Combine
 
 public extension Container {
     func injectInterfaceRemoteMocks() -> Container {
