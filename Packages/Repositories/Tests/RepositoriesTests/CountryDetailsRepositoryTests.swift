@@ -64,7 +64,7 @@ final class CountryDetailsRepositoryTests: QuickSpec {
                             country: .fixture(regionCode: "region code value")
                         )
                         
-                        verify(api.getCountryDetails(regionCode: "rc")).wasCalled(1) // Mockingbird verification
+                        verify(api.getCountryDetails(regionCode: "rc")).wasCalled(1)
                         expect(value).to(equal(countryDetails))
                     }
                 }
