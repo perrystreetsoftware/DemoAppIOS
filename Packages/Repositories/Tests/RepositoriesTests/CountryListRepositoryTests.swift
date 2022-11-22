@@ -14,14 +14,15 @@ import CombineExpectations
 import Interfaces
 import Combine
 import Repositories
+import Mockingbird
+import InterfaceMocks
 
 final class CountryListRepositoryTests: QuickSpec {
     override func spec() {
         describe("CountryListRepository") {
             var container: Container!
             var repository: CountryListRepository!
-            var mockAppScheduler: MockAppSchedulerProviding!
-            var api: MockTravelAdvisoryApi!
+            var api: TravelAdvisoryApiImplementingMock!
             var continentsRecorder: Recorder<[Continent], Never>!
             var continents: [Continent]!
 
@@ -29,10 +30,8 @@ final class CountryListRepositoryTests: QuickSpec {
                 container = Container().injectBusinessLogicRepositories()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
-                mockAppScheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
-                mockAppScheduler.useTestMainScheduler = true
                 repository = container.resolve(CountryListRepository.self)!
-                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! MockTravelAdvisoryApi)
+                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
 
                 continentsRecorder = repository.$continents.record()
                 continents = try! QuickSpec.current.wait(for: continentsRecorder.next(), timeout: 5.0)
@@ -45,25 +44,20 @@ final class CountryListRepositoryTests: QuickSpec {
             describe("#reload") {
                 var recorder: Recorder<Void, CountryListError>!
                 var completion: Subscribers.Completion<CountryListError>!
-                var apiResult: Result<CountryListDTO, TravelAdvisoryApiError>?
-
-                beforeEach {
-                    api.getCountryListResult = apiResult
-                    recorder = repository.reload().record()
-                    mockAppScheduler.testScheduler.advance()
-                }
 
                 context("success") {
-                    beforeEach {
-                        apiResult = nil // use default success
-                    }
-
+               
                     justBeforeEach {
                         _ = try! QuickSpec.current.wait(for: recorder.next(), timeout: 5.0)
                         continents = try! QuickSpec.current.wait(for: continentsRecorder.next(), timeout: 5.0)
                         completion = try! QuickSpec.current.wait(for: recorder.completion, timeout: 5.0)
                     }
 
+                    beforeEach {
+                        given(api.getCountryList()).willReturn(.just(.init()))
+                        recorder = repository.reload().record()
+                    }
+                    
                     it("then value is set") {
                         expect(continents.count).to(equal(5))
                     }
@@ -82,24 +76,26 @@ final class CountryListRepositoryTests: QuickSpec {
                 }
 
                 context("failure") {
+    
                     beforeEach {
-                        apiResult = .failure(.domainError(.forbidden, responseCode: .forbidden))
+                        given(api.getCountryList()).willReturn(.error(TravelAdvisoryApiError(statusCode: 10)))
+                        recorder = repository.reload().record()
                     }
 
                     justBeforeEach {
                         completion = try! QuickSpec.current.wait(for: recorder.completion, timeout: 5.0)
                     }
 
-//                    it("then recorder has failed") {
-//                        switch completion {
-//                        case .failure(let error):
-//                            expect(error).to(equal(TravelAdvisoryApiError.domainError(.forbidden, responseCode: .forbidden)))
-//                        case .finished:
-//                            fail("Unexpected state")
-//                        case .none:
-//                            fail("Unexpected state")
-//                        }
-//                    }
+                    it("then recorder has failed") {
+                        switch completion {
+                        case .failure:
+                            return
+                        case .finished:
+                            fail("Unexpected state")
+                        case .none:
+                            fail("Unexpected state")
+                        }
+                    }
                 }
             }
         }

@@ -5,7 +5,7 @@ import Interfaces
 
 @testable import Repositories
 
-extension CountryDetailsDTO {
+public extension CountryDetailsDTO {
     static func fixture(
         area: String = "",
         regionName: String = "",
@@ -21,7 +21,7 @@ extension CountryDetailsDTO {
     }
 }
 
-extension CountryDetails {
+public extension CountryDetails {
     static func fixture(
         country: Country = .fixture(),
         detailsText: String? = nil
@@ -33,7 +33,7 @@ extension CountryDetails {
     }
 }
 
-extension Country {
+public extension Country {
     static func fixture(regionCode: String = "") -> Self {
         .init(
             regionCode: regionCode
@@ -41,7 +41,7 @@ extension Country {
     }
 }
 
-extension Subscribers.Completion {
+public extension Subscribers.Completion {
     var error: Failure? {
         switch self {
         case .finished:
@@ -49,5 +49,16 @@ extension Subscribers.Completion {
         case .failure(let resultError):
             return resultError
         }
+    }
+}
+
+public extension CountryDetailsDTO {
+    static var asia: Self {
+        CountryDetailsDTO(
+            area: "Asia",
+            regionName: Locale.current.localizedString(forRegionCode: "ng")!,
+            regionCode: "ng",
+            legalCodeBody: "Article 264"
+        )
     }
 }

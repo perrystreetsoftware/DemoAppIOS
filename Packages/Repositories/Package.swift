@@ -12,7 +12,12 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "Repositories",
-            targets: ["Repositories"]),
+            targets: ["Repositories"]
+        ),
+        .library(
+            name: "RepositoriesMocks",
+            targets: ["RepositoriesMocks"]
+        )
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -29,9 +34,14 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "Repositories",
-            dependencies: ["Interfaces", "DomainModels", "Swinject", "SwinjectAutoregistration"]),
+            dependencies: ["Interfaces", "DomainModels", "Swinject", "SwinjectAutoregistration"]
+        ),
+        .target(
+            name: "RepositoriesMocks",
+            dependencies: ["Repositories", "Interfaces"]
+        ),
         .testTarget(
             name: "RepositoriesTests",
-            dependencies: ["Repositories", "Quick", "Nimble", "CombineExpectations"]),
+            dependencies: ["Repositories", "RepositoriesMocks", "Quick", "Nimble", "CombineExpectations", .product(name: "InterfaceMocks", package: "Interfaces")]),
     ]
 )

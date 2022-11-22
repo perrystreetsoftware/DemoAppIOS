@@ -13,6 +13,10 @@ import DomainModels
 import CombineExpectations
 import Interfaces
 import Combine
+import Mockingbird
+import InterfaceMocks
+import RepositoriesMocks
+import XCTest
 
 @testable import Repositories
 
@@ -21,28 +25,22 @@ final class CountryDetailsRepositoryTests: QuickSpec {
         describe("CountryDetailsRepository") {
             var container: Container!
             var repository: CountryDetailsRepository!
-            var mockAppScheduler: MockAppSchedulerProviding!
-            var api: MockTravelAdvisoryApi!
-
+            var api: TravelAdvisoryApiImplementingMock!
+            
             beforeEach {
                 container = Container().injectBusinessLogicRepositories()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
-                mockAppScheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
-                mockAppScheduler.useTestMainScheduler = true
                 repository = container.resolve(CountryDetailsRepository.self)!
-                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! MockTravelAdvisoryApi)
+                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
             }
 
             describe("#getDetails") {
                 var recorder: Recorder<CountryDetails, CountryDetailsError>!
                 var completion: Subscribers.Completion<CountryDetailsError>!
-                var apiResult: Result<CountryDetailsDTO, TravelAdvisoryApiError>?
 
                 justBeforeEach {
-                    api.getCountryDetailsResult = apiResult
                     recorder = repository.getDetails(regionCode: "rc").record()
-                    mockAppScheduler.testScheduler.advance()
                     completion = try! QuickSpec.current.wait(for: recorder.completion, timeout: 1.0)
                 }
 
@@ -50,10 +48,10 @@ final class CountryDetailsRepositoryTests: QuickSpec {
                     var value: CountryDetails!
 
                     beforeEach {
-                        let countryDetailsDTO = CountryDetailsDTO.fixture(regionCode: "region code value")
-                        apiResult = .success(countryDetailsDTO)
+                        let country = CountryDetailsDTO.fixture(regionCode: "region code value")
+                        given(api.getCountryDetails(regionCode: "rc")).willReturn(.just(country))
                     }
-
+                    
                     justBeforeEach {
                         value = try! recorder.availableElements.get().last
                     }
@@ -63,15 +61,15 @@ final class CountryDetailsRepositoryTests: QuickSpec {
                             country: .fixture(regionCode: "region code value")
                         )
                         
-                        expect(api.getCountryDetailsRegionCallsCount) == 1
-                        expect(api.getCountryDetailsRegionCodePassed) == "rc"
+                        verify(api.getCountryDetails(regionCode: "rc")).wasCalled(1)
                         expect(value).to(equal(countryDetails))
                     }
                 }
 
                 context("when api fails") {
                     beforeEach {
-                        apiResult = .failure(.domainError(.forbidden, responseCode: .forbidden))
+                        let forbiddenError = TravelAdvisoryApiError.domainError(.forbidden, responseCode: .forbidden)
+                        given(api.getCountryDetails(regionCode: "rc")).willReturn(.error(forbiddenError))
                     }
 
                     it("then should return a country details error") {

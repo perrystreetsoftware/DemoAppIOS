@@ -12,26 +12,28 @@ import Foundation
 import DomainModels
 import CombineExpectations
 import Interfaces
-@testable import Logic
+import InterfaceMocks
 import Combine
+import Mockingbird
+
+@testable import Logic
 
 final class CountryListLogicTests: QuickSpec {
     override func spec() {
         describe("CountryListLogic") {
             var container: Container!
             var logic: CountryListLogic!
-            var mockAppScheduler: MockAppSchedulerProviding!
             var continentsRecorder: Recorder<[Continent], Never>!
             var value: [Continent]!
+            var api: TravelAdvisoryApiImplementingMock!
 
             beforeEach {
                 container = Container().injectBusinessLogicRepositories()
                     .injectBusinessLogicLogic()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
-                mockAppScheduler = (container.resolve(AppSchedulerProviding.self)! as! MockAppSchedulerProviding)
-                mockAppScheduler.useTestMainScheduler = true
                 logic = container.resolve(CountryListLogic.self)!
+                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
 
                 continentsRecorder = logic.$continents.record()
                 value = try! QuickSpec.current.wait(for: continentsRecorder.next(), timeout: 5.0)
@@ -46,8 +48,9 @@ final class CountryListLogicTests: QuickSpec {
                 var completion: Subscribers.Completion<CountryListError>!
 
                 beforeEach {
+                    given(api.getCountryList()).willReturn(.just(.init()))
+                    
                     recorder = logic.reload().record()
-                    mockAppScheduler.testScheduler.advance()
                 }
 
                 context("success") {

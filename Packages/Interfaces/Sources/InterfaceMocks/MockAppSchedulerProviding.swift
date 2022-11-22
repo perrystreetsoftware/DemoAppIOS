@@ -8,6 +8,7 @@
 import Foundation
 import CombineSchedulers
 import Combine
+import Interfaces
 
 public class MockAppSchedulerProviding: AppSchedulerProviding {
     public var useTestMainScheduler: Bool = false
