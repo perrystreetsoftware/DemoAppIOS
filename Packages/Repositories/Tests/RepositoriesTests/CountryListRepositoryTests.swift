@@ -15,7 +15,7 @@ import Interfaces
 import Combine
 import Repositories
 import Mockingbird
-import InterfacesMocks
+import InterfaceMocks
 
 final class CountryListRepositoryTests: QuickSpec {
     override func spec() {

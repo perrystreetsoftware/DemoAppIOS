@@ -15,8 +15,8 @@ let package = Package(
             targets: ["Interfaces"]
         ),
         .library(
-            name: "InterfacesMocks",
-            targets: ["InterfacesMocks"]
+            name: "InterfaceMocks",
+            targets: ["InterfaceMocks"]
         )
     ],
     dependencies: [
@@ -33,12 +33,12 @@ let package = Package(
             name: "Interfaces",
             dependencies: ["Swinject", .product(name: "CombineSchedulers", package: "combine-schedulers")]),
         .target(
-            name: "InterfacesMocks",
+            name: "InterfaceMocks",
             dependencies: ["Interfaces", "DomainModels", .product(name: "Mockingbird", package: "mockingbird")]
         ),
         .testTarget(
             name: "InterfacesTests",
-            dependencies: ["Interfaces", .product(name: "Mockingbird", package: "mockingbird"), "InterfacesMocks"]
+            dependencies: ["Interfaces", .product(name: "Mockingbird", package: "mockingbird"), "InterfaceMocks"]
         )
     ]
 )

@@ -42,6 +42,6 @@ let package = Package(
         ),
         .testTarget(
             name: "RepositoriesTests",
-            dependencies: ["Repositories", "RepositoriesMocks", "Quick", "Nimble", "CombineExpectations", .product(name: "InterfacesMocks", package: "Interfaces")]),
+            dependencies: ["Repositories", "RepositoriesMocks", "Quick", "Nimble", "CombineExpectations", .product(name: "InterfaceMocks", package: "Interfaces")]),
     ]
 )

@@ -12,7 +12,7 @@ import Foundation
 import DomainModels
 import CombineExpectations
 import Interfaces
-import InterfacesMocks
+import InterfaceMocks
 import Logic
 import Combine
 import Mockingbird

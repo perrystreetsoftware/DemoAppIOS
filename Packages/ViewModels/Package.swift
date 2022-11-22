@@ -34,6 +34,6 @@ let package = Package(
             dependencies: ["Swinject", "SwinjectAutoregistration", "Logic"]),
         .testTarget(
             name: "ViewModelsTests",
-            dependencies: ["ViewModels", "Quick", "Nimble", "CombineExpectations", .product(name: "InterfacesMocks", package: "Interfaces"), .product(name: "RepositoriesMocks", package: "Repositories")]),
+            dependencies: ["ViewModels", "Quick", "Nimble", "CombineExpectations", .product(name: "InterfaceMocks", package: "Interfaces"), .product(name: "RepositoriesMocks", package: "Repositories")]),
     ]
 )

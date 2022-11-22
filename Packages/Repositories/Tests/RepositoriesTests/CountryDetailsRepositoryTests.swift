@@ -14,7 +14,7 @@ import CombineExpectations
 import Interfaces
 import Combine
 import Mockingbird
-import InterfacesMocks
+import InterfaceMocks
 import RepositoriesMocks
 import XCTest
 

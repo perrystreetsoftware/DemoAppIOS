@@ -1,7 +1,7 @@
 import Foundation
 import Interfaces
 import Mockingbird
-import InterfacesMocks
+import InterfaceMocks
 
 class GenerateMocksTestCase: XCTestCase {
     
