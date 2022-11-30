@@ -14,13 +14,11 @@ import DomainModels
 import ViewModels
 
 public struct CountryListAdapter: View {
-    @ObservedObject private var viewModel: CountryListViewModel
+    @InjectStateObject private var viewModel: CountryListViewModel
 
     private var onCountrySelected: ((Country) -> Void)?
 
-    public init(viewModel: CountryListViewModel,
-                onCountrySelected: ((Country) -> Void)? = nil) {
-        self.viewModel = viewModel
+    public init(onCountrySelected: ((Country) -> Void)? = nil) {
         self.onCountrySelected = onCountrySelected
     }
 

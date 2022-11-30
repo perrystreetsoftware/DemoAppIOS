@@ -18,7 +18,6 @@ public struct TravelAdvisoriesNavHost: View {
     private let resolver: Swinject.Resolver
 
     @State var destination: Destinations?
-    @Inject var countryListViewModel: CountryListViewModel
 
     enum Destinations {
         case details(regionCode: String)
@@ -45,7 +44,7 @@ public struct TravelAdvisoriesNavHost: View {
     }
 
     @ViewBuilder func buildBaseView() -> some View {
-        CountryListAdapter(viewModel: countryListViewModel) { country in
+        CountryListAdapter() { country in
             self.destination = Destinations.details(regionCode: country.regionCode)
         }
     }
@@ -53,9 +52,7 @@ public struct TravelAdvisoriesNavHost: View {
     @ViewBuilder func buildChildViewFromState() -> some View {
         switch destination {
         case .details(let regionCode):
-            let viewModel = resolver.resolve(CountryDetailsViewModel.self, argument: Country(regionCode: regionCode))!
-
-            CountryDetailsAdapter(viewModel: viewModel)
+            CountryDetailsAdapter(regionCode: regionCode)
         case .none:
             EmptyView()
         }
