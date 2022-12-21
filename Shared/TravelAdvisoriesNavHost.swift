@@ -21,6 +21,7 @@ public struct TravelAdvisoriesNavHost: View {
 
     enum Destinations {
         case details(regionCode: String)
+        case aboutThisApp
     }
 
     public init(resolver: Swinject.Resolver = InjectSettings.resolver!) {
@@ -44,8 +45,10 @@ public struct TravelAdvisoriesNavHost: View {
     }
 
     @ViewBuilder func buildBaseView() -> some View {
-        CountryListAdapter() { country in
+        CountryListAdapter(onCountrySelected: { country in
             self.destination = Destinations.details(regionCode: country.regionCode)
+        }) {
+            self.destination = Destinations.aboutThisApp
         }
     }
 
@@ -53,6 +56,8 @@ public struct TravelAdvisoriesNavHost: View {
         switch destination {
         case .details(let regionCode):
             CountryDetailsAdapter(regionCode: regionCode)
+        case .aboutThisApp:
+            AboutAdapter()
         case .none:
             EmptyView()
         }

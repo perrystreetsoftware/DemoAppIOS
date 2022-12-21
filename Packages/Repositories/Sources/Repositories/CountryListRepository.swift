@@ -43,6 +43,12 @@ public class CountryListRepository {
             CountryListError(apiError: error)
         }.eraseToAnyPublisher()
     }
+
+    public func getRandomCountry() -> Country? {
+        continents.flatMap { continent in
+            continent.countries
+        }.shuffled().first
+    }
 }
 
 extension CountryListError {

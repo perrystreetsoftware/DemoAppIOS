@@ -15,7 +15,7 @@ public struct Country: Equatable {
     }
 
     public var countryName: String? {
-        Locale.current.localizedString(forRegionCode: regionCode)
+        return Locale.current.localizedString(forRegionCode: regionCode) ?? regionCode
     }
 }
 

@@ -16,3 +16,7 @@
 "loading" = "Loading...";
 "invalid_title" = "Invalid";
 "country_name_unknown_title" = "Unknown";
+"ok" = "OK";
+
+"fail_other_title" = "Fail (about page)";
+"fail_not_logged_in_title" = "Fail not logged in";

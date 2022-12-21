@@ -91,3 +91,7 @@ iOSInjectionProject/
 
 ## Mockingbird
 .mockingbird/
+
+DemoApp.xcworkspace/
+Packages/.DS_Store
+.DS_Store

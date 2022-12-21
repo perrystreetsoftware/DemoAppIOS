@@ -11,7 +11,10 @@ public enum CountryListError: Error, Equatable {
     case forbidden
     case connectionError(innerError: Error?)
     case other
-    case userNotLoggedIn
+
+    case notEnoughPermissions
+    case notAvailable
+    case blocked
 
     public static func == (lhs: CountryListError, rhs: CountryListError) -> Bool {
         switch (lhs, rhs) {
@@ -21,7 +24,11 @@ public enum CountryListError: Error, Equatable {
             return true
         case (.other, .other):
             return true
-        case (.userNotLoggedIn, .userNotLoggedIn):
+        case (.notEnoughPermissions, .notEnoughPermissions):
+            return true
+        case (.notAvailable, .notAvailable):
+            return true
+        case (.blocked, .blocked):
             return true
         default:
             return false
@@ -31,16 +38,5 @@ public enum CountryListError: Error, Equatable {
 
 // Necessary to be renderable in SwiftUI
 extension CountryListError: Identifiable {
-    public var id: Int {
-        switch self {
-        case .forbidden:
-            return 0
-        case .connectionError:
-            return 1
-        case .other:
-            return 2
-        case .userNotLoggedIn:
-            return 3
-        }
-    }
+    public var id: String { String(describing: self) }
 }

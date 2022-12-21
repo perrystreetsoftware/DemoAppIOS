@@ -4,3 +4,15 @@
 "forbidden_error_title" = "Error";
 "generic_error_message" = "An error occurred.";
 "generic_error_title" = "Error";
+"other_error_title" = "Some Other Error";
+"other_error_message_1" = "You have just experience an other error.";
+"other_error_message_2" = "Maybe if you learn about this app it will go away.";
+"user_not_logged_in_title" = "User not logged in";
+"user_not_logged_in_message" = "Please login to continue.";
+"country_list_blocked_error_title" = "This country is blocked";
+"country_list_blocked_error_message" = "Would you like to go to a random country instead?";
+"country_list_blocked_error_positive_button" = "Go to random";
+"country_not_available_error_message" = "This country is not available at the moment";
+"connection_error_title" = "A connection error occurred.";
+"connection_error_message1" = "Unable to connect to servers.";
+"connection_error_message2" = "Please try again later.";
