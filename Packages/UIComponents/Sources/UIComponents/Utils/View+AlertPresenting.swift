@@ -12,108 +12,97 @@ import NotificationBannerSwift
 
 private struct PSSSwiftNativeDialogAlertModifier<T>: ViewModifier where T: Identifiable & Equatable {
     @Binding private var item: T?
-    private let alertBuilder: (T) -> FloatingAlert
-
-    public init(item: Binding<T?>, alertBuilder: @escaping (T) -> FloatingAlert) {
+    private let state: DialogUiState
+    
+    public init(item: Binding<T?>, state: DialogUiState) {
         self._item = item
-        self.alertBuilder = alertBuilder
+        self.state = state
     }
-
+    
     func body(content: Content) -> some View {
         content
-            .alert(isPresented: Binding(get: {
-                guard let item = _item.wrappedValue else { return false }
+            .alert(isPresented: $item.mappedToBool(), content: {
+                return DialogAlertFactory.make(state: state)
+            })
+    }
+}
 
-                if case .dialog = alertBuilder(item) {
-                    return true
-                } else {
-                    return false
-                }
-            }, set: { newValue, _ in
-                guard newValue == false else { return }
-                /// We only handle `false` booleans to set our optional to `nil`
-                /// as we can't handle `true` for restoring the previous value.
-                item = nil
-            })) {
-                guard let item = _item.wrappedValue else {
-                    return Alert(title: Text(""))
-                }
-
-                let alertPresentationType = alertBuilder(item)
-
-                if case .dialog(let state) = alertPresentationType {
-                    if let negativeAction: DialogAction = state.negativeAction,
-                        let positiveAction = state.positiveAction {
-                        return Alert(title: Text(state.title.stringValue),
-                                     message: Text(state.messages.joinedByDefaultSeparator),
-                                     primaryButton: .default(Text(positiveAction.title.stringValue),
-                                                             action: { positiveAction.action?() }),
-                                     secondaryButton: .cancel(Text(negativeAction.title.stringValue),
-                                                                   action: { negativeAction.action?() })
-                        )
-                    } else if let positiveAction = state.positiveAction {
-                        return Alert(title: Text(state.title.stringValue),
-                                     message: Text(state.messages.joinedByDefaultSeparator),
-                                     primaryButton: .default(Text(positiveAction.title.stringValue),
-                                                             action: { positiveAction.action?() }),
-                                     secondaryButton: .cancel())
-                    } else {
-                        return Alert(title: Text(state.title.stringValue),
-                                     message: Text(state.messages.joinedByDefaultSeparator))
-                    }
-                } else {
-                    return Alert(title: Text(""))
-                }
-            }
+final class DialogAlertFactory {
+    static func make(state: DialogUiState) -> Alert {
+        if let negativeAction: DialogAction = state.negativeAction,
+           let positiveAction = state.positiveAction {
+            return Alert(title: Text(state.title.stringValue),
+                         message: Text(state.messages.joinedByDefaultSeparator),
+                         primaryButton: .default(Text(positiveAction.title.stringValue),
+                                                 action: { positiveAction.action?() }),
+                         secondaryButton: .cancel(Text(negativeAction.title.stringValue),
+                                                  action: { negativeAction.action?() })
+            )
+        } else if let positiveAction = state.positiveAction {
+            return Alert(title: Text(state.title.stringValue),
+                         message: Text(state.messages.joinedByDefaultSeparator),
+                         primaryButton: .default(Text(positiveAction.title.stringValue),
+                                                 action: { positiveAction.action?() }),
+                         secondaryButton: .cancel())
+        } else {
+            return Alert(title: Text(state.title.stringValue),
+                         message: Text(state.messages.joinedByDefaultSeparator))
+        }
     }
 }
 
 private struct PSSToastAlertModifier<T>: ViewModifier where T: Identifiable & Equatable {
     @Binding private var item: T?
-    private let alertBuilder: (T) -> FloatingAlert
-
-    public init(item: Binding<T?>, alertBuilder: @escaping (T) -> FloatingAlert) {
+    private let state: ToastUiState
+    
+    public init(item: Binding<T?>, state: ToastUiState) {
         self._item = item
-        self.alertBuilder = alertBuilder
+        self.state = state
     }
-
+    
     func body(content: Content) -> some View {
         content
-            .onReceive(item.publisher.filter({ newValue in
-                let alertPresentationType = alertBuilder(newValue)
-
-                if case .toast = alertPresentationType {
-                    return true
-                } else {
-                    return false
-                }
-            }), perform: { newValue in
-                let alertPresentationType = alertBuilder(newValue)
-
-                if case .toast(let toastState) = alertPresentationType {
-                    // This should have been done via injected interfaces
-                    let banner = StatusBarNotificationBanner(title: toastState.message.stringValue,
-                                                             style: .success)
-                    banner.show()
-                }
-
+            .onReceive(item.publisher, perform: { newValue in
+                
+                let banner = StatusBarNotificationBanner(
+                    title: state.message.stringValue,
+                    style: .success
+                )
+                banner.show()
+                
                 item = nil
             })
     }
 }
 
 extension View {
+    @ViewBuilder
     public func pss_notify<T>(_ item: Binding<T?>) -> some View where T: Identifiable & Equatable & FloatingAlertProviding {
-        modifier(PSSSwiftNativeDialogAlertModifier(item: item, alertBuilder: { alert in
-            return alert.floatingAlert
-        }))
-        .modifier(PSSToastAlertModifier(item: item, alertBuilder: { alert in
-            return alert.floatingAlert
-        }))
+        if let alert = item.wrappedValue?.floatingAlert {
+            switch alert {
+            case .toast(let state):
+                self.modifier(PSSToastAlertModifier(item: item, state: state))
+                
+            case .dialog(let state):
+                self.modifier(PSSSwiftNativeDialogAlertModifier(item: item, state: state))
+            }
+        } else {
+            self
+        }
     }
-
+    
+    @ViewBuilder
     public func pss_notify<T>(item: Binding<T?>, alertBuilder: @escaping (T) -> FloatingAlert) -> some View where T: Identifiable & Equatable {
-        modifier(PSSSwiftNativeDialogAlertModifier(item: item, alertBuilder: alertBuilder))
-        .modifier(PSSToastAlertModifier(item: item, alertBuilder: alertBuilder))
+        if let wrappedValue = item.wrappedValue {
+            switch alertBuilder(wrappedValue) {
+            case .toast(let state):
+                self.modifier(PSSToastAlertModifier(item: item, state: state))
+
+            case .dialog(let state):
+                self.modifier(PSSSwiftNativeDialogAlertModifier(item: item, state: state))
+            }
+        } else {
+            self
+        }
     }
 }
