@@ -126,6 +126,7 @@ public final class CountryListViewModel: ObservableObject {
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):
+                    self.navigationDestination = nil
                     self.error = error
                 case .finished:
                     self.navigationDestination = country
