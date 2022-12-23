@@ -21,20 +21,7 @@ private struct PSSSwiftNativeDialogAlertModifier<T>: ViewModifier where T: Ident
 
     func body(content: Content) -> some View {
         content
-            .alert(isPresented: Binding(get: {
-                guard let item = _item.wrappedValue else { return false }
-
-                if case .dialog = alertBuilder(item) {
-                    return true
-                } else {
-                    return false
-                }
-            }, set: { newValue, _ in
-                guard newValue == false else { return }
-                /// We only handle `false` booleans to set our optional to `nil`
-                /// as we can't handle `true` for restoring the previous value.
-                item = nil
-            })) {
+            .alert(isPresented: $item.mappedToBool(), content: {
                 guard let item = _item.wrappedValue else {
                     return Alert(title: Text(""))
                 }
@@ -64,7 +51,7 @@ private struct PSSSwiftNativeDialogAlertModifier<T>: ViewModifier where T: Ident
                 } else {
                     return Alert(title: Text(""))
                 }
-            }
+            })
     }
 }
 
@@ -79,15 +66,7 @@ private struct PSSToastAlertModifier<T>: ViewModifier where T: Identifiable & Eq
 
     func body(content: Content) -> some View {
         content
-            .onReceive(item.publisher.filter({ newValue in
-                let alertPresentationType = alertBuilder(newValue)
-
-                if case .toast = alertPresentationType {
-                    return true
-                } else {
-                    return false
-                }
-            }), perform: { newValue in
+            .onReceive(item.publisher, perform: { newValue in
                 let alertPresentationType = alertBuilder(newValue)
 
                 if case .toast(let toastState) = alertPresentationType {
@@ -103,17 +82,37 @@ private struct PSSToastAlertModifier<T>: ViewModifier where T: Identifiable & Eq
 }
 
 extension View {
+    @ViewBuilder
     public func pss_notify<T>(_ item: Binding<T?>) -> some View where T: Identifiable & Equatable & FloatingAlertProviding {
-        modifier(PSSSwiftNativeDialogAlertModifier(item: item, alertBuilder: { alert in
-            return alert.floatingAlert
-        }))
-        .modifier(PSSToastAlertModifier(item: item, alertBuilder: { alert in
-            return alert.floatingAlert
-        }))
+        if let alert = item.wrappedValue?.floatingAlert {
+            switch alert {
+            case .toast:
+                self.modifier(PSSToastAlertModifier(item: item, alertBuilder: { alert in
+                    return alert.floatingAlert
+                }))
+                
+            case .dialog:
+                self.modifier(PSSSwiftNativeDialogAlertModifier(item: item, alertBuilder: { alert in
+                    return alert.floatingAlert
+                }))
+            }
+        } else {
+            self
+        }
     }
 
+    @ViewBuilder
     public func pss_notify<T>(item: Binding<T?>, alertBuilder: @escaping (T) -> FloatingAlert) -> some View where T: Identifiable & Equatable {
-        modifier(PSSSwiftNativeDialogAlertModifier(item: item, alertBuilder: alertBuilder))
-        .modifier(PSSToastAlertModifier(item: item, alertBuilder: alertBuilder))
+        if let wrappedValue = item.wrappedValue {
+            switch alertBuilder(wrappedValue) {
+            case .toast:
+                   self.modifier(PSSToastAlertModifier(item: item, alertBuilder: alertBuilder))
+
+            case .dialog:
+                self.modifier(PSSSwiftNativeDialogAlertModifier(item: item, alertBuilder: alertBuilder))
+            }
+        } else {
+            self
+        }
     }
 }
