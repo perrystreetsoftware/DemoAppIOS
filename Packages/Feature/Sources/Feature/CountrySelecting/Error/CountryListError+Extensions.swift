@@ -15,19 +15,20 @@ extension CountryListError {
                          onAboutThisAppSelected: (() -> Void)?) -> FloatingAlert {
         switch self {
         case .blocked:
-            return .dialog(.init(title: L10n.Errors.countryListBlockedErrorTitle, messages: [L10n.Errors.countryListBlockedErrorMessage], actionTitle: L10n.Errors.countryListBlockedErrorPositiveButton, action: {
+            return .dialog(.init(title: L10n.Errors.countryListBlockedErrorTitle,
+                                 messages: [L10n.Errors.countryListBlockedErrorMessage],
+                                 positiveAction: .init(title: L10n.Errors.countryListBlockedErrorPositiveButton,
+                                                       action: {
                 viewModel.navigateToRandomCountry()
-            }))
+            })))
         case .notEnoughPermissions:
             return .toast(.init(message: L10n.Errors.countryNotAvailableErrorMessage))
         case .other:
             return .dialog(.init(title: L10n.Errors.otherErrorTitle,
                                  messages: [L10n.Errors.otherErrorMessage1, L10n.Errors.otherErrorMessage2],
-                                 actionTitle: L10n.Ui.ok,
-                                 action: {
+                                 positiveAction: .init(title: L10n.Ui.ok, action: {
                 onAboutThisAppSelected?()
-
-            }))
+            })))
         case .forbidden:
             return .dialog(.init(title: L10n.Errors.forbiddenErrorTitle, messages: [L10n.Errors.forbiddenErrorMessage]))
         case .connectionError:

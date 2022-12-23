@@ -42,16 +42,24 @@ private struct PSSSwiftNativeDialogAlertModifier<T>: ViewModifier where T: Ident
                 let alertPresentationType = alertBuilder(item)
 
                 if case .dialog(let state) = alertPresentationType {
-                    if let action = state.action {
+                    if let negativeAction: DialogAction = state.negativeAction,
+                        let positiveAction = state.positiveAction {
                         return Alert(title: Text(state.title.stringValue),
                                      message: Text(state.messages.joinedByDefaultSeparator),
-                                     primaryButton: .default(Text(L10n.Ui.ok.stringValue),
-                                                             action: { action() }),
+                                     primaryButton: .default(Text(positiveAction.title.stringValue),
+                                                             action: { positiveAction.action?() }),
+                                     secondaryButton: .cancel(Text(negativeAction.title.stringValue),
+                                                                   action: { negativeAction.action?() })
+                        )
+                    } else if let positiveAction = state.positiveAction {
+                        return Alert(title: Text(state.title.stringValue),
+                                     message: Text(state.messages.joinedByDefaultSeparator),
+                                     primaryButton: .default(Text(positiveAction.title.stringValue),
+                                                             action: { positiveAction.action?() }),
                                      secondaryButton: .cancel())
                     } else {
                         return Alert(title: Text(state.title.stringValue),
                                      message: Text(state.messages.joinedByDefaultSeparator))
-
                     }
                 } else {
                     return Alert(title: Text(""))

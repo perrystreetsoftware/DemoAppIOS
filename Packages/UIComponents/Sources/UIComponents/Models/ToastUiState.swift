@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ToastConfig {
+public struct ToastUiState {
     public init(message: LocalizedString) {
         self.message = message
     }

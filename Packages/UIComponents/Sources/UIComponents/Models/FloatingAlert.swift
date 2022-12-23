@@ -8,6 +8,6 @@
 import Foundation
 
 public enum FloatingAlert {
-    case dialog(_ config: DialogConfig)
-    case toast(_ config: ToastConfig)
+    case dialog(_ state: DialogUiState)
+    case toast(_ state: ToastUiState)
 }

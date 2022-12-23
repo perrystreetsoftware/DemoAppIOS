@@ -24,20 +24,20 @@ public struct DialogAction {
     }
 }
 
-public struct DialogConfig {
+public struct DialogUiState {
     public let title: LocalizedString
     public let messages: [LocalizedString]
-    public let actionTitle: LocalizedString?
-    public let action: (() -> Void)?
+    public let positiveAction: DialogAction?
+    public let negativeAction: DialogAction?
 
     public init(title: LocalizedString,
                 messages: [LocalizedString],
-                actionTitle: LocalizedString? = nil,
-                action: (() -> Void)? = nil) {
+                positiveAction: DialogAction? = nil,
+                negativeAction: DialogAction? = nil) {
         self.title = title
         self.messages = messages
-        self.actionTitle = actionTitle
-        self.action = action
+        self.positiveAction = positiveAction
+        self.negativeAction = negativeAction
     }
 }
 
