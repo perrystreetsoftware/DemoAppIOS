@@ -17,6 +17,8 @@
 		051EAF82290C20FA0091E365 /* ViewModels in Frameworks */ = {isa = PBXBuildFile; productRef = 051EAF81290C20FA0091E365 /* ViewModels */; };
 		610A3CAC28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */; };
 		6130549B29085FCD00B54AF9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6130549D29085FCD00B54AF9 /* Localizable.strings */; };
+		61BB446D293F58A40089248B /* TravelAdvisoriesTestsObjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BB446C293F58A40089248B /* TravelAdvisoriesTestsObjc.m */; };
+		61BB4475293F58CB0089248B /* TestFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BB4474293F58CB0089248B /* TestFile.swift */; };
 		61C9EED828CD3A9500ACDF3E /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C9EED728CD3A9500ACDF3E /* Tests_iOS.swift */; };
 		61C9EEE728CD3A9500ACDF3E /* TravelAdvisoriesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C9EEBF28CD3A9400ACDF3E /* TravelAdvisoriesApp.swift */; };
 		61C9EEE928CD3A9500ACDF3E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C9EEC028CD3A9400ACDF3E /* ContentView.swift */; };
@@ -30,6 +32,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 61C9EEC528CD3A9500ACDF3E;
 			remoteInfo = "TravelAdvisories (iOS)";
+		};
+		61BB446E293F58A40089248B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 61C9EEBA28CD3A9400ACDF3E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 61C9EEC528CD3A9500ACDF3E;
+			remoteInfo = TravelAdvisories;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -46,6 +55,10 @@
 		610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAdvisoriesNavHost.swift; sourceTree = "<group>"; };
 		6130549C29085FCD00B54AF9 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6130549E29085FD100B54AF9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		61BB446A293F58A40089248B /* TravelAdvisoriesTestsObjc.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravelAdvisoriesTestsObjc.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		61BB446C293F58A40089248B /* TravelAdvisoriesTestsObjc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TravelAdvisoriesTestsObjc.m; sourceTree = "<group>"; };
+		61BB4473293F58CA0089248B /* TravelAdvisoriesTestsObjc-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TravelAdvisoriesTestsObjc-Bridging-Header.h"; sourceTree = "<group>"; };
+		61BB4474293F58CB0089248B /* TestFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFile.swift; sourceTree = "<group>"; };
 		61C9EEBF28CD3A9400ACDF3E /* TravelAdvisoriesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAdvisoriesApp.swift; sourceTree = "<group>"; };
 		61C9EEC028CD3A9400ACDF3E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		61C9EEC128CD3A9500ACDF3E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -56,6 +69,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		61BB4467293F58A40089248B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		61C9EEC328CD3A9500ACDF3E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -112,6 +132,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		61BB446B293F58A40089248B /* TravelAdvisoriesTestsObjc */ = {
+			isa = PBXGroup;
+			children = (
+				61BB446C293F58A40089248B /* TravelAdvisoriesTestsObjc.m */,
+				61BB4474293F58CB0089248B /* TestFile.swift */,
+				61BB4473293F58CA0089248B /* TravelAdvisoriesTestsObjc-Bridging-Header.h */,
+			);
+			path = TravelAdvisoriesTestsObjc;
+			sourceTree = "<group>";
+		};
 		61C9EEB928CD3A9400ACDF3E = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +150,7 @@
 				6130549829085FAC00B54AF9 /* Resources */,
 				61C9EECD28CD3A9500ACDF3E /* macOS */,
 				61C9EED628CD3A9500ACDF3E /* Tests iOS */,
+				61BB446B293F58A40089248B /* TravelAdvisoriesTestsObjc */,
 				61C9EEC728CD3A9500ACDF3E /* Products */,
 				61A7890C28D655D2009170DF /* Frameworks */,
 			);
@@ -141,6 +172,7 @@
 			children = (
 				61C9EEC628CD3A9500ACDF3E /* TravelAdvisories.app */,
 				61C9EED328CD3A9500ACDF3E /* TravelAdvisoriesTests.xctest */,
+				61BB446A293F58A40089248B /* TravelAdvisoriesTestsObjc.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -164,6 +196,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		61BB4469293F58A40089248B /* TravelAdvisoriesTestsObjc */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 61BB4472293F58A40089248B /* Build configuration list for PBXNativeTarget "TravelAdvisoriesTestsObjc" */;
+			buildPhases = (
+				61BB4466293F58A40089248B /* Sources */,
+				61BB4467293F58A40089248B /* Frameworks */,
+				61BB4468293F58A40089248B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				61BB446F293F58A40089248B /* PBXTargetDependency */,
+			);
+			name = TravelAdvisoriesTestsObjc;
+			productName = TravelAdvisoriesTestsObjc;
+			productReference = 61BB446A293F58A40089248B /* TravelAdvisoriesTestsObjc.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		61C9EEC528CD3A9500ACDF3E /* TravelAdvisories */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 61C9EEEF28CD3A9500ACDF3E /* Build configuration list for PBXNativeTarget "TravelAdvisories" */;
@@ -219,6 +269,11 @@
 				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
+					61BB4469293F58A40089248B = {
+						CreatedOnToolsVersion = 14.0.1;
+						LastSwiftMigration = 1400;
+						TestTargetID = 61C9EEC528CD3A9500ACDF3E;
+					};
 					61C9EEC528CD3A9500ACDF3E = {
 						CreatedOnToolsVersion = 13.4.1;
 					};
@@ -238,17 +293,27 @@
 				es,
 			);
 			mainGroup = 61C9EEB928CD3A9400ACDF3E;
+			packageReferences = (
+			);
 			productRefGroup = 61C9EEC728CD3A9500ACDF3E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				61C9EEC528CD3A9500ACDF3E /* TravelAdvisories */,
 				61C9EED228CD3A9500ACDF3E /* TravelAdvisoriesTests */,
+				61BB4469293F58A40089248B /* TravelAdvisoriesTestsObjc */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		61BB4468293F58A40089248B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		61C9EEC428CD3A9500ACDF3E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -268,6 +333,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		61BB4466293F58A40089248B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61BB446D293F58A40089248B /* TravelAdvisoriesTestsObjc.m in Sources */,
+				61BB4475293F58CB0089248B /* TestFile.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		61C9EEC228CD3A9500ACDF3E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -294,6 +368,11 @@
 			target = 61C9EEC528CD3A9500ACDF3E /* TravelAdvisories */;
 			targetProxy = 051EAF95290C240A0091E365 /* PBXContainerItemProxy */;
 		};
+		61BB446F293F58A40089248B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 61C9EEC528CD3A9500ACDF3E /* TravelAdvisories */;
+			targetProxy = 61BB446E293F58A40089248B /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -309,6 +388,66 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		61BB4470293F58A40089248B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5QAWV5S68Q;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.perrystreet.TravelAdvisoriesTestsObjc;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "TravelAdvisoriesTestsObjc/TravelAdvisoriesTestsObjc-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TravelAdvisories.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TravelAdvisories";
+			};
+			name = Debug;
+		};
+		61BB4471293F58A40089248B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5QAWV5S68Q;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.perrystreet.TravelAdvisoriesTestsObjc;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "TravelAdvisoriesTestsObjc/TravelAdvisoriesTestsObjc-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TravelAdvisories.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TravelAdvisories";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		61C9EEED28CD3A9500ACDF3E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -533,6 +672,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		61BB4472293F58A40089248B /* Build configuration list for PBXNativeTarget "TravelAdvisoriesTestsObjc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61BB4470293F58A40089248B /* Debug */,
+				61BB4471293F58A40089248B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		61C9EEBD28CD3A9400ACDF3E /* Build configuration list for PBXProject "TravelAdvisories" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

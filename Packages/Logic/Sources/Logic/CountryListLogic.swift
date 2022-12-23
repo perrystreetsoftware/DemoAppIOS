@@ -12,7 +12,13 @@ import Combine
 import Repositories
 
 public class CountryListLogic {
-    private static let InvalidContinent = Continent(name: "", countries: [Country(regionCode: "xx")])
+    private static let NoPermissionsCountry = Country(regionCode: "XX Toast")
+    private static let UnavailableCountry = Country(regionCode: "XX Dialog")
+    private static let BlockedCountry = Country(regionCode: "XX Random")
+    private static let XXCountry = Country(regionCode: "XX")
+    private static let InvalidCountries = [XXCountry, NoPermissionsCountry, UnavailableCountry, BlockedCountry]
+    private static let InvalidContinent = Continent(name: "", countries: InvalidCountries)
+
     @Published public private(set) var continents: [Continent]
     private let countryListRepository: CountryListRepository
 
@@ -34,5 +40,21 @@ public class CountryListLogic {
 
     public func getForbiddenApi() -> AnyPublisher<Void, CountryListError> {
         countryListRepository.getForbiddenApi().eraseToAnyPublisher()
+    }
+
+    public func canAccessCountry(country: Country) -> AnyPublisher<Void, CountryListError> {
+        if country == Self.NoPermissionsCountry {
+            return Fail(error: CountryListError.notEnoughPermissions).eraseToAnyPublisher()
+        } else if country == Self.BlockedCountry {
+            return Fail(error: CountryListError.blocked).eraseToAnyPublisher()
+        } else if country == Self.UnavailableCountry {
+            return Fail(error: CountryListError.notAvailable).eraseToAnyPublisher()
+        } else {
+            return Just(()).setFailureType(to: CountryListError.self).eraseToAnyPublisher()
+        }
+    }
+
+    public func getRandomCountry() -> Country? {
+        countryListRepository.getRandomCountry()
     }
 }

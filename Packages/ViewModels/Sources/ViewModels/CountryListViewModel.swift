@@ -15,18 +15,15 @@ public final class CountryListViewModel: ObservableObject {
         public let continents: [Continent]
         public let isLoading: Bool
         public let isLoaded: Bool
-        public let error: CountryListError?
         public let serverStatus: ServerStatus?
 
         public init(continents: [Continent] = [],
                     isLoading: Bool = false,
                     isLoaded: Bool = false,
-                    error: CountryListError? = nil,
                     serverStatus: ServerStatus? = nil) {
             self.continents = continents
             self.isLoading = isLoading
             self.isLoaded = isLoaded
-            self.error = error
             self.serverStatus = serverStatus
         }
 
@@ -34,20 +31,19 @@ public final class CountryListViewModel: ObservableObject {
             continents: [Continent]? = nil,
             isLoading: Bool? = nil,
             isLoaded: Bool? = nil,
-            error: CountryListError? = nil,
             serverStatus: ServerStatus? = nil
         ) -> UiState {
             return UiState(
                 continents: continents ?? self.continents,
                 isLoading: isLoading != nil ? (isLoading ?? false) : self.isLoading,
                 isLoaded: isLoaded != nil ? (isLoaded ?? false) : self.isLoaded,
-                error: error != nil ? error : self.error,
                 serverStatus: serverStatus != nil ? serverStatus : self.serverStatus
             )
         }
     }
 
     @Published public var state: UiState = UiState()
+    @Published public var navigationDestination: Country?
     @Published public var error: CountryListError? = nil
 
     private var cancellables = Set<AnyCancellable>()
@@ -84,16 +80,15 @@ public final class CountryListViewModel: ObservableObject {
                 self.state = self.state.copy(isLoading: false)
             }).sink(receiveCompletion: { [weak self] completion in
                 guard let self = self else { return }
-                
-                let error: CountryListError? = {
-                    if case .failure(let innerError) = completion {
-                        return innerError
-                    } else {
-                        return nil
-                    }
-                }()
 
-                self.state = self.state.copy(isLoading: false, isLoaded: true, error: error)
+                switch completion {
+                case .failure(let error):
+                    self.error = error
+                    self.state = self.state.copy(isLoading: false)
+                case .finished:
+                    self.state = self.state.copy(isLoading: false, isLoaded: true)
+
+                }
             }, receiveValue: { _ in
             })
             .store(in: &cancellables)
@@ -124,5 +119,29 @@ public final class CountryListViewModel: ObservableObject {
             },
                   receiveValue: { _ in })
             .store(in: &cancellables)
+    }
+
+    public func onCountrySelected(country: Country) {
+        logic.canAccessCountry(country: country)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    self.error = error
+                case .finished:
+                    self.navigationDestination = country
+                }
+            },
+                  receiveValue: { _ in })
+            .store(in: &cancellables)
+    }
+
+    public func onFailOtherTapped() {
+        self.error = .other
+    }
+
+    public func navigateToRandomCountry() {
+        if let country = logic.getRandomCountry() {
+            onCountrySelected(country: country)
+        }
     }
 }

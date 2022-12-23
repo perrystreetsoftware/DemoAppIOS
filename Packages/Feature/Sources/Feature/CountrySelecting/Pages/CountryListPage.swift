@@ -9,13 +9,16 @@ public struct CountryListPage: View {
     private var listUiState: CountryListViewModel.UiState
     private var onItemTapped: ((Country) -> Void)?
     private var onButtonTapped: (() -> Void)?
-    
+    private var onFailOtherTapped: (() -> Void)?
+
     public init(listUiState: CountryListViewModel.UiState,
                 onItemTapped: ((Country) -> Void)? = nil,
-                onButtonTapped: (() -> Void)? = nil) {
+                onButtonTapped: (() -> Void)? = nil,
+                onFailOtherTapped: (() -> Void)? = nil) {
         self.listUiState = listUiState
         self.onItemTapped = onItemTapped
         self.onButtonTapped = onButtonTapped
+        self.onFailOtherTapped = onFailOtherTapped
     }
     
     public var body: some View {
@@ -43,7 +46,12 @@ public struct CountryListPage: View {
                     }
                 }.font(.caption).padding(5)
                 CountryListButton(isLoading: listUiState.isLoading,
-                                       onItemTapped: onButtonTapped)
+                                  onItemTapped: onButtonTapped)
+                Button {
+                    onFailOtherTapped?()
+                } label: {
+                    L10n.Ui.failOtherTitle.text
+                }
             }
         }
     }

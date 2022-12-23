@@ -17,24 +17,29 @@ public struct CountryListAdapter: View {
     @InjectStateObject private var viewModel: CountryListViewModel
 
     private var onCountrySelected: ((Country) -> Void)?
+    private var onAboutThisAppSelected: (() -> Void)?
 
-    public init(onCountrySelected: ((Country) -> Void)? = nil) {
+    public init(onCountrySelected: ((Country) -> Void)? = nil,
+                onAboutThisAppSelected: (() -> Void)? = nil) {
         self.onCountrySelected = onCountrySelected
+        self.onAboutThisAppSelected = onAboutThisAppSelected
     }
 
     public var body: some View {
         CountryListPage(listUiState: viewModel.state, onItemTapped: { country in
-            onCountrySelected?(country)
-        }) {
+            viewModel.onCountrySelected(country: country)
+        }, onButtonTapped: {
             viewModel.onButtonTapped()
-        }.alert(item: $viewModel.error) { error in
-            let uiError = error.uiError
+        }, onFailOtherTapped: {
+            viewModel.onFailOtherTapped()
+        })
+        .onReceive(viewModel.$navigationDestination, perform: { country in
+            guard let country = country else { return }
 
-            return Alert(
-                title: Text(uiError.title),
-                message: Text(uiError.messages.joined(separator: " ")),
-                dismissButton: .cancel(L10n.Ui.cancelButtonTitle.text)
-            )
-        }
+            self.onCountrySelected?(country)
+        })
+        .pss_notify(item: $viewModel.error, alertBuilder: {
+            $0.asFloatingAlert(viewModel: viewModel, onAboutThisAppSelected: onAboutThisAppSelected)
+        })
     }
 }

@@ -63,7 +63,15 @@ public final class TravelAdvisoryApi: TravelAdvisoryApiImplementing {
                 task = URLSession.shared.dataTask(with: url) {
                     data, response, error in
 
-                    let httpResponse = response as! HTTPURLResponse
+                    guard let httpResponse = response as? HTTPURLResponse else {
+                        if let error: Error = error {
+                            promise(.failure(TravelAdvisoryApiError.otherError(error)))
+                        } else {
+                            promise(.failure(TravelAdvisoryApiError.invalidResponseCode(.unknown)))
+                        }
+
+                        return
+                    }
                     let apiResponseCode = ApiResponseCode(rawValue: httpResponse.statusCode)
 
                     if apiResponseCode == .success {
@@ -123,7 +131,7 @@ public final class TravelAdvisoryApi: TravelAdvisoryApiImplementing {
                             promise(.success(decoded))
                         } catch {
                             // We are mocking this behavior here - production API does not unfortunately return 404 and instead returns a 200 to the home page
-                            promise(.failure(TravelAdvisoryApiError.otherError(error)))
+                            promise(.failure(TravelAdvisoryApiError.domainError(.countryNotFound, responseCode: .notFound)))
                         }
                     } else {
                         promise(.failure(TravelAdvisoryApiError(statusCode: httpResponse.statusCode,
@@ -156,7 +164,15 @@ public final class TravelAdvisoryApi: TravelAdvisoryApiImplementing {
                 task = URLSession.shared.dataTask(with: url) {
                     data, response, error in
 
-                    let httpResponse = response as! HTTPURLResponse
+                    guard let httpResponse = response as? HTTPURLResponse else {
+                        if let error: Error = error {
+                            promise(.failure(TravelAdvisoryApiError.otherError(error)))
+                        } else {
+                            promise(.failure(TravelAdvisoryApiError.invalidResponseCode(.unknown)))
+                        }
+
+                        return
+                    }
                     let apiResponseCode = ApiResponseCode(rawValue: httpResponse.statusCode)
 
                     if apiResponseCode == .success {
