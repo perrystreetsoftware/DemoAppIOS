@@ -18,11 +18,10 @@ public struct CountryListAdapter: View {
 
     private var onCountrySelected: ((Country) -> Void)?
     private var onAboutThisAppSelected: (() -> Void)?
+    @Binding var destination: Destinations?
 
-    public init(onCountrySelected: ((Country) -> Void)? = nil,
-                onAboutThisAppSelected: (() -> Void)? = nil) {
-        self.onCountrySelected = onCountrySelected
-        self.onAboutThisAppSelected = onAboutThisAppSelected
+    public init(destination: Binding<Destinations?>) {
+        self._destination = destination
     }
 
     public var body: some View {
@@ -36,10 +35,17 @@ public struct CountryListAdapter: View {
         .onReceive(viewModel.$navigationDestination, perform: { country in
             guard let country = country else { return }
 
-            self.onCountrySelected?(country)
+            self.destination = Destinations.details(regionCode: country.regionCode)
+        })
+        .onReceive(Just($destination), perform: { newValue in
+            if newValue.wrappedValue == nil && viewModel.navigationDestination != nil {
+                viewModel.navigationDestination = nil
+            }
         })
         .pss_notify(item: $viewModel.error, alertBuilder: {
-            $0.asFloatingAlert(viewModel: viewModel, onAboutThisAppSelected: onAboutThisAppSelected)
+            $0.asFloatingAlert(viewModel: viewModel, onAboutThisAppSelected: {
+                self.destination = Destinations.aboutThisApp
+            })
         })
     }
 }
