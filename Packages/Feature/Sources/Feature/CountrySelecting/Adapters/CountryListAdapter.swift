@@ -37,6 +37,8 @@ public struct CountryListAdapter: View {
             guard let country = country else { return }
 
             self.onCountrySelected?(country)
+
+            viewModel.navigationDestination = nil
         })
         .pss_notify(item: $viewModel.error, alertBuilder: {
             $0.asFloatingAlert(viewModel: viewModel, onAboutThisAppSelected: onAboutThisAppSelected)
