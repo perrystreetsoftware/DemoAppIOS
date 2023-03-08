@@ -62,7 +62,7 @@ public struct TravelAdvisoriesNavHost: View {
     
     @ViewBuilder func FlagsTab() -> some View {
         NavigationView {
-            LatinAmericaFlagsAdapter()
+            LatinAmericaFlagsPage()
         }
     }
     

@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct LatinAmericaFlagsAdapter: View {
+public struct LatinAmericaFlagsPage: View {
     public init() {}
 
     public var body: some View {
