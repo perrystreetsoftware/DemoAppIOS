@@ -19,7 +19,8 @@ public extension Container {
             CountryDetailsViewModel(country: country,
                                     logic: resolver.resolve(CountryDetailsLogic.self)!)
         }.inObjectScope(.transient)
-
+        self.autoregister(LatinAmericaFlagsViewModel.self, initializer: LatinAmericaFlagsViewModel.init).inObjectScope(.transient)
+        
         return self
     }
 }

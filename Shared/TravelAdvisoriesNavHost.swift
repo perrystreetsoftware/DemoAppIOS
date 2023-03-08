@@ -29,6 +29,18 @@ public struct TravelAdvisoriesNavHost: View {
     }
 
     public var body: some View {
+        TabView {
+           HomeTab().tabItem {
+                Label("Home", systemImage: "house")
+            }
+            
+            FlagsTab().tabItem {
+                Label("Latin America Flags", systemImage: "flag")
+            }
+        }
+    }
+
+    @ViewBuilder func HomeTab() -> some View {
         NavigationView {
             VStack {
                 NavigationLink(
@@ -38,20 +50,22 @@ public struct TravelAdvisoriesNavHost: View {
                         EmptyView()
                     }
                 )
-
-                self.buildBaseView()
+                
+                CountryListAdapter(onCountrySelected: { country in
+                    self.destination = Destinations.details(regionCode: country.regionCode)
+                }) {
+                    self.destination = Destinations.aboutThisApp
+                }
             }
         }
     }
-
-    @ViewBuilder func buildBaseView() -> some View {
-        CountryListAdapter(onCountrySelected: { country in
-            self.destination = Destinations.details(regionCode: country.regionCode)
-        }) {
-            self.destination = Destinations.aboutThisApp
+    
+    @ViewBuilder func FlagsTab() -> some View {
+        NavigationView {
+            LatinAmericaFlagsAdapter()
         }
     }
-
+    
     @ViewBuilder func buildChildViewFromState() -> some View {
         switch destination {
         case .details(let regionCode):

@@ -16,7 +16,8 @@ public extension Container {
         self.autoregister(CountryListLogic.self, initializer: CountryListLogic.init).inObjectScope(.transient)
         self.autoregister(CountryDetailsLogic.self, initializer: CountryDetailsLogic.init).inObjectScope(.transient)
         self.autoregister(ServerStatusLogic.self, initializer: ServerStatusLogic.init).inObjectScope(.transient)
-
+        self.autoregister(GetLatinAmericaCountriesLogic.self, initializer: GetLatinAmericaCountriesLogic.init).inObjectScope(.transient)
+        
         return self
     }
 
