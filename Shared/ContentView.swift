@@ -12,12 +12,7 @@ import ViewModels
 
 struct ContentView: View {
     
-    @InjectStateObject private var themeViewModel: AppThemeViewModel
-    @State private var theme: Theme = ProTheme()
-    
-    init() {
-        self._theme = .init(wrappedValue:  ThemeFactory.build(theme: themeViewModel.currentTheme))
-    }
+    @InjectTheme private var theme: Theme
     
     var body: some View {
         TravelAdvisoriesNavHost()
@@ -25,9 +20,6 @@ struct ContentView: View {
             .foregroundColor(theme.color.content)
             .preferredColorScheme(theme.color.scheme)
             .environment(\.theme, theme)
-            .onChange(of: themeViewModel.currentTheme) { newValue in
-                self.theme = ThemeFactory.build(theme: newValue)
-            }
     }
 }
 
