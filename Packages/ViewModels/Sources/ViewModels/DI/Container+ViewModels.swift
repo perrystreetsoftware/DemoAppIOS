@@ -14,6 +14,7 @@ import Logic
 public extension Container {
     func injectBusinessLogicViewModels() -> Container {
         self.autoregister(AboutViewModel.self, initializer: AboutViewModel.init).inObjectScope(.transient)
+        self.autoregister(AppThemeViewModel.self, initializer: AppThemeViewModel.init).inObjectScope(.transient)
         self.autoregister(CountryListViewModel.self, initializer: CountryListViewModel.init).inObjectScope(.transient)
         self.register(CountryDetailsViewModel.self) { resolver, country in
             CountryDetailsViewModel(country: country,

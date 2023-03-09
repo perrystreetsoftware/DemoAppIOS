@@ -16,6 +16,7 @@ import Swinject
 
 public struct TravelAdvisoriesNavHost: View {
     @Environment(\.theme) var theme
+    @InjectStateObject private var themeViewModel: AppThemeViewModel
     
     private let resolver: Swinject.Resolver
 
@@ -45,9 +46,9 @@ public struct TravelAdvisoriesNavHost: View {
             }
             .toolbar {
                 Button {
-                    
+                    themeViewModel.toggleTheme()
                 } label: {
-                    Text("Theme")
+                    Text("Change theme")
                         .foregroundColor(theme.color.accent)
                 }
             }
