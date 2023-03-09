@@ -15,6 +15,8 @@ import ViewModels
 import Swinject
 
 public struct TravelAdvisoriesNavHost: View {
+    @Environment(\.theme) var theme
+    
     private let resolver: Swinject.Resolver
 
     @State var destination: Destinations?
@@ -40,6 +42,14 @@ public struct TravelAdvisoriesNavHost: View {
                 )
 
                 self.buildBaseView()
+            }
+            .toolbar {
+                Button {
+                    
+                } label: {
+                    Text("Theme")
+                        .foregroundColor(theme.color.accent)
+                }
             }
         }
     }

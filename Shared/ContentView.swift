@@ -10,8 +10,19 @@ import UIComponents
 import Utils
 
 struct ContentView: View {
+    @State private var theme: Theme = FreeTheme()
+    
     var body: some View {
         TravelAdvisoriesNavHost()
+            .accentColor(theme.color.accent)
+            .foregroundColor(theme.color.content)
+            .preferredColorScheme(theme.color.scheme)
+            .environment(\.theme, theme)
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+                    self.theme = ProTheme()
+                }
+            }
     }
 }
 
