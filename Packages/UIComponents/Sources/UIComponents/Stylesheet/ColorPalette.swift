@@ -24,8 +24,8 @@ struct ColorPalette {
         static let brightness700 = Color(hex: 0xBB4C0C)
     }
     
-    static let freeAccent = Color(hex: 0x007AFF)
-    static let proAccent = Color(hex: 0xFA0002)
+    static let blastoise = Color(hex: 0x007AFF)
+    static let charizard = Color(hex: 0xFA0002)
     static let latexPurple = Color(hex: 0x7708E7)
     static let darkGray = Color(hex: 0x1E1E1E)
     static let lightGray = Color(hex: 0xD2D2D2)

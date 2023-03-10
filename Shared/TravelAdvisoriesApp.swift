@@ -10,9 +10,12 @@ import Swinject
 import Utils
 import Interfaces
 import NetworkLogic
+import Feature
 
 @main
 struct TravelAdvisoriesApp: App {
+    private var themeMediator: ThemeMediator
+    
     init() {
         InjectSettings.resolver = Container()
             .injectBusinessLogicViewModels()
@@ -20,6 +23,8 @@ struct TravelAdvisoriesApp: App {
             .injectBusinessLogicRepositories()
             .injectBusinessLogicLocalApis()
             .injectNetworkLogicRemoteApis()
+        
+        themeMediator = InjectSettings.resolver!.resolve(ThemeMediator.self)!
     }
 
     var body: some Scene {

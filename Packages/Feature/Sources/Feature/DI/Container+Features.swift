@@ -14,6 +14,7 @@ import Repositories
 public extension Container {
     func injectBusinessLogicLocalApis() -> Container {
         self.autoregister(AppSchedulerProviding.self, initializer: AppSchedulerProvider.init).inObjectScope(.container)
+        self.autoregister(ThemeMediator.self, initializer: ThemeMediator.init).inObjectScope(.container)
 
         return self
     }

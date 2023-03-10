@@ -8,9 +8,9 @@
 import Foundation
 import SwiftUI
 
-public struct FreeTheme: Theme {
+public struct FreeTheme: ThemeImplementing {
     public struct Color: ThemeColor {
-        public let accent = ColorPalette.freeAccent
+        public let accent = ColorPalette.blastoise
         public let content = ColorPalette.black
         public let scheme: ColorScheme = .light
     }
