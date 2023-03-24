@@ -12,23 +12,9 @@ import ViewModels
 
 struct ContentView: View {
     
-    @InjectStateObject  var styleSheet: Stylesheet
-    
-    var theme: ThemeImplementing {
-        styleSheet.currentTheme
-    }
+    @Environment(\.theme) private var theme: ThemeImplementing
     
     var body: some View {
         TravelAdvisoriesNavHost()
-            .accentColor(theme.color.accent)
-            .foregroundColor(theme.color.content)
-            .preferredColorScheme(theme.color.scheme)
-            .environment(\.theme, styleSheet.currentTheme)
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }
