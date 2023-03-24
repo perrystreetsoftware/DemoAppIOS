@@ -12,13 +12,18 @@ import ViewModels
 
 struct ContentView: View {
     
-    @Theme private var theme: ThemeImplementing
+    @InjectStateObject  var styleSheet: Stylesheet
+    
+    var theme: ThemeImplementing {
+        styleSheet.currentTheme
+    }
     
     var body: some View {
         TravelAdvisoriesNavHost()
             .accentColor(theme.color.accent)
             .foregroundColor(theme.color.content)
             .preferredColorScheme(theme.color.scheme)
+            .environment(\.theme, styleSheet.currentTheme)
     }
 }
 

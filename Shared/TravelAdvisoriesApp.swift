@@ -11,6 +11,7 @@ import Utils
 import Interfaces
 import NetworkLogic
 import Feature
+import UIComponents
 
 @main
 struct TravelAdvisoriesApp: App {

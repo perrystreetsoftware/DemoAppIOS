@@ -16,7 +16,7 @@ import Swinject
 import UIComponents
 
 public struct TravelAdvisoriesNavHost: View {
-    @Theme private var theme: ThemeImplementing
+    @Environment(\.theme) private var theme: ThemeImplementing
     @InjectStateObject private var themeViewModel: AppThemeViewModel
     
     private let resolver: Swinject.Resolver

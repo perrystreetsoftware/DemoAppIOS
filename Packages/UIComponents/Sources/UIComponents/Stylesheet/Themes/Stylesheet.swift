@@ -8,7 +8,7 @@
 import Foundation
 
 public class Stylesheet: ObservableObject {
-    
-    public static let shared = Stylesheet()
     @Published public var currentTheme: ThemeImplementing = FreeTheme()
+    
+    public init() {}
 }

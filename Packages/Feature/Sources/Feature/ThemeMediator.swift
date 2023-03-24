@@ -14,7 +14,7 @@ import Combine
 
 public class ThemeMediator {
     
-    private let stylesheet = Stylesheet.shared
+    @Inject private var stylesheet: Stylesheet
     @Inject private var themeViewModel: AppThemeViewModel
     
     var cancellables = Set<AnyCancellable>()
