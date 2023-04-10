@@ -16,15 +16,7 @@ public extension Container {
         self.autoregister(CountryListLogic.self, initializer: CountryListLogic.init).inObjectScope(.transient)
         self.autoregister(CountryDetailsLogic.self, initializer: CountryDetailsLogic.init).inObjectScope(.transient)
         self.autoregister(ServerStatusLogic.self, initializer: ServerStatusLogic.init).inObjectScope(.transient)
-
-        return self
-    }
-
-    func injectBusinessLogicRepositories() -> Container {
-        self.autoregister(CountryListRepository.self, initializer: CountryListRepository.init).inObjectScope(.container)
-        self.autoregister(CountryDetailsRepository.self, initializer: CountryDetailsRepository.init).inObjectScope(.container)
-        self.autoregister(ServerStatusPushBasedRepository.self, initializer: ServerStatusPushBasedRepository.init).inObjectScope(.container)
-
+        self.autoregister(GetUserAudioAndVideoPermissionLogic.self, initializer: GetUserAudioAndVideoPermissionLogic.init).inObjectScope(.transient)
         return self
     }
 }

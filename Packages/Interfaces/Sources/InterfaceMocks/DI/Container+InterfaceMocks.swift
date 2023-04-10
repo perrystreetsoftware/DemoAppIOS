@@ -17,6 +17,10 @@ public extension Container {
             mock(TravelAdvisoryApiImplementing.self)
         }.inObjectScope(.container)
 
+        self.register(CameraAudioAndVideoPermissionsApiImplementing.self) { resolver in
+            MockCameraAudioAndVideoPermissionsAPI()
+        }.inObjectScope(.container)
+        
         return self
     }
 
