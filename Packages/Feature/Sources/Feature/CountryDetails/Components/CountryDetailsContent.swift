@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import DomainModels
 import Utils
+import UIComponents
 
 /// Content is a component of a page. Content accepts bindings or simple primitive types.
 public struct CountryDetailsContent: View {
@@ -34,5 +35,6 @@ public struct CountryDetailsContent: View {
 struct CountryDetailsContent_Previews: PreviewProvider {
     static var previews: some View {
         CountryDetailsContent(countryName: "United States", detailsText: "Now is the time for all good men to come to the aid of their country.")
+            .theme(ProTheme())
     }
 }

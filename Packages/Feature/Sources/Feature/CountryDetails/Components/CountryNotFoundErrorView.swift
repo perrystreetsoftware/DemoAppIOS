@@ -48,5 +48,6 @@ public struct CountryNotFoundErrorView: View {
 struct CountryNotFoundErrorView_Previews: PreviewProvider {
     static var previews: some View {
         CountryNotFoundErrorView(viewModelState: .error(error: .countryNotFound))
+            .theme(ProTheme())
     }
 }

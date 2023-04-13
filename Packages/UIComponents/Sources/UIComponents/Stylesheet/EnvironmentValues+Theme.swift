@@ -6,13 +6,11 @@
 //
 
 import Foundation
-import DomainModels
-import ViewModels
 import SwiftUI
 import Utils
 
 public struct ThemeKey: EnvironmentKey {
-    public static var defaultValue: ThemeImplementing = InjectSettings.resolver!.resolve(Stylesheet.self)!.currentTheme
+    public static var defaultValue: ThemeImplementing = FreeTheme()
 }
 
 public extension EnvironmentValues {

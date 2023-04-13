@@ -30,7 +30,7 @@ struct TravelAdvisoriesApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView().themed()
+            ContentView().themeInjected()
         }
     }
 }

@@ -10,23 +10,19 @@ import SwiftUI
 import Utils
 
 public struct ThemeModifier: ViewModifier {
-    @InjectStateObject  var styleSheet: Stylesheet
-    
-    var theme: ThemeImplementing {
-        styleSheet.currentTheme
-    }
+    var theme: ThemeImplementing
     
     public func body(content: Content) -> some View {
         content
-            .accentColor(styleSheet.currentTheme.color.accent)
-            .foregroundColor(styleSheet.currentTheme.color.content)
-            .preferredColorScheme(styleSheet.currentTheme.color.scheme)
-            .environment(\.theme, styleSheet.currentTheme)
+            .accentColor(theme.color.accent)
+            .foregroundColor(theme.color.content)
+            .preferredColorScheme(theme.color.scheme)
+            .environment(\.theme, theme)
     }
 }
 
 public extension View {
-    func themed() -> some View {
-        self.modifier(ThemeModifier())
+    func theme(_ theme: ThemeImplementing) -> some View {
+        self.modifier(ThemeModifier(theme: theme))
     }
 }
