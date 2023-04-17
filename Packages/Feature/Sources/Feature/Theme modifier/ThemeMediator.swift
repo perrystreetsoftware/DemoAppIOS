@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import ViewModels
+import Logic
 import UIComponents
 import DomainModels
 import Utils
@@ -15,14 +15,14 @@ import Combine
 public class ThemeMediator {
     
     @Inject private var stylesheet: Stylesheet
-    @Inject private var themeViewModel: AppThemeViewModel
+    @Inject private var themeLogic: AppThemeLogic
     
     var cancellables = Set<AnyCancellable>()
     
     public init() {
-        stylesheet.currentTheme = ThemeFactory.build(theme: themeViewModel.currentTheme)
+        stylesheet.currentTheme = ThemeFactory.build(theme: themeLogic.currentTheme)
         
-        themeViewModel
+        themeLogic
             .$currentTheme
             .dropFirst()
             .map { ThemeFactory.build(theme: $0) }
