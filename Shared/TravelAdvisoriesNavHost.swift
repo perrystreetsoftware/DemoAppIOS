@@ -13,20 +13,20 @@ import DomainModels
 import Feature
 import ViewModels
 import Swinject
+import UIComponents
 
 public struct TravelAdvisoriesNavHost: View {
-    private let resolver: Swinject.Resolver
-
-    @State var destination: Destinations?
-
+    
     enum Destinations {
         case details(regionCode: String)
         case aboutThisApp
     }
 
-    public init(resolver: Swinject.Resolver = InjectSettings.resolver!) {
-        self.resolver = resolver
-    }
+    @Environment(\.theme) private var theme: ThemeImplementing
+    @InjectStateObject private var themeViewModel: AppThemeViewModel
+    @State var destination: Destinations?
+
+    public init() {}
 
     public var body: some View {
         NavigationView {
@@ -40,6 +40,14 @@ public struct TravelAdvisoriesNavHost: View {
                 )
 
                 self.buildBaseView()
+            }
+            .toolbar {
+                Button {
+                    themeViewModel.toggleTheme()
+                } label: {
+                    Text("Change theme")
+                        .foregroundColor(theme.color.accent)
+                }
             }
         }
     }
