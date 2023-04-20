@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "FrameworkProviders",
     platforms: [
-        .iOS(.v15), .macOS(.v11)
+        .iOS(.v14), .macOS(.v11)
     ],
     products: [
         .library(

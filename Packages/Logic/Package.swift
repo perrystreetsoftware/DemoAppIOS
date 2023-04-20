@@ -19,6 +19,7 @@ let package = Package(
         // .package(url: /* package url */, from: "1.0.0"),
         .package(path: "../Repositories"),
         .package(path: "../Interfaces"),
+        .package(path: "../FrameworkProviders"),
         .package(path: "../Utils"),
         .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0"),
         .package(url: "https://github.com/Quick/Quick.git", branch: "main"),
@@ -38,7 +39,9 @@ let package = Package(
                 "Logic",
                 "Quick",
                 "Nimble",
+                "FrameworkProviders",
                 "CombineExpectations",
+                .product(name: "FrameworkProvidersMocks", package: "FrameworkProviders"),
                 .product(name: "InterfaceMocks", package: "Interfaces"),
                 .product(name: "RepositoriesMocks", package: "Repositories"),
                 .product(name: "UtilsTestExtensions", package: "Utils")
