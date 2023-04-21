@@ -23,6 +23,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(path: "../Interfaces"),
         .package(path: "../DomainModels"),
+        .package(path: "../FrameworkProviders"),
         .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0"),
         .package(url: "https://github.com/Quick/Quick.git", branch: "main"),
         .package(url: "https://github.com/Quick/Nimble.git", from: "10.0.0"),
@@ -34,7 +35,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "Repositories",
-            dependencies: ["Interfaces", "DomainModels", "Swinject", "SwinjectAutoregistration"]
+            dependencies: ["Interfaces", "FrameworkProviders", "DomainModels", "Swinject", "SwinjectAutoregistration"]
         ),
         .target(
             name: "RepositoriesMocks",

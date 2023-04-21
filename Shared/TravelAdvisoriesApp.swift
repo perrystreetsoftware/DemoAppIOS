@@ -10,6 +10,7 @@ import Swinject
 import Utils
 import Interfaces
 import NetworkLogic
+import FrameworkProviders
 
 @main
 struct TravelAdvisoriesApp: App {
@@ -20,6 +21,7 @@ struct TravelAdvisoriesApp: App {
             .injectBusinessLogicRepositories()
             .injectBusinessLogicLocalApis()
             .injectNetworkLogicRemoteApis()
+            .injectFrameworkProviders()
     }
 
     var body: some Scene {
