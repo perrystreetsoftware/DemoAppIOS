@@ -10,6 +10,7 @@ import Combine
 import Mockingbird
 @testable import Feature
 import ViewModels
+import SwinjectAutoregistration
 
 final class CountryListErrorTests: QuickSpec {
     override func spec() {
@@ -26,8 +27,8 @@ final class CountryListErrorTests: QuickSpec {
                     .injectBusinessLogicViewModels()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
-                
-                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
+
+                api = container ~~> TravelAdvisoryApiImplementing.self
                 
                 given(api.getCountryList()).willReturn(countryToBeReturned.eraseToAnyPublisher())
                 given(api.getServerStatus()).willReturn(serverStatusToBeReturned.eraseToAnyPublisher())

@@ -16,6 +16,7 @@ import InterfaceMocks
 import Logic
 import Combine
 import Mockingbird
+import SwinjectAutoregistration
 
 @testable import ViewModels
 
@@ -36,7 +37,7 @@ final class CountryListViewModelTests: QuickSpec {
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
                 
-                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
+                api = container ~~> TravelAdvisoryApiImplementing.self
     
                 given(api.getCountryList()).willReturn(countryToBeReturned.eraseToAnyPublisher())
                 given(api.getServerStatus()).willReturn(serverStatusToBeReturned.eraseToAnyPublisher())

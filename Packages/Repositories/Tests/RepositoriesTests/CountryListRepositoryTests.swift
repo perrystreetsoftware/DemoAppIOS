@@ -16,6 +16,7 @@ import Combine
 import Repositories
 import Mockingbird
 import InterfaceMocks
+import SwinjectAutoregistration
 
 final class CountryListRepositoryTests: QuickSpec {
     override func spec() {
@@ -31,7 +32,7 @@ final class CountryListRepositoryTests: QuickSpec {
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
                 repository = container.resolve(CountryListRepository.self)!
-                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
+                api = container ~~> TravelAdvisoryApiImplementing.self
 
                 continentsRecorder = repository.$continents.record()
                 continents = try! QuickSpec.current.wait(for: continentsRecorder.next(), timeout: 5.0)

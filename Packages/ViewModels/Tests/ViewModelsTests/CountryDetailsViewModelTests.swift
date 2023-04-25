@@ -18,6 +18,7 @@ import Combine
 import Mockingbird
 import RepositoriesMocks
 @testable import ViewModels
+import SwinjectAutoregistration
 
 final class CountryDetailsViewModelTests: QuickSpec {
     override func spec() {
@@ -37,7 +38,7 @@ final class CountryDetailsViewModelTests: QuickSpec {
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
                 
-                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
+                api = container ~~> TravelAdvisoryApiImplementing.self
                 given(api.getCountryDetails(regionCode: "ng")).willReturn(countryToBeReturned.eraseToAnyPublisher())
                 viewModel = container.resolve(CountryDetailsViewModel.self, argument: country)
                 stateRecorder = viewModel.$state.record()
