@@ -8,10 +8,11 @@
 import SwiftUI
 import UIComponents
 import Utils
+import Feature
 
 struct ContentView: View {
     var body: some View {
-        TravelAdvisoriesNavHost()
+        SampleMainView()
     }
 }
 
