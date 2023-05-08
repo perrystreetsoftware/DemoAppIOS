@@ -1,8 +1,6 @@
 import SwiftUI
 
-public struct SampleMainView: View {
-    @StateObject var viewModel = SampleMainViewModel()
-    
+public struct SampleMainView: View {    
     public init() {}
     
     public var body: some View {
