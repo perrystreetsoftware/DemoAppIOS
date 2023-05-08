@@ -11,10 +11,10 @@ public struct SampleMainView: View {
             Text("Tell me more about you")
                 .padding(.top, 8)
             
-            CityList(state: viewModel.cityViewState, didTapCity: viewModel.didTapCity(_:))
+            CityList()
                 .padding(.top, 16)
             
-            FoodList(state: viewModel.foodViewState, didTapFood: viewModel.didTapFood(_:))
+            FoodList()
                 .padding(.top, 32)
             
             Spacer(minLength: 8)

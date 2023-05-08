@@ -11,15 +11,13 @@ struct CityList: View {
         var cities: [City]?
     }
     
-    var state: State
-    
-    var didTapCity: ((City) -> ())
-    
+    @StateObject var viewModel = CityViewModel()
+        
     var body: some View {
         VStack(spacing: 16) {
             Text("Select two favorite cities")
             
-            if let cities = state.cities {
+            if let cities = viewModel.cityViewState.cities {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
                         ForEach(cities) { city in
@@ -30,7 +28,7 @@ struct CityList: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                                 .onTapGesture {
-                                    didTapCity(city)
+                                    viewModel.didTapCity(city)
                                 }
                         }
                     }
@@ -41,6 +39,48 @@ struct CityList: View {
             } else {
                 Text("Loading the cities")
             }
+        }
+    }
+}
+
+public class CityViewModel: ObservableObject {
+    @Published var cityViewState: CityList.State = .init(cities: nil)
+    
+    public init() {
+        getCities()
+    }
+    
+    func didTapCity(_ city: City) {
+    
+        var newState: CityList.State = .init(cities: [])
+        
+        cityViewState.cities?.forEach {
+            var currentCity = $0
+            if currentCity == city {
+                currentCity.isSelected = !currentCity.isSelected
+            }
+            newState.cities?.append(currentCity)
+        }
+        
+        cityViewState = newState
+    }
+    
+    private func getCities() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            self.cityViewState = .init(
+                cities: [
+                    City(name: "Nova York", isSelected: false),
+                    City(name: "Paris", isSelected: false),
+                    City(name: "Londres", isSelected: false),
+                    City(name: "Tóquio", isSelected: false),
+                    City(name: "São Paulo", isSelected: false),
+                    City(name: "Moscou", isSelected: false),
+                    City(name: "Dubai", isSelected: false),
+                    City(name: "Pequim", isSelected: false),
+                    City(name: "Sydney", isSelected: false),
+                    City(name: "Toronto", isSelected: false)
+                ]
+            )
         }
     }
 }
