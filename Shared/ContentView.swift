@@ -12,7 +12,7 @@ import Feature
 
 struct ContentView: View {
     var body: some View {
-        SampleMainView()
+        SampleMainViewAdapter()
     }
 }
 
