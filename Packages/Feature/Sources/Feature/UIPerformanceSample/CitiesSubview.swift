@@ -7,20 +7,16 @@ struct City: Identifiable, Equatable {
 }
 
 struct CityList: View {
-    struct State {
-        var cities: [City]?
-    }
-    
     @StateObject var viewModel = CityViewModel()
         
     var body: some View {
         VStack(spacing: 16) {
             Text("Select two favorite cities")
             
-            if let cities = viewModel.cityViewState.cities {
+            if viewModel.cityViewState.isEmpty == false {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
-                        ForEach(cities) { city in
+                        ForEach(viewModel.cityViewState) { city in
                             Text(city.name)
                                 .padding(.horizontal, 20)
                                 .padding(.vertical, 10)
@@ -44,7 +40,7 @@ struct CityList: View {
 }
 
 public class CityViewModel: ObservableObject {
-    @Published var cityViewState: CityList.State = .init(cities: nil)
+    @Published var cityViewState: [City] = []
     
     public init() {
         getCities()
@@ -52,14 +48,14 @@ public class CityViewModel: ObservableObject {
     
     func didTapCity(_ city: City) {
     
-        var newState: CityList.State = .init(cities: [])
+        var newState: [City] = []
         
-        cityViewState.cities?.forEach {
+        cityViewState.forEach {
             var currentCity = $0
             if currentCity == city {
                 currentCity.isSelected = !currentCity.isSelected
             }
-            newState.cities?.append(currentCity)
+            newState.append(currentCity)
         }
         
         cityViewState = newState
@@ -68,7 +64,7 @@ public class CityViewModel: ObservableObject {
     private func getCities() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             self.cityViewState = .init(
-                cities: [
+                [
                     City(name: "Nova York", isSelected: false),
                     City(name: "Paris", isSelected: false),
                     City(name: "Londres", isSelected: false),

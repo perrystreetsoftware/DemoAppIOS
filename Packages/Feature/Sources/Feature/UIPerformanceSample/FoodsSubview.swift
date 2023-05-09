@@ -7,20 +7,16 @@ struct Food: Identifiable, Equatable {
 }
 
 struct FoodList: View {
-    struct State {
-        var foods: [Food]?
-    }
-
     @StateObject var viewModel = FoodsViewModel()
     
     var body: some View {
         VStack(spacing: 16) {
             Text("Select two favorite foods")
             
-            if let foods = viewModel.foodViewState.foods {
+            if viewModel.foodViewState.isEmpty == false {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
-                        ForEach(foods) { food in
+                        ForEach(viewModel.foodViewState) { food in
                             VStack {
                                 Text(food.name)
                                     .padding(.horizontal, 20)
@@ -48,7 +44,7 @@ struct FoodList: View {
 }
 
 public class FoodsViewModel: ObservableObject {
-    @Published var foodViewState: FoodList.State = .init(foods: nil)
+    @Published var foodViewState: [Food] = []
     
     public init() {
         getFoods()
@@ -56,14 +52,14 @@ public class FoodsViewModel: ObservableObject {
     
     func didTapFood(_ food: Food) {
     
-        var newState: FoodList.State = .init(foods: [])
+        var newState: [Food] = []
         
-        foodViewState.foods?.forEach {
+        foodViewState.forEach {
             var currentFood = $0
             if currentFood == food {
                 currentFood.isSelected = !currentFood.isSelected
             }
-            newState.foods?.append(currentFood)
+            newState.append(currentFood)
         }
         
         foodViewState = newState
@@ -72,7 +68,7 @@ public class FoodsViewModel: ObservableObject {
     private func getFoods() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.foodViewState = .init(
-                foods: [
+                [
                     Food(name: "Pizza", isSelected: false),
                     Food(name: "Hamburger", isSelected: false),
                     Food(name: "Sushi", isSelected: false),
