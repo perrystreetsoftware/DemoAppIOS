@@ -32,6 +32,8 @@ public struct CountryListAdapter: View {
             viewModel.onButtonTapped()
         }, onFailOtherTapped: {
             viewModel.onFailOtherTapped()
+        }, onDummyTapped: {
+            print("Dummy tapped")
         })
         .onReceive(viewModel.$navigationDestination, perform: { country in
             guard let country = country else { return }

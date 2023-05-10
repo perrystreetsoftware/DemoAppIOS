@@ -122,18 +122,20 @@ public final class CountryListViewModel: ObservableObject {
     }
 
     public func onCountrySelected(country: Country) {
-        logic.canAccessCountry(country: country)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure(let error):
-                    self.navigationDestination = nil
-                    self.error = error
-                case .finished:
-                    self.navigationDestination = country
-                }
-            },
-                  receiveValue: { _ in })
-            .store(in: &cancellables)
+        self.state = self.state.copy(serverStatus: .init(success: false))
+
+//        logic.canAccessCountry(country: country)
+//            .sink(receiveCompletion: { completion in
+//                switch completion {
+//                case .failure(let error):
+//                    self.navigationDestination = nil
+//                    self.error = error
+//                case .finished:
+//                    self.navigationDestination = country
+//                }
+//            },
+//                  receiveValue: { _ in })
+//            .store(in: &cancellables)
     }
 
     public func onFailOtherTapped() {

@@ -5,20 +5,33 @@ import DomainModels
 import UIComponents
 import ViewModels
 
+public struct DummyButton: View {
+    public var onDummyTapped: (() -> Void)? = nil
+
+    public var body: some View {
+        Button("Dummy") {
+            onDummyTapped?()
+        }
+    }
+}
+
 public struct CountryListPage: View {
     private var listUiState: CountryListViewModel.UiState
     private var onItemTapped: ((Country) -> Void)?
     private var onButtonTapped: (() -> Void)?
     private var onFailOtherTapped: (() -> Void)?
+    private var onDummyTapped: (() -> Void)?
 
     public init(listUiState: CountryListViewModel.UiState,
                 onItemTapped: ((Country) -> Void)? = nil,
                 onButtonTapped: (() -> Void)? = nil,
-                onFailOtherTapped: (() -> Void)? = nil) {
+                onFailOtherTapped: (() -> Void)? = nil,
+                onDummyTapped: (() -> Void)? = nil) {
         self.listUiState = listUiState
         self.onItemTapped = onItemTapped
         self.onButtonTapped = onButtonTapped
         self.onFailOtherTapped = onFailOtherTapped
+        self.onDummyTapped = onDummyTapped
     }
     
     public var body: some View {
@@ -45,6 +58,7 @@ public struct CountryListPage: View {
                         }
                     }
                 }.font(.caption).padding(5)
+                DummyButton(onDummyTapped: onDummyTapped)
                 CountryListButton(isLoading: listUiState.isLoading,
                                   onItemTapped: onButtonTapped)
                 Button {
