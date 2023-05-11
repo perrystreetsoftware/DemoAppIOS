@@ -40,7 +40,6 @@ public class SampleMainViewModel: ObservableObject {
     }
     
     private func getFoods() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.foodViewState = .init(
                  [
                     Food(name: "Pizza", isSelected: false),
@@ -55,11 +54,9 @@ public class SampleMainViewModel: ObservableObject {
                     Food(name: "Falafel", isSelected: false)
                 ]
             )
-        }
     }
     
     private func getCities() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             self.cityViewState = .init(
                  [
                     City(name: "Nova York", isSelected: false),
@@ -74,6 +71,5 @@ public class SampleMainViewModel: ObservableObject {
                     City(name: "Toronto", isSelected: false)
                 ]
             )
-        }
     }
 }
