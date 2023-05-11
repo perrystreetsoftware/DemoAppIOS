@@ -42,8 +42,8 @@ public struct SampleMainViewAdapter: View {
 }
 
 public struct SampleMainView: View {
-    var cityListState: CityList.State
-    var foodListState: FoodList.State
+    var cityListState: [City]
+    var foodListState: [Food]
     var didTapCity: ((City) -> ())
     var didTapFood: ((Food) -> ())
 
@@ -53,14 +53,10 @@ public struct SampleMainView: View {
             Text("Tell me more about you")
                 .padding(.top, 8)
 
-            CityList(state: cityListState, didTapCity: {
-            didTapCity($0)
-            })
+            CityList(state: cityListState, didTapCity: didTapCity)
                 .padding(.top, 16)
 
-            FoodList(state: foodListState, didTapFood: {
-                didTapFood($0)
-            })
+            FoodList(state: foodListState, didTapFood: didTapFood)
                 .padding(.top, 32)
 
             Spacer(minLength: 8)
