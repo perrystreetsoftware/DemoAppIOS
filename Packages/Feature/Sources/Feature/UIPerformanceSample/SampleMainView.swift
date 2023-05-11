@@ -47,6 +47,13 @@ public struct SampleMainView: View {
     var didTapCity: ((City) -> ())
     var didTapFood: ((Food) -> ())
 
+    init(cityListState: [City], foodListState: [Food], didTapCity: @escaping (City) -> Void, didTapFood: @escaping (Food) -> Void) {
+        self.cityListState = cityListState
+        self.foodListState = foodListState
+        self.didTapCity = didTapCity
+        self.didTapFood = didTapFood
+    }
+    
     public var body: some View {
 
         VStack {
