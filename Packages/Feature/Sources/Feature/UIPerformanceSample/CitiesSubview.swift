@@ -7,22 +7,23 @@ struct City: Identifiable, Equatable {
 }
 
 struct CityList: View {
-    struct State {
-        var cities: [City]?
-    }
-    
-    var state: State
+    var state: [City]
     
     var didTapCity: ((City) -> ())
+    
+    init(state: [City], didTapCity: @escaping (City) -> Void) {
+        self.state = state
+        self.didTapCity = didTapCity
+    }
     
     var body: some View {
         VStack(spacing: 16) {
             Text("Select two favorite cities")
             
-            if let cities = state.cities {
+            if state.isEmpty == false {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
-                        ForEach(cities) { city in
+                        ForEach(state) { city in
                             Text(city.name)
                                 .padding(.horizontal, 20)
                                 .padding(.vertical, 10)

@@ -7,22 +7,23 @@ struct Food: Identifiable, Equatable {
 }
 
 struct FoodList: View {
-    struct State {
-        var foods: [Food]?
-    }
-    
-    var state: State
+    var state: [Food]
     
     var didTapFood: ((Food) -> ())
 
+    init(state: [Food], didTapFood: @escaping (Food) -> Void) {
+        self.state = state
+        self.didTapFood = didTapFood
+    }
+    
     var body: some View {
         VStack(spacing: 16) {
             Text("Select two favorite foods")
             
-            if let foods = state.foods {
+            if state.isEmpty == false {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
-                        ForEach(foods) { food in
+                        ForEach(state) { food in
                             VStack {
                                 Text(food.name)
                                     .padding(.horizontal, 20)

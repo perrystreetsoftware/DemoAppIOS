@@ -1,8 +1,8 @@
 import SwiftUI
 
 public class SampleMainViewModel: ObservableObject {
-    @Published var cityViewState: CityList.State = .init(cities: nil)
-    @Published var foodViewState: FoodList.State = .init(foods: nil)
+    @Published var cityViewState: [City] = []
+    @Published var foodViewState: [Food] = []
     
     public init() {
         getCities()
@@ -11,14 +11,14 @@ public class SampleMainViewModel: ObservableObject {
     
     func didTapCity(_ city: City) {
     
-        var newState: CityList.State = .init(cities: [])
+        var newState: [City] = []
         
-        cityViewState.cities?.forEach {
+        cityViewState.forEach {
             var currentCity = $0
             if currentCity == city {
                 currentCity.isSelected = !currentCity.isSelected
             }
-            newState.cities?.append(currentCity)
+            newState.append(currentCity)
         }
         
         cityViewState = newState
@@ -26,14 +26,14 @@ public class SampleMainViewModel: ObservableObject {
     
     func didTapFood(_ food: Food) {
     
-        var newState: FoodList.State = .init(foods: [])
+        var newState: [Food] = []
         
-        foodViewState.foods?.forEach {
+        foodViewState.forEach {
             var currentFood = $0
             if currentFood == food {
                 currentFood.isSelected = !currentFood.isSelected
             }
-            newState.foods?.append(currentFood)
+            newState.append(currentFood)
         }
         
         foodViewState = newState
@@ -42,7 +42,7 @@ public class SampleMainViewModel: ObservableObject {
     private func getFoods() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.foodViewState = .init(
-                foods: [
+                 [
                     Food(name: "Pizza", isSelected: false),
                     Food(name: "Hamburger", isSelected: false),
                     Food(name: "Sushi", isSelected: false),
@@ -61,7 +61,7 @@ public class SampleMainViewModel: ObservableObject {
     private func getCities() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             self.cityViewState = .init(
-                cities: [
+                 [
                     City(name: "Nova York", isSelected: false),
                     City(name: "Paris", isSelected: false),
                     City(name: "Londres", isSelected: false),
