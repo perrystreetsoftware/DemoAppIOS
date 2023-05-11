@@ -15,6 +15,7 @@ import Interfaces
 import InterfaceMocks
 import Combine
 import Mockingbird
+import SwinjectAutoregistration
 
 @testable import Logic
 
@@ -33,7 +34,7 @@ final class CountryListLogicTests: QuickSpec {
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
                 logic = container.resolve(CountryListLogic.self)!
-                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
+                api = container ~~> TravelAdvisoryApiImplementing.self
 
                 continentsRecorder = logic.$continents.record()
                 value = try! QuickSpec.current.wait(for: continentsRecorder.next(), timeout: 5.0)

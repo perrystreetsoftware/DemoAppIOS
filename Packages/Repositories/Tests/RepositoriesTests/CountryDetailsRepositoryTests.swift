@@ -17,6 +17,7 @@ import Mockingbird
 import InterfaceMocks
 import RepositoriesMocks
 import XCTest
+import SwinjectAutoregistration
 
 @testable import Repositories
 
@@ -32,7 +33,7 @@ final class CountryDetailsRepositoryTests: QuickSpec {
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
                 repository = container.resolve(CountryDetailsRepository.self)!
-                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
+                api = container ~~> TravelAdvisoryApiImplementing.self
             }
 
             describe("#getDetails") {
