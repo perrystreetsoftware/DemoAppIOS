@@ -21,7 +21,7 @@ import XCTest
 @testable import Repositories
 
 final class CountryDetailsRepositoryTests: QuickSpec {
-    override func spec() {
+    override class func spec() {
         describe("CountryDetailsRepository") {
             var container: Container!
             var repository: CountryDetailsRepository!

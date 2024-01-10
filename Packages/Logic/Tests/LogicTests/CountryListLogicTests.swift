@@ -19,7 +19,7 @@ import Mockingbird
 @testable import Logic
 
 final class CountryListLogicTests: QuickSpec {
-    override func spec() {
+    override class func spec() {
         describe("CountryListLogic") {
             var container: Container!
             var logic: CountryListLogic!

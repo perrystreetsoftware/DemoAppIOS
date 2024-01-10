@@ -12,7 +12,7 @@ import Mockingbird
 import ViewModels
 
 final class CountryListErrorTests: QuickSpec {
-    override func spec() {
+    override class func spec() {
         describe("CountryListError") {
             var container: Container!
             var viewModel: CountryListViewModel!

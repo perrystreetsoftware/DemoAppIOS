@@ -20,7 +20,7 @@ import RepositoriesMocks
 @testable import ViewModels
 
 final class CountryDetailsViewModelTests: QuickSpec {
-    override func spec() {
+    override class func spec() {
         describe("CountryDetailsViewModel") {
             var container: Container!
             var viewModel: CountryDetailsViewModel!

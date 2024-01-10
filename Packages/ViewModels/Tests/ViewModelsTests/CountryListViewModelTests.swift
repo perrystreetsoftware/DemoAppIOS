@@ -20,7 +20,7 @@ import Mockingbird
 @testable import ViewModels
 
 final class CountryListViewModelTests: QuickSpec {
-    override func spec() {
+    override class func spec() {
         describe("CountryListViewModelTests") {
             var container: Container!
             var viewModel: CountryListViewModel!

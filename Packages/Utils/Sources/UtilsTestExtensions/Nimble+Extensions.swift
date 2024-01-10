@@ -8,12 +8,12 @@
 import Foundation
 import Nimble
 
-public func beApproximately(_ of: Date) -> Predicate<Date> {
+public func beApproximately(_ of: Date) -> Nimble.Predicate<Date> {
     return beWithin(10, of: of)
 }
 
-public func beWithin(_ interval: TimeInterval, of: Date) -> Predicate<Date> {
-    return Predicate.define("be <content>") { expression, message in
+public func beWithin(_ interval: TimeInterval, of: Date) -> Nimble.Predicate<Date> {
+    return Nimble.Predicate.define("be <content>") { expression, message in
         guard let actual = try expression.evaluate() else {
             return PredicateResult(status: .fail, message: message)
         }
@@ -28,7 +28,7 @@ public func beWithin(_ interval: TimeInterval, of: Date) -> Predicate<Date> {
 
 #if !os(macOS)
 import UIKit
-public func beSameImage(_ expectedData: UIImage) -> Predicate<UIImage> {
+public func beSameImage(_ expectedData: UIImage) -> Nimble.Predicate<UIImage> {
     return Predicate.define("be <content>") { expression, message in
         guard let actualData = try expression.evaluate() else {
             return PredicateResult(status: .fail, message: message)
@@ -43,8 +43,8 @@ public func beSameImage(_ expectedData: UIImage) -> Predicate<UIImage> {
 }
 #else
 import AppKit
-public func beSameImage(_ expectedData: NSImage) -> Predicate<NSImage> {
-    return Predicate.define("be <content>") { expression, message in
+public func beSameImage(_ expectedData: NSImage) -> Nimble.Predicate<NSImage> {
+    return Nimble.Predicate.define("be <content>") { expression, message in
         guard let actualData = try expression.evaluate() else {
             return PredicateResult(status: .fail, message: message)
         }
