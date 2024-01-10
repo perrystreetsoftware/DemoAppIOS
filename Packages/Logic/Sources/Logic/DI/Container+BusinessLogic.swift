@@ -19,12 +19,4 @@ public extension Container {
 
         return self
     }
-
-    func injectBusinessLogicRepositories() -> Container {
-        self.autoregister(CountryListRepository.self, initializer: CountryListRepository.init).inObjectScope(.container)
-        self.autoregister(CountryDetailsRepository.self, initializer: CountryDetailsRepository.init).inObjectScope(.container)
-        self.autoregister(ServerStatusPushBasedRepository.self, initializer: ServerStatusPushBasedRepository.init).inObjectScope(.container)
-
-        return self
-    }
 }

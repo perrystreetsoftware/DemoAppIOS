@@ -6,7 +6,7 @@ import CombineSchedulers
 
 // swiftlint:disable pss_forced_try
 public func runAfterBeforeEach(_ closure: @escaping BeforeExampleClosure) {
-    justBeforeEach(closure)
+    QuickSpec.justBeforeEach(closure)
 }
 
 @discardableResult
@@ -89,7 +89,7 @@ public func waitNext<Output, Error>(_ publisher: AnyPublisher<Output, Error>,
 //}
 
 public func asyncBeforeEach(_ closure: @MainActor @escaping (ExampleMetadata) async -> Void) {
-    beforeEach({ exampleMetadata in
+    QuickSpec.beforeEach({ exampleMetadata in
         let expectation = QuickSpec.current.expectation(description: "asyncBeforeEach")
         Task {
             await closure(exampleMetadata)
@@ -100,7 +100,7 @@ public func asyncBeforeEach(_ closure: @MainActor @escaping (ExampleMetadata) as
 }
 
 public func asyncAfterEach(_ closure: @MainActor @escaping (ExampleMetadata) async -> Void) {
-    afterEach({ exampleMetadata in
+    QuickSpec.afterEach({ exampleMetadata in
         let expectation = QuickSpec.current.expectation(description: "asyncAfterEach")
         Task {
             await closure(exampleMetadata)
