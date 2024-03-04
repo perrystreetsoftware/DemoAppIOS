@@ -23,8 +23,8 @@ let package = Package(
         .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0"),
         .package(url: "https://github.com/groue/CombineExpectations.git", from: "0.0.0"),
         .package(url: "https://github.com/pointfreeco/combine-schedulers.git", from: "0.4.1"),
-        .package(url: "https://github.com/Quick/Quick.git", branch: "main"),
-        .package(url: "https://github.com/Quick/Nimble.git", from: "10.0.0"),
+        .package(url: "https://github.com/Quick/Quick.git", from: "7.4.0"),
+        .package(url: "https://github.com/Quick/Nimble.git", from: "13.2.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.

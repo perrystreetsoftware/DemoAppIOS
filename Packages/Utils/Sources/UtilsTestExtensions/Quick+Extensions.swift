@@ -5,10 +5,6 @@ import CombineExpectations
 import CombineSchedulers
 
 // swiftlint:disable pss_forced_try
-public func runAfterBeforeEach(_ closure: @escaping BeforeExampleClosure) {
-    justBeforeEach(closure)
-}
-
 @discardableResult
 public func waitCompletion<Output, Error>(_ publisher: AnyPublisher<Output, Error>,
                                       scheduler: TestSchedulerOf<DispatchQueue>? = nil,
@@ -58,54 +54,3 @@ public func waitNext<Output, Error>(_ publisher: AnyPublisher<Output, Error>,
     return try! QuickSpec.current.wait(for: recorder.next(), timeout: timeout)
 }
 // swiftlint:enable pss_forced_try
-
-/*
- Quick and Nimble doesn't has support to async/await methods, this is an workaround that will be used until something offical be released.
- More info please check this thread:  https://github.com/Quick/Quick/issues/1084
- */
-
-//public func asyncIt(_ description: String, flags: FilterFlags = [:], file: FileString = #file, line: UInt = #line, closure: @MainActor @escaping () async throws -> Void) {
-//    it(description, flags: flags, file: file, line: line) {
-//        var thrownError: Error?
-//        let errorHandler = { thrownError = $0 }
-//        let expectation = QuickSpec.current.expectation(description: description)
-//
-//        Task {
-//            do {
-//                try await closure()
-//            } catch {
-//                errorHandler(error)
-//            }
-//
-//            expectation.fulfill()
-//        }
-//
-//        QuickSpec.current.wait(for: [expectation], timeout: 60)
-//
-//        if let error = thrownError {
-//            XCTFail("Async error thrown: \(error)")
-//        }
-//    }
-//}
-
-public func asyncBeforeEach(_ closure: @MainActor @escaping (ExampleMetadata) async -> Void) {
-    beforeEach({ exampleMetadata in
-        let expectation = QuickSpec.current.expectation(description: "asyncBeforeEach")
-        Task {
-            await closure(exampleMetadata)
-            expectation.fulfill()
-        }
-        QuickSpec.current.wait(for: [expectation], timeout: 60)
-    })
-}
-
-public func asyncAfterEach(_ closure: @MainActor @escaping (ExampleMetadata) async -> Void) {
-    afterEach({ exampleMetadata in
-        let expectation = QuickSpec.current.expectation(description: "asyncAfterEach")
-        Task {
-            await closure(exampleMetadata)
-            expectation.fulfill()
-        }
-        QuickSpec.current.wait(for: [expectation], timeout: 60)
-    })
-}

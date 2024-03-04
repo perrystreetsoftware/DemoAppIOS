@@ -22,8 +22,8 @@ let package = Package(
         .package(path: "../FrameworkProviders"),
         .package(path: "../Utils"),
         .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0"),
-        .package(url: "https://github.com/Quick/Quick.git", branch: "main"),
-        .package(url: "https://github.com/Quick/Nimble.git", from: "10.0.0"),
+        .package(url: "https://github.com/Quick/Quick.git", from: "7.4.0"),
+        .package(url: "https://github.com/Quick/Nimble.git", from: "13.2.0"),
         .package(url: "https://github.com/groue/CombineExpectations.git", from: "0.0.0"),
         .package(url: "https://github.com/Swinject/SwinjectAutoregistration.git", from: "2.8.1")
     ],

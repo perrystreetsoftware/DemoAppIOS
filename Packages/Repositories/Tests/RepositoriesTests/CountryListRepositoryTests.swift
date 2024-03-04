@@ -18,7 +18,7 @@ import Mockingbird
 import InterfaceMocks
 
 final class CountryListRepositoryTests: QuickSpec {
-    override func spec() {
+    override class func spec() {
         describe("CountryListRepository") {
             var container: Container!
             var repository: CountryListRepository!

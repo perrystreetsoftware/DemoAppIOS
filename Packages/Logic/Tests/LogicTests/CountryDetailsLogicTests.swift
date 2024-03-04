@@ -20,7 +20,7 @@ import RepositoriesMocks
 @testable import Logic
 
 final class CountryDetailsLogicTests: QuickSpec {
-    override func spec() {
+    override class func spec() {
         describe("CountryDetailsLogic") {
             var container: Container!
             var logic: CountryDetailsLogic!
