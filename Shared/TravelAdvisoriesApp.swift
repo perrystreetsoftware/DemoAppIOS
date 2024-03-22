@@ -11,10 +11,14 @@ import Utils
 import Interfaces
 import NetworkLogic
 import FrameworkProviders
+import SDWebImageSVGCoder
 
 @main
 struct TravelAdvisoriesApp: App {
     init() {
+        let SVGCoder = SDImageSVGCoder.shared
+        SDImageCodersManager.shared.addCoder(SVGCoder)
+
         InjectSettings.resolver = Container()
             .injectBusinessLogicViewModels()
             .injectBusinessLogicLogic()

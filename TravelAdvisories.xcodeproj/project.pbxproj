@@ -19,6 +19,9 @@
 		05E665FD29F1B6A4008CDA2C /* FrameworkProvidersProtocols in Frameworks */ = {isa = PBXBuildFile; productRef = 05E665FC29F1B6A4008CDA2C /* FrameworkProvidersProtocols */; };
 		610A3CAC28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */; };
 		6130549B29085FCD00B54AF9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6130549D29085FCD00B54AF9 /* Localizable.strings */; };
+		61546E542BAD1FA1003054B3 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 61546E532BAD1FA1003054B3 /* SDWebImageSVGCoder */; };
+		61546E562BAD1FD3003054B3 /* banner.svg in Resources */ = {isa = PBXBuildFile; fileRef = 61546E552BAD1FD3003054B3 /* banner.svg */; };
+		61546E582BAD253A003054B3 /* inkscape.svg in Resources */ = {isa = PBXBuildFile; fileRef = 61546E572BAD253A003054B3 /* inkscape.svg */; };
 		61BB446D293F58A40089248B /* TravelAdvisoriesTestsObjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BB446C293F58A40089248B /* TravelAdvisoriesTestsObjc.m */; };
 		61BB4475293F58CB0089248B /* TestFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BB4474293F58CB0089248B /* TestFile.swift */; };
 		61C9EED828CD3A9500ACDF3E /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C9EED728CD3A9500ACDF3E /* Tests_iOS.swift */; };
@@ -58,6 +61,8 @@
 		610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAdvisoriesNavHost.swift; sourceTree = "<group>"; };
 		6130549C29085FCD00B54AF9 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6130549E29085FD100B54AF9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		61546E552BAD1FD3003054B3 /* banner.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = banner.svg; sourceTree = "<group>"; };
+		61546E572BAD253A003054B3 /* inkscape.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = inkscape.svg; sourceTree = "<group>"; };
 		61BB446A293F58A40089248B /* TravelAdvisoriesTestsObjc.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravelAdvisoriesTestsObjc.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		61BB446C293F58A40089248B /* TravelAdvisoriesTestsObjc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TravelAdvisoriesTestsObjc.m; sourceTree = "<group>"; };
 		61BB4473293F58CA0089248B /* TravelAdvisoriesTestsObjc-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TravelAdvisoriesTestsObjc-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -83,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61546E542BAD1FA1003054B3 /* SDWebImageSVGCoder in Frameworks */,
 				051EAF7C290C20FA0091E365 /* Repositories in Frameworks */,
 				051EAF82290C20FA0091E365 /* ViewModels in Frameworks */,
 				05E665FD29F1B6A4008CDA2C /* FrameworkProvidersProtocols in Frameworks */,
@@ -109,6 +115,8 @@
 		6130549829085FAC00B54AF9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				61546E552BAD1FD3003054B3 /* banner.svg */,
+				61546E572BAD253A003054B3 /* inkscape.svg */,
 				6130549D29085FCD00B54AF9 /* Localizable.strings */,
 			);
 			path = Resources;
@@ -244,6 +252,7 @@
 				051EAF81290C20FA0091E365 /* ViewModels */,
 				05E665FA29F1B6A3008CDA2C /* FrameworkProviders */,
 				05E665FC29F1B6A4008CDA2C /* FrameworkProvidersProtocols */,
+				61546E532BAD1FA1003054B3 /* SDWebImageSVGCoder */,
 			);
 			productName = "DemoApp (iOS)";
 			productReference = 61C9EEC628CD3A9500ACDF3E /* TravelAdvisories.app */;
@@ -302,6 +311,8 @@
 			);
 			mainGroup = 61C9EEB928CD3A9400ACDF3E;
 			packageReferences = (
+				61546E522BAD1FA1003054B3 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
+				61546E592BAD268A003054B3 /* XCRemoteSwiftPackageReference "SVGKit" */,
 			);
 			productRefGroup = 61C9EEC728CD3A9500ACDF3E /* Products */;
 			projectDirPath = "";
@@ -326,8 +337,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61546E582BAD253A003054B3 /* inkscape.svg in Resources */,
 				61C9EEEB28CD3A9500ACDF3E /* Assets.xcassets in Resources */,
 				6130549B29085FCD00B54AF9 /* Localizable.strings in Resources */,
+				61546E562BAD1FD3003054B3 /* banner.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -718,6 +731,25 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		61546E522BAD1FA1003054B3 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSVGCoder.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.0;
+			};
+		};
+		61546E592BAD268A003054B3 /* XCRemoteSwiftPackageReference "SVGKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SVGKit/SVGKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		051EAF73290C20FA0091E365 /* Feature */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -758,6 +790,11 @@
 		05E665FC29F1B6A4008CDA2C /* FrameworkProvidersProtocols */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FrameworkProvidersProtocols;
+		};
+		61546E532BAD1FA1003054B3 /* SDWebImageSVGCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 61546E522BAD1FA1003054B3 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
+			productName = SDWebImageSVGCoder;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

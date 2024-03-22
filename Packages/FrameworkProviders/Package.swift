@@ -26,6 +26,7 @@ let package = Package(
         .package(url: "https://github.com/Quick/Quick.git", from: "7.4.0"),
         .package(url: "https://github.com/Quick/Nimble.git", from: "13.2.0"),
         .package(url: "https://github.com/groue/CombineExpectations.git", from: "0.0.0"),
+        .package(url: "https://github.com/SDWebImage/SDWebImageSVGCoder.git", from: "1.4.0"),
     ],
     targets: [
         .target(
