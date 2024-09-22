@@ -36,7 +36,7 @@ final class CountryListErrorTests: QuickSpec {
                 api.getCountryListPublisher = countryToBeReturned.eraseToAnyPublisher()
                 api.getServerStatusPublisher = serverStatusToBeReturned.eraseToAnyPublisher()
 
-                viewModel = container.resolve(CountryListViewModel.self)!
+                viewModel = container~>
             }
             
             Then("Blocked error shows a dialog with a positive action"){

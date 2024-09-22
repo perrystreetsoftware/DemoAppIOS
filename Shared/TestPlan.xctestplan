@@ -1,0 +1,73 @@
+{
+  "configurations" : [
+    {
+      "id" : "1CDFA3B2-20A6-4369-BD4E-0C9A0D0C6D7D",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Packages\/DomainModels",
+        "identifier" : "DomainModelsTests",
+        "name" : "DomainModelsTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Packages\/Feature",
+        "identifier" : "FeatureTests",
+        "name" : "FeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Packages\/Logic",
+        "identifier" : "LogicTests",
+        "name" : "LogicTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Packages\/NetworkLogic",
+        "identifier" : "NetworkLogicTests",
+        "name" : "NetworkLogicTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Packages\/Repositories",
+        "identifier" : "RepositoriesTests",
+        "name" : "RepositoriesTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Packages\/UIComponents",
+        "identifier" : "UIComponentsTests",
+        "name" : "UIComponentsTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Packages\/Utils",
+        "identifier" : "UtilsTests",
+        "name" : "UtilsTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Packages\/ViewModels",
+        "identifier" : "ViewModelsTests",
+        "name" : "ViewModelsTests"
+      }
+    }
+  ],
+  "version" : 1
+}

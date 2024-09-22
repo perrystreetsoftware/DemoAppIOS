@@ -39,10 +39,6 @@ let package = Package(
         .target(
             name: "InterfaceMocks",
             dependencies: ["Interfaces", "DomainModels"]
-        ),
-        .testTarget(
-            name: "InterfacesTests",
-            dependencies: ["Interfaces", "InterfaceMocks"]
         )
     ]
 )

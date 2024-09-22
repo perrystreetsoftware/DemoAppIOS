@@ -43,7 +43,7 @@ final class CountryListViewModelTests: QuickSpec {
                 api.getCountryListPublisher = countryToBeReturned.eraseToAnyPublisher()
                 api.getServerStatusPublisher = serverStatusToBeReturned.eraseToAnyPublisher()
 
-                viewModel = container.resolve(CountryListViewModel.self)!
+                viewModel = container~>
                 stateRecorder = viewModel.$state.record()
             }
 
