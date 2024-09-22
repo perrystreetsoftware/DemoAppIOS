@@ -9,8 +9,10 @@ import Foundation
 import DomainModels
 import Combine
 import Logic
+import DI
 
-public class CountryDetailsViewModel: ObservableObject {
+@Factory
+public final class CountryDetailsViewModel: ObservableObject {
     public enum State: Equatable {
         case initial
         case loading

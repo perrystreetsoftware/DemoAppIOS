@@ -16,6 +16,7 @@ import InterfaceMocks
 import Logic
 import Combine
 import Mockingbird
+import UtilsTestExtensions
 
 @testable import ViewModels
 
@@ -30,9 +31,9 @@ final class CountryListViewModelTests: QuickSpec {
             var stateRecorder: Recorder<CountryListViewModel.UiState, Never>!
 
             beforeEach {
-                container = Container().injectBusinessLogicRepositories()
-                    .injectBusinessLogicLogic()
-                    .injectBusinessLogicViewModels()
+                container = Container().injectRepositories()
+                    .injectLogic()
+                    .injectViewModels()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
                 
@@ -45,12 +46,12 @@ final class CountryListViewModelTests: QuickSpec {
                 stateRecorder = viewModel.$state.record()
             }
 
-            it("then it startings having transitioned to .loading") {
+            Then("it startings having transitioned to .loading") {
                 expect(try! stateRecorder.availableElements.get()).to(equal([
                     CountryListViewModel.UiState(isLoading: true, serverStatus: .Empty)]))
             }
 
-            context("when a country is returned") {
+            When("a country is returned") {
                 var states: [CountryListViewModel.UiState]!
 
                 beforeEach {
@@ -60,7 +61,7 @@ final class CountryListViewModelTests: QuickSpec {
                     states = try! stateRecorder.availableElements.get()
                 }
 
-                it("then we should emit a loading and a loaded state") {
+                Then("we should emit a loading and a loaded state") {
                     expect(states[1].isLoading).to(beTrue())
                     expect(states[1].isLoaded).to(beFalse())
                     expect(states[1].continents.isEmpty).to(beFalse())

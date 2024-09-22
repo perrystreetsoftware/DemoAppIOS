@@ -9,6 +9,7 @@ import Foundation
 import DomainModels
 import Interfaces
 import Combine
+import DI
 
 public enum ServerStatusRepositoryError: Error, Equatable {
     case apiError(innerError: TravelAdvisoryApiError)
@@ -26,7 +27,8 @@ public enum ServerStatusRepositoryError: Error, Equatable {
     }
 }
 
-public class ServerStatusPushBasedRepository {
+@Single
+public final class ServerStatusPushBasedRepository {
     @Published public private(set) var status: ServerStatus = ServerStatus.Empty
     private let countryListProviding: TravelAdvisoryApiImplementing
 

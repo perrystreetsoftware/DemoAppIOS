@@ -17,6 +17,10 @@ import Logic
 import Combine
 import Mockingbird
 import RepositoriesMocks
+import UtilsTestExtensions
+import FrameworkProvidersFacades
+import FrameworkProviderMocks
+
 @testable import ViewModels
 
 final class CountryDetailsViewModelTests: QuickSpec {
@@ -31,36 +35,38 @@ final class CountryDetailsViewModelTests: QuickSpec {
             let countryToBeReturned = PassthroughSubject<CountryDetailsDTO, TravelAdvisoryApiError>()
             
             beforeEach {
-                container = Container().injectBusinessLogicRepositories()
-                    .injectBusinessLogicLogic()
-                    .injectBusinessLogicViewModels()
+                container = Container().injectRepositories()
+                    .injectLogic()
+                    .injectViewModels()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
-                
+                    .injectFrameworkProviderMocks()
+                    .injectFrameworkProviderFacades()
+
                 api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
                 given(api.getCountryDetails(regionCode: "ng")).willReturn(countryToBeReturned.eraseToAnyPublisher())
                 viewModel = container.resolve(CountryDetailsViewModel.self, argument: country)
                 stateRecorder = viewModel.$state.record()
             }
    
-            it("then it starts having transitioned to .loading") {
+            Then("then it starts having transitioned to .loading") {
                 elements = try! stateRecorder.availableElements.get()
 
                 expect(elements).to(equal([.loading]))
             }
 
-            context("#state") {
+            Given("#state") {
                 beforeEach {
                     countryToBeReturned.send(.asia)
                 }
 
-                it("then it transitions to .loaded") {
+                Then("then it transitions to .loaded") {
                     elements = try! stateRecorder.availableElements.get()
 
                     expect(elements.count).to(equal(2))
                 }
 
-                it("then it has loaded content") {
+                Then("then it has loaded content") {
                     switch viewModel.state {
                     case .loaded(let details):
                         expect(details.country.countryName).to(equal("Nigeria"))

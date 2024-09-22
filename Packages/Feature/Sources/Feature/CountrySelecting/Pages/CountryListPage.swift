@@ -21,6 +21,14 @@ public struct CountryListPage: View {
         self.onFailOtherTapped = onFailOtherTapped
     }
     
+    var yourLocationText: Text {
+        guard let yourLocation = listUiState.yourLocation else {
+            return Text("No location found")
+        }
+
+        return Text("Your location \(yourLocation)")
+    }
+
     public var body: some View {
         ZStack {
             ProgressIndicator(isLoading: listUiState.isLoading)
@@ -52,6 +60,8 @@ public struct CountryListPage: View {
                 } label: {
                     L10n.Ui.failOtherTitle.text
                 }
+                
+                yourLocationText
             }
         }
     }

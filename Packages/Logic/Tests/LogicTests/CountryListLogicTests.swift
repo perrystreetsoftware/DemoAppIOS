@@ -15,6 +15,8 @@ import Interfaces
 import InterfaceMocks
 import Combine
 import Mockingbird
+import UtilsTestExtensions
+import SwinjectAutoregistration
 
 @testable import Logic
 
@@ -28,22 +30,22 @@ final class CountryListLogicTests: QuickSpec {
             var api: TravelAdvisoryApiImplementingMock!
 
             beforeEach {
-                container = Container().injectBusinessLogicRepositories()
-                    .injectBusinessLogicLogic()
+                container = Container().injectRepositories()
+                    .injectLogic()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
-                logic = container.resolve(CountryListLogic.self)!
+                logic = container~>
                 api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
 
                 continentsRecorder = logic.$continents.record()
                 value = try! QuickSpec.current.wait(for: continentsRecorder.next(), timeout: 5.0)
             }
 
-            it("then it starts with no continents") {
+            Then("then it starts with no continents") {
                 expect(value.count).to(equal(0))
             }
 
-            describe("#reload") {
+            When("#reload") {
                 var recorder: Recorder<Void, CountryListError>!
                 var completion: Subscribers.Completion<CountryListError>!
 
@@ -53,7 +55,7 @@ final class CountryListLogicTests: QuickSpec {
                     recorder = logic.reload().record()
                 }
 
-                context("success") {
+                When("success") {
                     var value: [Continent]!
 
                     beforeEach {
@@ -61,11 +63,11 @@ final class CountryListLogicTests: QuickSpec {
                         completion = try! QuickSpec.current.wait(for: recorder.completion, timeout: 5.0)
                     }
 
-                    it("then value is set") {
+                    Then("value is set") {
                         expect(value.count).to(equal(6))
                     }
 
-                    it("then recorder has completed") {
+                    Then("recorder has completed") {
                         switch completion {
                         case .failure:
                             fail("Unexpected state")

@@ -16,9 +16,9 @@ import FrameworkProviders
 struct TravelAdvisoriesApp: App {
     init() {
         InjectSettings.resolver = Container()
-            .injectBusinessLogicViewModels()
-            .injectBusinessLogicLogic()
-            .injectBusinessLogicRepositories()
+            .injectViewModels()
+            .injectLogic()
+            .injectRepositories()
             .injectBusinessLogicLocalApis()
             .injectNetworkLogicRemoteApis()
             .injectFrameworkProviders()

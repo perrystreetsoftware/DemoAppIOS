@@ -9,14 +9,12 @@ import Foundation
 import Interfaces
 import DomainModels
 import Combine
+import DI
 
-public class CountryListRepository {
+@Single
+public final class CountryListRepository {
     @Published public private(set) var continents: [Continent] = []
     private let countryListProviding: TravelAdvisoryApiImplementing
-
-    public init(countryListProviding: TravelAdvisoryApiImplementing) {
-        self.countryListProviding = countryListProviding
-    }
 
     public func reload() -> AnyPublisher<Void, CountryListError> {
         return countryListProviding.getCountryList()

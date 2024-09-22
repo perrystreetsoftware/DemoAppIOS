@@ -21,6 +21,7 @@ let package = Package(
         .package(path: "../Interfaces"),
         .package(path: "../FrameworkProviders"),
         .package(path: "../Utils"),
+        .package(path: "../DI"),
         .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0"),
         .package(url: "https://github.com/Quick/Quick.git", from: "7.4.0"),
         .package(url: "https://github.com/Quick/Nimble.git", from: "13.2.0"),
@@ -32,16 +33,15 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "Logic",
-            dependencies: ["Repositories", "Swinject", "SwinjectAutoregistration"]),
+            dependencies: ["Repositories", "Swinject", "SwinjectAutoregistration", "DI"]),
         .testTarget(
             name: "LogicTests",
             dependencies: [
                 "Logic",
                 "Quick",
                 "Nimble",
-                "FrameworkProviders",
                 "CombineExpectations",
-                .product(name: "FrameworkProvidersMocks", package: "FrameworkProviders"),
+                .product(name: "FrameworkProviderMocks", package: "FrameworkProviders"),
                 .product(name: "InterfaceMocks", package: "Interfaces"),
                 .product(name: "RepositoriesMocks", package: "Repositories"),
                 .product(name: "UtilsTestExtensions", package: "Utils")

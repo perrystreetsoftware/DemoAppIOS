@@ -10,13 +10,11 @@ import DomainModels
 import Interfaces
 import Combine
 import Repositories
+import DI
 
-public class CountryDetailsLogic {
+@Factory
+public final class CountryDetailsLogic {
     private let countryDetailsRepository: CountryDetailsRepository
-
-    public init(countryDetailsRepository: CountryDetailsRepository) {
-        self.countryDetailsRepository = countryDetailsRepository
-    }
 
     public func getDetails(country: Country) -> AnyPublisher<CountryDetails, CountryDetailsError> {
         return countryDetailsRepository

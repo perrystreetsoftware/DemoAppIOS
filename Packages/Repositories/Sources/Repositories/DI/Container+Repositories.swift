@@ -1,8 +1,8 @@
 //
-//  File.swift
+//  Container+Repositories.swift
+//  Put registrations that require name: parameters here
 //
-//
-//  Created by Eric Silverberg on 9/17/22.
+//  Created by Eric Silverberg on 9/22/24.
 //
 
 import Foundation
@@ -11,11 +11,7 @@ import Interfaces
 import SwinjectAutoregistration
 
 public extension Container {
-    func injectBusinessLogicRepositories() -> Container {
-        self.autoregister(CountryListRepository.self, initializer: CountryListRepository.init).inObjectScope(.container)
-        self.autoregister(CountryDetailsRepository.self, initializer: CountryDetailsRepository.init).inObjectScope(.container)
-        self.autoregister(ServerStatusPushBasedRepository.self, initializer: ServerStatusPushBasedRepository.init).inObjectScope(.container)
-
-        return self
+    func injectRepositories() -> Container {
+        return self.injectRepositoriesGenerated()
     }
 }

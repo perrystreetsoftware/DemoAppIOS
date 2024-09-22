@@ -10,6 +10,7 @@ import DomainModels
 import Interfaces
 import Combine
 import Repositories
+import DI
 
 public enum ServerStatusLogicError: Error {
     case forbidden
@@ -36,7 +37,8 @@ public enum ServerStatusLogicError: Error {
     }
 }
 
-public class ServerStatusLogic {
+@Factory
+public final class ServerStatusLogic {
     private let serverStatusRepository: ServerStatusPushBasedRepository
 
     @Published public var serverStatus: ServerStatus

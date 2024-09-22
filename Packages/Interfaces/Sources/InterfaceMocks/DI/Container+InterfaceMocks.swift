@@ -10,6 +10,7 @@ import Swinject
 import Mockingbird
 import Interfaces
 import Combine
+import Utils
 
 public extension Container {
     func injectInterfaceRemoteMocks() -> Container {
@@ -21,9 +22,7 @@ public extension Container {
     }
 
     func injectInterfaceLocalMocks() -> Container {
-        self.register(AppSchedulerProviding.self) { resolver in
-            MockAppSchedulerProviding()
-        }.inObjectScope(.container)
+        self.pss_registerMock(AppSchedulerProviding.self, MockAppSchedulerProviding.self, MockAppSchedulerProviding.init).inObjectScope(.container)
 
         return self
     }
