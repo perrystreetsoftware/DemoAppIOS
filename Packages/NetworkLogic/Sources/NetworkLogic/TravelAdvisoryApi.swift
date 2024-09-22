@@ -26,7 +26,10 @@ public final class TravelAdvisoryApi: TravelAdvisoryApiImplementing {
                 task = URLSession.shared.dataTask(with: url) {
                     data, response, error in
 
-                    let httpResponse = response as! HTTPURLResponse
+                    guard let httpResponse = response as? HTTPURLResponse else {
+                        promise(.failure(TravelAdvisoryApiError(statusCode: 0, responseData: nil)))
+                        return
+                    }
                     let apiResponseCode = ApiResponseCode(rawValue: httpResponse.statusCode)
 
                     if apiResponseCode == .success {

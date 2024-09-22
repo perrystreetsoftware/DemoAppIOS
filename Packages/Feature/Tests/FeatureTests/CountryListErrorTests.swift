@@ -21,9 +21,9 @@ final class CountryListErrorTests: QuickSpec {
             let countryToBeReturned = PassthroughSubject<CountryListDTO, TravelAdvisoryApiError>()
 
             beforeEach {
-                container = Container().injectBusinessLogicRepositories()
-                    .injectBusinessLogicLogic()
-                    .injectBusinessLogicViewModels()
+                container = Container().injectRepositories()
+                    .injectLogic()
+                    .injectViewModels()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
                 

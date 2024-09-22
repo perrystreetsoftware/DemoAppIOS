@@ -17,6 +17,8 @@ import Mockingbird
 import InterfaceMocks
 import RepositoriesMocks
 import XCTest
+import UtilsTestExtensions
+import SwinjectAutoregistration
 
 @testable import Repositories
 
@@ -28,14 +30,14 @@ final class CountryDetailsRepositoryTests: QuickSpec {
             var api: TravelAdvisoryApiImplementingMock!
             
             beforeEach {
-                container = Container().injectBusinessLogicRepositories()
+                container = Container().injectRepositories()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
-                repository = container.resolve(CountryDetailsRepository.self)!
+                repository = container~>
                 api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
             }
 
-            describe("#getDetails") {
+            Given("#getDetails") {
                 var recorder: Recorder<CountryDetails, CountryDetailsError>!
                 var completion: Subscribers.Completion<CountryDetailsError>!
 
@@ -44,7 +46,7 @@ final class CountryDetailsRepositoryTests: QuickSpec {
                     completion = try! QuickSpec.current.wait(for: recorder.completion, timeout: 1.0)
                 }
 
-                context("when api succeeds") {
+                When("api succeeds") {
                     var value: CountryDetails!
 
                     beforeEach {
@@ -56,7 +58,7 @@ final class CountryDetailsRepositoryTests: QuickSpec {
                         value = try! recorder.availableElements.get().last
                     }
 
-                    it("then should return country details") {
+                    Then("should return country details") {
                         let countryDetails = CountryDetails.fixture(
                             country: .fixture(regionCode: "region code value")
                         )
@@ -66,13 +68,13 @@ final class CountryDetailsRepositoryTests: QuickSpec {
                     }
                 }
 
-                context("when api fails") {
+                When("api fails") {
                     beforeEach {
                         let forbiddenError = TravelAdvisoryApiError.domainError(.forbidden, responseCode: .forbidden)
                         given(api.getCountryDetails(regionCode: "rc")).willReturn(.error(forbiddenError))
                     }
 
-                    it("then should return a country details error") {
+                    Then("should return a country details error") {
                         expect(completion.error) == CountryDetailsError.other
                     }
                 }

@@ -9,21 +9,26 @@ import Foundation
 import Combine
 import DomainModels
 import Logic
+import DI
 
+@Factory
 public final class CountryListViewModel: ObservableObject {
     public struct UiState: Equatable {
         public let continents: [Continent]
         public let isLoading: Bool
         public let isLoaded: Bool
+        public let yourLocation: PSSLocation?
         public let serverStatus: ServerStatus?
 
         public init(continents: [Continent] = [],
                     isLoading: Bool = false,
                     isLoaded: Bool = false,
+                    yourLocation: PSSLocation? = nil,
                     serverStatus: ServerStatus? = nil) {
             self.continents = continents
             self.isLoading = isLoading
             self.isLoaded = isLoaded
+            self.yourLocation = yourLocation
             self.serverStatus = serverStatus
         }
 
@@ -31,12 +36,14 @@ public final class CountryListViewModel: ObservableObject {
             continents: [Continent]? = nil,
             isLoading: Bool? = nil,
             isLoaded: Bool? = nil,
+            yourLocation: PSSLocation? = nil,
             serverStatus: ServerStatus? = nil
         ) -> UiState {
             return UiState(
                 continents: continents ?? self.continents,
                 isLoading: isLoading != nil ? (isLoading ?? false) : self.isLoading,
                 isLoaded: isLoaded != nil ? (isLoaded ?? false) : self.isLoaded,
+                yourLocation: yourLocation ?? self.yourLocation,
                 serverStatus: serverStatus != nil ? serverStatus : self.serverStatus
             )
         }
@@ -45,14 +52,24 @@ public final class CountryListViewModel: ObservableObject {
     @Published public var state: UiState = UiState()
     @Published public var navigationDestination: Country?
     @Published public var error: CountryListError? = nil
+    @Published public var location: PSSLocation? = nil
 
     private var cancellables = Set<AnyCancellable>()
     private let logic: CountryListLogic
     private let serverStatusLogic: ServerStatusLogic
+    private let currentLocationLogic: GetCurrentLocationLogic
+    private let requestNewLocationLogic: RequestNewLocationLogic
 
-    public init(logic: CountryListLogic, serverStatusLogic: ServerStatusLogic) {
+    public init(
+        logic: CountryListLogic,
+        serverStatusLogic: ServerStatusLogic,
+        currentLocationLogic: GetCurrentLocationLogic,
+        requestNewLocationLogic: RequestNewLocationLogic
+    ) {
         self.logic = logic
         self.serverStatusLogic = serverStatusLogic
+        self.currentLocationLogic = currentLocationLogic
+        self.requestNewLocationLogic = requestNewLocationLogic
 
         logic.$continents
             .dropFirst()
@@ -103,6 +120,14 @@ public final class CountryListViewModel: ObservableObject {
         } receiveValue: { _ in
         }.store(in: &cancellables)
 
+        currentLocationLogic.callAsFunction().sink { newLocation in
+            self.location = newLocation
+            self.state = self.state.copy(yourLocation: newLocation)
+        }.store(in: &cancellables)
+
+        requestNewLocationLogic.callAsFunction().sink(receiveCompletion: { _ in
+        }, receiveValue: { _ in
+        }).store(in: &cancellables)
     }
 
     public func onButtonTapped() {

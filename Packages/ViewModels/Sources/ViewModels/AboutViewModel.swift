@@ -7,6 +7,8 @@
 
 import Foundation
 import SwiftUI
+import DI
 
-public class AboutViewModel: ObservableObject {
+@Factory
+public final class AboutViewModel: ObservableObject {
 }

@@ -41,17 +41,6 @@ public extension Country {
     }
 }
 
-public extension Subscribers.Completion {
-    var error: Failure? {
-        switch self {
-        case .finished:
-            return nil
-        case .failure(let resultError):
-            return resultError
-        }
-    }
-}
-
 public extension CountryDetailsDTO {
     static var asia: Self {
         CountryDetailsDTO(

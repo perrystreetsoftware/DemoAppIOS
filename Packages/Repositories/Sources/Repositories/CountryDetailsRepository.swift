@@ -9,13 +9,11 @@ import Foundation
 import Interfaces
 import DomainModels
 import Combine
+import DI
 
-public class CountryDetailsRepository {
+@Single
+public final class CountryDetailsRepository {
     private let countryListProviding: TravelAdvisoryApiImplementing
-
-    public init(countryListProviding: TravelAdvisoryApiImplementing) {
-        self.countryListProviding = countryListProviding
-    }
 
     // We do not do any mapping because we are not transforming or defining any new errors
     public func getDetails(regionCode: String) -> AnyPublisher<CountryDetails, CountryDetailsError> {

@@ -16,6 +16,8 @@ import InterfaceMocks
 import Combine
 import Mockingbird
 import RepositoriesMocks
+import UtilsTestExtensions
+import SwinjectAutoregistration
 
 @testable import Logic
 
@@ -29,15 +31,15 @@ final class CountryDetailsLogicTests: QuickSpec {
             let country = Country(regionCode: "ng")
 
             beforeEach {
-                container = Container().injectBusinessLogicRepositories()
-                    .injectBusinessLogicLogic()
+                container = Container().injectRepositories()
+                    .injectLogic()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
-                logic = container.resolve(CountryDetailsLogic.self)!
+                logic = container~>
                 api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
             }
 
-            describe("#getDetails") {
+            Given("#getDetails") {
                 var recorder: Recorder<CountryDetails, CountryDetailsError>!
                 var completion: Subscribers.Completion<CountryDetailsError>!
 
@@ -46,7 +48,7 @@ final class CountryDetailsLogicTests: QuickSpec {
                     recorder = logic.getDetails(country: country).record()
                 }
 
-                context("success") {
+                When("success") {
                     var value: CountryDetails!
 
                     beforeEach {
@@ -54,11 +56,11 @@ final class CountryDetailsLogicTests: QuickSpec {
                         completion = try! QuickSpec.current.wait(for: recorder.completion, timeout: 5.0)
                     }
 
-                    it("then value is set") {
+                    Then("value is set") {
                         expect(value).to(equal(CountryDetails(country: country, detailsText: "Article 264")))
                     }
 
-                    it("then recorder has completed") {
+                    Then("recorder has completed") {
                         switch completion {
                         case .failure:
                             fail("Unexpected state")

@@ -16,6 +16,8 @@ import Combine
 import Repositories
 import Mockingbird
 import InterfaceMocks
+import UtilsTestExtensions
+import SwinjectAutoregistration
 
 final class CountryListRepositoryTests: QuickSpec {
     override class func spec() {
@@ -27,26 +29,26 @@ final class CountryListRepositoryTests: QuickSpec {
             var continents: [Continent]!
 
             beforeEach {
-                container = Container().injectBusinessLogicRepositories()
+                container = Container().injectRepositories()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
-                repository = container.resolve(CountryListRepository.self)!
+                repository = container~>
                 api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
 
                 continentsRecorder = repository.$continents.record()
                 continents = try! QuickSpec.current.wait(for: continentsRecorder.next(), timeout: 5.0)
             }
 
-            it("then continents starts empty") {
+            Then("continents starts empty") {
                 expect(continents.count).to(equal(0))
             }
 
-            describe("#reload") {
+            Given("#reload") {
                 var recorder: Recorder<Void, CountryListError>!
                 var completion: Subscribers.Completion<CountryListError>!
 
-                context("success") {
-               
+                When("success") {
+
                     justBeforeEach {
                         _ = try! QuickSpec.current.wait(for: recorder.next(), timeout: 5.0)
                         continents = try! QuickSpec.current.wait(for: continentsRecorder.next(), timeout: 5.0)
@@ -58,11 +60,11 @@ final class CountryListRepositoryTests: QuickSpec {
                         recorder = repository.reload().record()
                     }
                     
-                    it("then value is set") {
+                    Then("value is set") {
                         expect(continents.count).to(equal(5))
                     }
 
-                    it("then recorder has completed") {
+                    Then("recorder has completed") {
                         switch completion {
                         case .failure:
                             fail("Unexpected state")
@@ -75,7 +77,7 @@ final class CountryListRepositoryTests: QuickSpec {
                     }
                 }
 
-                context("failure") {
+                When("failure") {
     
                     beforeEach {
                         given(api.getCountryList()).willReturn(.error(TravelAdvisoryApiError(statusCode: 10)))
@@ -86,7 +88,7 @@ final class CountryListRepositoryTests: QuickSpec {
                         completion = try! QuickSpec.current.wait(for: recorder.completion, timeout: 5.0)
                     }
 
-                    it("then recorder has failed") {
+                    Then("recorder has failed") {
                         switch completion {
                         case .failure:
                             return

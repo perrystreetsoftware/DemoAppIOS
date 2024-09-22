@@ -17,11 +17,16 @@ let package = Package(
         .library(
             name: "InterfaceMocks",
             targets: ["InterfaceMocks"]
+        ),
+        .library(
+            name: "InterfaceTestFactories",
+            targets: ["InterfaceTestFactories"]
         )
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(path: "../DomainModels"),
+        .package(path: "../Utils"),
         .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0"),
         .package(url: "https://github.com/pointfreeco/combine-schedulers.git", from: "0.4.1"),
         .package(url: "https://github.com/birdrides/mockingbird.git", from: "0.20.0")
@@ -31,10 +36,18 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "Interfaces",
-            dependencies: ["Swinject", .product(name: "CombineSchedulers", package: "combine-schedulers")]),
+            dependencies: [
+                "Swinject",
+                .product(name: "CombineSchedulers", package: "combine-schedulers"),
+                "Utils"
+            ]),
         .target(
             name: "InterfaceMocks",
             dependencies: ["Interfaces", "DomainModels", .product(name: "Mockingbird", package: "mockingbird")]
+        ),
+        .target(
+            name: "InterfaceTestFactories",
+            dependencies: ["Interfaces", "DomainModels", "InterfaceMocks"]
         ),
         .testTarget(
             name: "InterfacesTests",

@@ -16,7 +16,6 @@
 		051EAF80290C20FA0091E365 /* Utils in Frameworks */ = {isa = PBXBuildFile; productRef = 051EAF7F290C20FA0091E365 /* Utils */; };
 		051EAF82290C20FA0091E365 /* ViewModels in Frameworks */ = {isa = PBXBuildFile; productRef = 051EAF81290C20FA0091E365 /* ViewModels */; };
 		05E665FB29F1B6A4008CDA2C /* FrameworkProviders in Frameworks */ = {isa = PBXBuildFile; productRef = 05E665FA29F1B6A3008CDA2C /* FrameworkProviders */; };
-		05E665FD29F1B6A4008CDA2C /* FrameworkProvidersProtocols in Frameworks */ = {isa = PBXBuildFile; productRef = 05E665FC29F1B6A4008CDA2C /* FrameworkProvidersProtocols */; };
 		610A3CAC28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610A3CAB28EF15AB00C8C4D1 /* TravelAdvisoriesNavHost.swift */; };
 		6130549B29085FCD00B54AF9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6130549D29085FCD00B54AF9 /* Localizable.strings */; };
 		61BB446D293F58A40089248B /* TravelAdvisoriesTestsObjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BB446C293F58A40089248B /* TravelAdvisoriesTestsObjc.m */; };
@@ -25,6 +24,8 @@
 		61C9EEE728CD3A9500ACDF3E /* TravelAdvisoriesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C9EEBF28CD3A9400ACDF3E /* TravelAdvisoriesApp.swift */; };
 		61C9EEE928CD3A9500ACDF3E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C9EEC028CD3A9400ACDF3E /* ContentView.swift */; };
 		61C9EEEB28CD3A9500ACDF3E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61C9EEC128CD3A9500ACDF3E /* Assets.xcassets */; };
+		61FCB31D2CA03FB400280C8D /* FrameworkProviderProtocols in Frameworks */ = {isa = PBXBuildFile; productRef = 61FCB31C2CA03FB400280C8D /* FrameworkProviderProtocols */; };
+		61FCB31F2CA06A9800280C8D /* FrameworkProviderFacades in Frameworks */ = {isa = PBXBuildFile; productRef = 61FCB31E2CA06A9800280C8D /* FrameworkProviderFacades */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		61C9EECE28CD3A9500ACDF3E /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		61C9EED328CD3A9500ACDF3E /* TravelAdvisoriesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravelAdvisoriesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		61C9EED728CD3A9500ACDF3E /* Tests_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOS.swift; sourceTree = "<group>"; };
+		61FCB3212CA072F000280C8D /* DI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DI; path = Packages/DI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,8 +87,9 @@
 			files = (
 				051EAF7C290C20FA0091E365 /* Repositories in Frameworks */,
 				051EAF82290C20FA0091E365 /* ViewModels in Frameworks */,
-				05E665FD29F1B6A4008CDA2C /* FrameworkProvidersProtocols in Frameworks */,
 				051EAF76290C20FA0091E365 /* Interfaces in Frameworks */,
+				61FCB31D2CA03FB400280C8D /* FrameworkProviderProtocols in Frameworks */,
+				61FCB31F2CA06A9800280C8D /* FrameworkProviderFacades in Frameworks */,
 				051EAF7E290C20FA0091E365 /* UIComponents in Frameworks */,
 				051EAF74290C20FA0091E365 /* Feature in Frameworks */,
 				051EAF7A290C20FA0091E365 /* NetworkLogic in Frameworks */,
@@ -117,6 +120,7 @@
 		61A7890928D6557B009170DF /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				61FCB3212CA072F000280C8D /* DI */,
 				05E665F929F1B474008CDA2C /* FrameworkProviders */,
 				0517FE21290C1EFB00326D9B /* Feature */,
 				0517FE22290C1EFB00326D9B /* Interfaces */,
@@ -224,6 +228,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 61C9EEEF28CD3A9500ACDF3E /* Build configuration list for PBXNativeTarget "TravelAdvisories" */;
 			buildPhases = (
+				61FCB3182CA02B8400280C8D /* ShellScript */,
 				61C9EEC228CD3A9500ACDF3E /* Sources */,
 				61C9EEC328CD3A9500ACDF3E /* Frameworks */,
 				61C9EEC428CD3A9500ACDF3E /* Resources */,
@@ -243,7 +248,8 @@
 				051EAF7F290C20FA0091E365 /* Utils */,
 				051EAF81290C20FA0091E365 /* ViewModels */,
 				05E665FA29F1B6A3008CDA2C /* FrameworkProviders */,
-				05E665FC29F1B6A4008CDA2C /* FrameworkProvidersProtocols */,
+				61FCB31C2CA03FB400280C8D /* FrameworkProviderProtocols */,
+				61FCB31E2CA06A9800280C8D /* FrameworkProviderFacades */,
 			);
 			productName = "DemoApp (iOS)";
 			productReference = 61C9EEC628CD3A9500ACDF3E /* TravelAdvisories.app */;
@@ -339,6 +345,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		61FCB3182CA02B8400280C8D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/bin/swift ${SRCROOT}/scripts/generate_swinject_autoregisters.swift\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		61BB4466293F58A40089248B /* Sources */ = {
@@ -755,9 +781,13 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = FrameworkProviders;
 		};
-		05E665FC29F1B6A4008CDA2C /* FrameworkProvidersProtocols */ = {
+		61FCB31C2CA03FB400280C8D /* FrameworkProviderProtocols */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = FrameworkProvidersProtocols;
+			productName = FrameworkProviderProtocols;
+		};
+		61FCB31E2CA06A9800280C8D /* FrameworkProviderFacades */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FrameworkProviderFacades;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

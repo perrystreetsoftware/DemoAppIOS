@@ -13,14 +13,21 @@ let package = Package(
             name: "FrameworkProviders",
             targets: ["FrameworkProviders"]),
         .library(
-            name: "FrameworkProvidersProtocols",
-            targets: ["FrameworkProvidersProtocols"]),
+            name: "FrameworkProviderProtocols",
+            targets: ["FrameworkProviderProtocols"]),
         .library(
-            name: "FrameworkProvidersMocks",
-            targets: ["FrameworkProvidersMocks"]),
+            name: "FrameworkProviderFacades",
+            targets: ["FrameworkProviderFacades"]),
+        .library(
+            name: "FrameworkProviderTestFactories",
+            targets: ["FrameworkProviderTestFactories"]),
+        .library(
+            name: "FrameworkProviderMocks",
+            targets: ["FrameworkProviderMocks"]),
     ],
     dependencies: [
         .package(path: "../Utils"),
+        .package(path: "../DomainModels"),
         .package(url: "https://github.com/Swinject/Swinject.git", from: "2.7.1"),
         .package(url: "https://github.com/Swinject/SwinjectAutoregistration.git", from: "2.8.1"),
         .package(url: "https://github.com/Quick/Quick.git", from: "7.4.0"),
@@ -31,26 +38,43 @@ let package = Package(
         .target(
             name: "FrameworkProviders",
             dependencies: [
-                "FrameworkProvidersProtocols",
+                "FrameworkProviderProtocols",
+                "FrameworkProviderFacades",
                 "Swinject",
+                "SwinjectAutoregistration"
             ]),
         .target(
-            name: "FrameworkProvidersProtocols",
-            dependencies: []),
+            name: "FrameworkProviderFacades",
+            dependencies: [
+                "FrameworkProviderProtocols",
+                "Swinject",
+                "SwinjectAutoregistration"
+            ]),
         .target(
-            name: "FrameworkProvidersMocks",
+            name: "FrameworkProviderTestFactories",
+            dependencies: [
+                "FrameworkProviderMocks",
+                "FrameworkProviderFacades",
+                "Swinject",
+                "SwinjectAutoregistration"
+            ]),
+        .target(
+            name: "FrameworkProviderProtocols",
+            dependencies: ["DomainModels"]),
+        .target(
+            name: "FrameworkProviderMocks",
             dependencies: [
                 "Utils",
-                "FrameworkProvidersProtocols"
+                "FrameworkProviderProtocols"
             ]),
         .testTarget(
-            name: "FrameworkProvidersTests",
+            name: "FrameworkProviderTests",
             dependencies: [
                 "FrameworkProviders",
-                "FrameworkProvidersMocks",
+                "FrameworkProviderMocks",
                 "Quick",
                 "Nimble",
-                "CombineExpectations",
+                "CombineExpectations"
             ])
     ]
 )

@@ -10,8 +10,10 @@ import DomainModels
 import Interfaces
 import Combine
 import Repositories
+import DI
 
-public class CountryListLogic {
+@Factory
+public final class CountryListLogic {
     private static let NoPermissionsCountry = Country(regionCode: "XX Toast")
     private static let UnavailableCountry = Country(regionCode: "XX Dialog")
     private static let BlockedCountry = Country(regionCode: "XX Random")

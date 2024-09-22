@@ -21,6 +21,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0"),
+        .package(url: "https://github.com/Swinject/SwinjectAutoregistration.git", from: "2.8.1"),
         .package(url: "https://github.com/groue/CombineExpectations.git", from: "0.0.0"),
         .package(url: "https://github.com/pointfreeco/combine-schedulers.git", from: "0.4.1"),
         .package(url: "https://github.com/Quick/Quick.git", from: "7.4.0"),
@@ -31,7 +32,9 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "Utils",
-            dependencies: ["Swinject"]),
+            dependencies: ["Swinject", 
+                           "SwinjectAutoregistration",
+                          ]),
         .testTarget(
             name: "UtilsTests",
             dependencies: ["Utils"]),
