@@ -11,6 +11,7 @@ import DomainModels
 import Combine
 import Interfaces
 import DI
+import FrameworkProviderProtocols
 
 public enum LocationRepositoryError: Error {
     case timeout

@@ -15,6 +15,7 @@ import Utils
 public extension Container {
     func injectFrameworkProviderMocks() -> Container {
         self.pss_registerMock(LocationProviding.self, MockLocationProvider.self, MockLocationProvider.init)
+        self.pss_registerMock(AppSchedulerProviding.self, MockAppSchedulerProviding.self, MockAppSchedulerProviding.init).inObjectScope(.container)
         return self
     }
 }

@@ -19,7 +19,6 @@ import InterfaceMocks
 import UtilsTestExtensions
 import SwinjectAutoregistration
 import FrameworkProviderMocks
-import InterfaceTestFactories
 import FrameworkProviderTestFactories
 
 final class LocationRepositoryTests: QuickSpec {

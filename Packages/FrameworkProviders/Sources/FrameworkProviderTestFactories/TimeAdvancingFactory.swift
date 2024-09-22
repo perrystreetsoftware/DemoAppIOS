@@ -6,10 +6,9 @@
 //
 
 import Foundation
-import Interfaces
-import InterfaceMocks
 import Swinject
 import SwinjectAutoregistration
+import FrameworkProviderMocks
 
 final public class TimeAdvancingFactory {
     private let scheduler: MockAppSchedulerProviding
