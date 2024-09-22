@@ -36,7 +36,9 @@ final class CountryListViewModelTests: QuickSpec {
                     .injectViewModels()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
-                
+                    .injectFrameworkProviderFacades()
+                    .injectFrameworkProviderMocks()
+
                 api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
     
                 given(api.getCountryList()).willReturn(countryToBeReturned.eraseToAnyPublisher())

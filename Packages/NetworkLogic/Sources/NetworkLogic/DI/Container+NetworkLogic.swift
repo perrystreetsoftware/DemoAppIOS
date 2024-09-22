@@ -8,6 +8,7 @@
 import Foundation
 import Swinject
 import Interfaces
+import FrameworkProviderProtocols
 
 public extension Container {
     func injectNetworkLogicRemoteApis() -> Container {

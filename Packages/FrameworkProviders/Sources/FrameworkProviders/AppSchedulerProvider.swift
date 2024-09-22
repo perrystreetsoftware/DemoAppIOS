@@ -8,6 +8,7 @@
 import Foundation
 import Interfaces
 import CombineSchedulers
+import FrameworkProviderProtocols
 
 public class AppSchedulerProvider: AppSchedulerProviding {
     public var mainScheduler: AnySchedulerOf<DispatchQueue> {

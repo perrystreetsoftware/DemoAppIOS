@@ -22,8 +22,6 @@ public extension Container {
     }
 
     func injectInterfaceLocalMocks() -> Container {
-        self.pss_registerMock(AppSchedulerProviding.self, MockAppSchedulerProviding.self, MockAppSchedulerProviding.init).inObjectScope(.container)
-
         return self
     }
 }

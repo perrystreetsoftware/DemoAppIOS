@@ -61,7 +61,6 @@ let package = Package(
                 .product(name: "FrameworkProviderMocks", package: "FrameworkProviders"),
                 .product(name: "FrameworkProviderTestFactories", package: "FrameworkProviders"),
                 .product(name: "InterfaceMocks", package: "Interfaces"),
-                .product(name: "InterfaceTestFactories", package: "Interfaces"),
                 .product(name: "UtilsTestExtensions", package: "Utils")
             ]),
     ]

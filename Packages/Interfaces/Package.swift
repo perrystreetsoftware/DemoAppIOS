@@ -17,10 +17,6 @@ let package = Package(
         .library(
             name: "InterfaceMocks",
             targets: ["InterfaceMocks"]
-        ),
-        .library(
-            name: "InterfaceTestFactories",
-            targets: ["InterfaceTestFactories"]
         )
     ],
     dependencies: [
@@ -44,10 +40,6 @@ let package = Package(
         .target(
             name: "InterfaceMocks",
             dependencies: ["Interfaces", "DomainModels", .product(name: "Mockingbird", package: "mockingbird")]
-        ),
-        .target(
-            name: "InterfaceTestFactories",
-            dependencies: ["Interfaces", "DomainModels", "InterfaceMocks"]
         ),
         .testTarget(
             name: "InterfacesTests",
