@@ -7,16 +7,13 @@
 
 import Foundation
 import Swinject
-import Mockingbird
 import Interfaces
 import Combine
 import Utils
 
 public extension Container {
     func injectInterfaceRemoteMocks() -> Container {
-        self.register(TravelAdvisoryApiImplementing.self) { resolver in
-            mock(TravelAdvisoryApiImplementing.self)
-        }.inObjectScope(.container)
+        self.pss_registerMock(TravelAdvisoryApiImplementing.self, MockTravelAdvisoryApi.self, MockTravelAdvisoryApi.init).inObjectScope(.container)
 
         return self
     }

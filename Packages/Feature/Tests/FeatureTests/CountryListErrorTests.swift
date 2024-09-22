@@ -7,16 +7,18 @@ import Interfaces
 import InterfaceMocks
 import Logic
 import Combine
-import Mockingbird
 @testable import Feature
 import ViewModels
+import UtilsTestExtensions
+import SwinjectAutoregistration
+import FrameworkProviderMocks
 
 final class CountryListErrorTests: QuickSpec {
     override class func spec() {
         describe("CountryListError") {
             var container: Container!
             var viewModel: CountryListViewModel!
-            var api: TravelAdvisoryApiImplementingMock!
+            var api: MockTravelAdvisoryApi!
             let serverStatusToBeReturned = PassthroughSubject<ServerStatusDTO, TravelAdvisoryApiError>()
             let countryToBeReturned = PassthroughSubject<CountryListDTO, TravelAdvisoryApiError>()
 
@@ -26,17 +28,18 @@ final class CountryListErrorTests: QuickSpec {
                     .injectViewModels()
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
-                
-                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
-                
-                given(api.getCountryList()).willReturn(countryToBeReturned.eraseToAnyPublisher())
-                given(api.getServerStatus()).willReturn(serverStatusToBeReturned.eraseToAnyPublisher())
-                
+                    .injectFrameworkProviderFacades()
+                    .injectFrameworkProviderMocks()
+
+                api = container~>
+
+                api.getCountryListPublisher = countryToBeReturned.eraseToAnyPublisher()
+                api.getServerStatusPublisher = serverStatusToBeReturned.eraseToAnyPublisher()
 
                 viewModel = container.resolve(CountryListViewModel.self)!
             }
             
-            it("Blocked error shows a dialog with a positive action"){
+            Then("Blocked error shows a dialog with a positive action"){
                 let floatingAlert = CountryListError.blocked.asFloatingAlert(viewModel: viewModel, onAboutThisAppSelected: {})
                 
                 switch floatingAlert {

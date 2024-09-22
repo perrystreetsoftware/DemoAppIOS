@@ -15,10 +15,10 @@ import Interfaces
 import InterfaceMocks
 import Logic
 import Combine
-import Mockingbird
 import RepositoriesMocks
 import UtilsTestExtensions
 import FrameworkProviderMocks
+import SwinjectAutoregistration
 
 @testable import ViewModels
 
@@ -27,7 +27,7 @@ final class CountryDetailsViewModelTests: QuickSpec {
         describe("CountryDetailsViewModel") {
             var container: Container!
             var viewModel: CountryDetailsViewModel!
-            var api: TravelAdvisoryApiImplementingMock!
+            var api: MockTravelAdvisoryApi!
             let country = Country(regionCode: "ng")
             var elements: [CountryDetailsViewModel.State]!
             var stateRecorder: Recorder<CountryDetailsViewModel.State, Never>!
@@ -42,8 +42,8 @@ final class CountryDetailsViewModelTests: QuickSpec {
                     .injectFrameworkProviderMocks()
                     .injectFrameworkProviderFacades()
 
-                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
-                given(api.getCountryDetails(regionCode: "ng")).willReturn(countryToBeReturned.eraseToAnyPublisher())
+                api = container~>
+                api.getCountryDetailsPublisher = countryToBeReturned.eraseToAnyPublisher()
                 viewModel = container.resolve(CountryDetailsViewModel.self, argument: country)
                 stateRecorder = viewModel.$state.record()
             }

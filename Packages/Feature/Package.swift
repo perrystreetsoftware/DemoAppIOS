@@ -20,6 +20,8 @@ let package = Package(
         .package(path: "../UIComponents"),
         .package(path: "../ViewModels"),
         .package(path: "../Interfaces"),
+        .package(path: "../Utils"),
+        .package(path: "../FrameworkProviders"),
         .package(url: "https://github.com/Quick/Quick.git", from: "7.4.0"),
         .package(url: "https://github.com/Quick/Nimble.git", from: "13.2.0")
     ],
@@ -35,6 +37,11 @@ let package = Package(
         ),
         .testTarget(
             name: "FeatureTests",
-            dependencies: ["Feature", "Quick", "Nimble", .product(name: "InterfaceMocks", package: "Interfaces")]),
+            dependencies: ["Feature",
+                           "Quick",
+                           "Nimble",
+                           .product(name: "FrameworkProviderMocks", package: "FrameworkProviders"),
+                           .product(name: "InterfaceMocks", package: "Interfaces"),
+                           .product(name: "UtilsTestExtensions", package: "Utils")]),
     ]
 )

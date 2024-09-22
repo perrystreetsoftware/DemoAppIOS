@@ -14,7 +14,6 @@ import CombineExpectations
 import Interfaces
 import Combine
 import Repositories
-import Mockingbird
 import InterfaceMocks
 import UtilsTestExtensions
 import SwinjectAutoregistration
@@ -24,7 +23,7 @@ final class CountryListRepositoryTests: QuickSpec {
         describe("CountryListRepository") {
             var container: Container!
             var repository: CountryListRepository!
-            var api: TravelAdvisoryApiImplementingMock!
+            var api: MockTravelAdvisoryApi!
             var continentsRecorder: Recorder<[Continent], Never>!
             var continents: [Continent]!
 
@@ -33,7 +32,7 @@ final class CountryListRepositoryTests: QuickSpec {
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
                 repository = container~>
-                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
+                api = container~>
 
                 continentsRecorder = repository.$continents.record()
                 continents = try! QuickSpec.current.wait(for: continentsRecorder.next(), timeout: 5.0)
@@ -56,7 +55,7 @@ final class CountryListRepositoryTests: QuickSpec {
                     }
 
                     beforeEach {
-                        given(api.getCountryList()).willReturn(.just(.init()))
+                        api.getCountryListResult = .success(.init())
                         recorder = repository.reload().record()
                     }
                     
@@ -80,7 +79,7 @@ final class CountryListRepositoryTests: QuickSpec {
                 When("failure") {
     
                     beforeEach {
-                        given(api.getCountryList()).willReturn(.error(TravelAdvisoryApiError(statusCode: 10)))
+                        api.getCountryListResult = .failure(TravelAdvisoryApiError(statusCode: 10))
                         recorder = repository.reload().record()
                     }
 

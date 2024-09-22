@@ -14,7 +14,6 @@ import CombineExpectations
 import Interfaces
 import InterfaceMocks
 import Combine
-import Mockingbird
 import RepositoriesMocks
 import UtilsTestExtensions
 import SwinjectAutoregistration
@@ -26,7 +25,7 @@ final class CountryDetailsLogicTests: QuickSpec {
         describe("CountryDetailsLogic") {
             var container: Container!
             var logic: CountryDetailsLogic!
-            var api: TravelAdvisoryApiImplementingMock!
+            var api: MockTravelAdvisoryApi!
 
             let country = Country(regionCode: "ng")
 
@@ -36,7 +35,7 @@ final class CountryDetailsLogicTests: QuickSpec {
                     .injectInterfaceLocalMocks()
                     .injectInterfaceRemoteMocks()
                 logic = container~>
-                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
+                api = container~>
             }
 
             Given("#getDetails") {
@@ -44,7 +43,7 @@ final class CountryDetailsLogicTests: QuickSpec {
                 var completion: Subscribers.Completion<CountryDetailsError>!
 
                 beforeEach {
-                    given(api.getCountryDetails(regionCode: "ng")).willReturn(.just(.asia))
+                    api.getCountryDetailsResult = .success(.asia)
                     recorder = logic.getDetails(country: country).record()
                 }
 

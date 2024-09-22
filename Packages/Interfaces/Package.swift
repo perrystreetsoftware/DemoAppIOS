@@ -24,8 +24,7 @@ let package = Package(
         .package(path: "../DomainModels"),
         .package(path: "../Utils"),
         .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0"),
-        .package(url: "https://github.com/pointfreeco/combine-schedulers.git", from: "0.4.1"),
-        .package(url: "https://github.com/birdrides/mockingbird.git", from: "0.20.0")
+        .package(url: "https://github.com/pointfreeco/combine-schedulers.git", from: "0.4.1")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -39,11 +38,11 @@ let package = Package(
             ]),
         .target(
             name: "InterfaceMocks",
-            dependencies: ["Interfaces", "DomainModels", .product(name: "Mockingbird", package: "mockingbird")]
+            dependencies: ["Interfaces", "DomainModels"]
         ),
         .testTarget(
             name: "InterfacesTests",
-            dependencies: ["Interfaces", .product(name: "Mockingbird", package: "mockingbird"), "InterfaceMocks"]
+            dependencies: ["Interfaces", "InterfaceMocks"]
         )
     ]
 )

@@ -15,8 +15,8 @@ import Interfaces
 import InterfaceMocks
 import Logic
 import Combine
-import Mockingbird
 import UtilsTestExtensions
+import SwinjectAutoregistration
 
 @testable import ViewModels
 
@@ -25,7 +25,7 @@ final class CountryListViewModelTests: QuickSpec {
         describe("CountryListViewModelTests") {
             var container: Container!
             var viewModel: CountryListViewModel!
-            var api: TravelAdvisoryApiImplementingMock!
+            var api: MockTravelAdvisoryApi!
             let countryToBeReturned = PassthroughSubject<CountryListDTO, TravelAdvisoryApiError>()
             let serverStatusToBeReturned = PassthroughSubject<ServerStatusDTO, TravelAdvisoryApiError>()
             var stateRecorder: Recorder<CountryListViewModel.UiState, Never>!
@@ -39,10 +39,9 @@ final class CountryListViewModelTests: QuickSpec {
                     .injectFrameworkProviderFacades()
                     .injectFrameworkProviderMocks()
 
-                api = (container.resolve(TravelAdvisoryApiImplementing.self)! as! TravelAdvisoryApiImplementingMock)
-    
-                given(api.getCountryList()).willReturn(countryToBeReturned.eraseToAnyPublisher())
-                given(api.getServerStatus()).willReturn(serverStatusToBeReturned.eraseToAnyPublisher())
+                api = container~>
+                api.getCountryListPublisher = countryToBeReturned.eraseToAnyPublisher()
+                api.getServerStatusPublisher = serverStatusToBeReturned.eraseToAnyPublisher()
 
                 viewModel = container.resolve(CountryListViewModel.self)!
                 stateRecorder = viewModel.$state.record()
