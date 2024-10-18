@@ -5,22 +5,15 @@ import DomainModels
 import UIComponents
 
 public struct CountryListView: View {
-    var continentList: [Continent]
-    private var onItemTapped: ((Country) -> Void)?
-
-
-    public init(continentList: [Continent], onItemTapped: ((Country) -> Void)? = nil) {
-        self.continentList = continentList
-        self.onItemTapped = onItemTapped
-    }
+    @EnvironmentObject var context: CountryListContext
 
     public var body: some View {
         List {
-            ForEach(continentList, id: \.self) { continent in
+            ForEach(context.listUiState.continents, id: \.self) { continent in
                 Section(header: continent.titleTextView) {
                     ForEach(continent.countries, id: \.self) { country in
                         country.nameTextView.onTapGesture {
-                            self.onItemTapped?(country)
+                            self.context.onCountrySelected?(country)
                         }
                     }
                 }
@@ -49,12 +42,6 @@ extension Country {
 
 struct CountryListView_Previews: PreviewProvider {
     static var previews: some View {
-        CountryListView(
-            continentList:
-                [Continent(name: "North America",
-                           countries: [Country(regionCode: "us")]),
-                 Continent(name: "",
-                            countries: [Country(regionCode: "XX")])])
-        .environment(\.locale, .init(identifier: "es"))
+        CountryListView().environmentObject(getContextForPreview(regionCode: "ca"))
     }
 }

@@ -26,13 +26,12 @@ public struct CountryListAdapter: View {
     }
 
     public var body: some View {
-        CountryListPage(listUiState: viewModel.state, onItemTapped: { country in
-            viewModel.onCountrySelected(country: country)
-        }, onButtonTapped: {
-            viewModel.onButtonTapped()
-        }, onFailOtherTapped: {
-            viewModel.onFailOtherTapped()
-        })
+        let context = CountryListContext(listUiState: viewModel.state,
+                                                 onCountrySelected: { country in viewModel.onCountrySelected(country: country) },
+                                                 onButtonTapped: { viewModel.onButtonTapped() },
+                                                 onFailOtherTapped: { viewModel.onFailOtherTapped() })
+        CountryListPage()
+        .environmentObject(context)
         .onReceive(viewModel.$navigationDestination, perform: { country in
             guard let country = country else { return }
 
