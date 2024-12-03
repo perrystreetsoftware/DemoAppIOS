@@ -50,6 +50,7 @@
 		61C9EED728CD3A9500ACDF3E /* Tests_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOS.swift; sourceTree = "<group>"; };
 		61FCB3212CA072F000280C8D /* DI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DI; path = Packages/DI; sourceTree = "<group>"; };
 		61FCB3222CA0C75500280C8D /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestPlan.xctestplan; sourceTree = "<group>"; };
+		AF46ACBE2CFFB4A2009F701C /* LintRules */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LintRules; path = Packages/LintRules; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +86,7 @@
 		61A7890928D6557B009170DF /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				AF46ACBE2CFFB4A2009F701C /* LintRules */,
 				61FCB3212CA072F000280C8D /* DI */,
 				05E665F929F1B474008CDA2C /* FrameworkProviders */,
 				0517FE21290C1EFB00326D9B /* Feature */,

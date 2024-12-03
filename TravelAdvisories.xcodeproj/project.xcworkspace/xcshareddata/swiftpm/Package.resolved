@@ -37,6 +37,15 @@
       }
     },
     {
+      "identity" : "harmonize",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/perrystreetsoftware/harmonize.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "fd97296914327ff5a52ce43b4a3d6a2ccddb65f5"
+      }
+    },
+    {
       "identity" : "marqueelabel",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/cbpowell/MarqueeLabel",
@@ -82,12 +91,21 @@
       }
     },
     {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swiftlang/swift-syntax.git",
+      "state" : {
+        "revision" : "64889f0c732f210a935a0ad7cda38f77f876262d",
+        "version" : "509.1.1"
+      }
+    },
+    {
       "identity" : "swift-syntax-xcframeworks",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sjavora/swift-syntax-xcframeworks.git",
       "state" : {
-        "revision" : "c98f5094499d4a91a35f30c53f3c5bf6bd74040e",
-        "version" : "509.0.2"
+        "revision" : "7501c18dfe20e637818d838df961072176d6296e",
+        "version" : "510.0.1"
       }
     },
     {
@@ -115,6 +133,15 @@
       "state" : {
         "revision" : "16e6409ee82e1b81390bdffbf217b9c08ab32784",
         "version" : "0.5.0"
+      }
+    },
+    {
+      "identity" : "yams",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jpsim/Yams.git",
+      "state" : {
+        "revision" : "3036ba9d69cf1fd04d433527bc339dc0dc75433d",
+        "version" : "5.1.3"
       }
     }
   ],

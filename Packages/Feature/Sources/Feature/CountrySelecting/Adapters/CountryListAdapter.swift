@@ -29,9 +29,9 @@ public struct CountryListAdapter: View {
         CountryListPage(listUiState: viewModel.state, onItemTapped: { country in
             viewModel.onCountrySelected(country: country)
         }, onButtonTapped: {
-            viewModel.onButtonTapped()
+            viewModel.onButtonTap()
         }, onFailOtherTapped: {
-            viewModel.onFailOtherTapped()
+            viewModel.onFailOtherTap()
         })
         .onReceive(viewModel.$navigationDestination, perform: { country in
             guard let country = country else { return }
