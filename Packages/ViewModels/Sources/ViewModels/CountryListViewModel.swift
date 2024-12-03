@@ -130,7 +130,7 @@ public final class CountryListViewModel: ObservableObject {
         }).store(in: &cancellables)
     }
 
-    public func onButtonTapped() {
+    public func onButtonTap() {
         logic.getForbiddenApi()
             .sink(receiveCompletion: { [weak self] completion in
                 guard let self = self else { return }
@@ -161,7 +161,7 @@ public final class CountryListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    public func onFailOtherTapped() {
+    public func onFailOtherTap() {
         self.error = .other
     }
 
