@@ -33,6 +33,7 @@ let package = Package(
         .package(url: "https://github.com/Quick/Quick.git", from: "7.4.0"),
         .package(url: "https://github.com/Quick/Nimble.git", from: "13.2.0"),
         .package(url: "https://github.com/groue/CombineExpectations.git", from: "0.0.0"),
+        .package(url: "https://github.com/pointfreeco/combine-schedulers.git", from: "0.4.1")
     ],
     targets: [
         .target(
@@ -41,14 +42,16 @@ let package = Package(
                 "FrameworkProviderProtocols",
                 "FrameworkProviderFacades",
                 "Swinject",
-                "SwinjectAutoregistration"
+                "SwinjectAutoregistration",
+                .product(name: "CombineSchedulers", package: "combine-schedulers"),
             ]),
         .target(
             name: "FrameworkProviderFacades",
             dependencies: [
                 "FrameworkProviderProtocols",
                 "Swinject",
-                "SwinjectAutoregistration"
+                "SwinjectAutoregistration",
+                .product(name: "CombineSchedulers", package: "combine-schedulers"),
             ]),
         .target(
             name: "FrameworkProviderTestFactories",
@@ -60,12 +63,16 @@ let package = Package(
             ]),
         .target(
             name: "FrameworkProviderProtocols",
-            dependencies: ["DomainModels"]),
+            dependencies: [
+                "DomainModels",
+                .product(name: "CombineSchedulers", package: "combine-schedulers"),
+            ]),
         .target(
             name: "FrameworkProviderMocks",
             dependencies: [
                 "Utils",
-                "FrameworkProviderProtocols"
+                "FrameworkProviderProtocols",
+                .product(name: "CombineSchedulers", package: "combine-schedulers"),
             ]),
         .testTarget(
             name: "FrameworkProviderTests",

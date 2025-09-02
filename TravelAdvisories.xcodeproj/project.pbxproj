@@ -267,7 +267,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/bin/swift ${SRCROOT}/scripts/generate_swinject_autoregisters.swift\n";
+			shellScript = "
+";
 		};
 /* End PBXShellScriptBuildPhase section */
 
