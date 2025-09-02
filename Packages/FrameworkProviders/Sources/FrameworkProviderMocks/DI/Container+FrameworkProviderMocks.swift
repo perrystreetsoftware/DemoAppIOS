@@ -9,7 +9,6 @@ import Foundation
 import Swinject
 import SwinjectAutoregistration
 import FrameworkProviderProtocols
-import Interfaces
 import Utils
 
 public extension Container {
