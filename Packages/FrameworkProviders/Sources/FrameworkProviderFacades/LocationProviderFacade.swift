@@ -7,18 +7,25 @@
 
 import Foundation
 import FrameworkProviderProtocols
-import DomainModels
+import FrameworkProviderProtocolModels
 import Combine
 
 public final class LocationProviderFacade: LocationProvidingDelegate {
-    let locationProviding: LocationProviding
+    public func didChangeAuthorization(status: LocationAuthorizationStatus) {
+        self.authorizationStatus = status
+    }
     
+    let locationProviding: LocationProviding
+
+    @Published public private(set) var authorizationStatus: LocationAuthorizationStatus?
+
     @Published public private(set) var location: PSSLocation?
     private var mutableError = PassthroughSubject<Error, Never>()
     public lazy var error: AnyPublisher<Error, Never> = mutableError.eraseToAnyPublisher()
 
     init(locationProviding: LocationProviding) {
         self.locationProviding = locationProviding
+        self.authorizationStatus = locationProviding.authorizationStatus
 
         self.locationProviding.setDelegate(delegate: self)
     }
@@ -37,5 +44,9 @@ public final class LocationProviderFacade: LocationProvidingDelegate {
 
     public func stopUpdatingLocation() {
         locationProviding.stopUpdatingLocation()
+    }
+
+    public func requestWhenInUseAuthorization() {
+        locationProviding.requestWhenInUseAuthorization()
     }
 }

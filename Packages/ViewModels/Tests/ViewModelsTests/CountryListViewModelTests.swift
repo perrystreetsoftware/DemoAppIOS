@@ -17,8 +17,10 @@ import Logic
 import Combine
 import UtilsTestExtensions
 import SwinjectAutoregistration
+import Repositories
 
 @testable import ViewModels
+import FrameworkProviderTestFactories
 
 final class CountryListViewModelTests: QuickSpec {
     override class func spec() {
@@ -28,7 +30,7 @@ final class CountryListViewModelTests: QuickSpec {
             var api: MockTravelAdvisoryApi!
             let countryToBeReturned = PassthroughSubject<CountryListDTO, TravelAdvisoryApiError>()
             let serverStatusToBeReturned = PassthroughSubject<ServerStatusDTO, TravelAdvisoryApiError>()
-            var stateRecorder: Recorder<CountryListViewModel.UiState, Never>!
+            var stateRecorder: Recorder<CountryListUiState, Never>!
 
             beforeEach {
                 container = Container().injectRepositories()
@@ -39,6 +41,8 @@ final class CountryListViewModelTests: QuickSpec {
                     .injectFrameworkProviderFacades()
                     .injectFrameworkProviderMocks()
 
+                TimeAdvancingFactory(container).save()
+                
                 api = container~>
                 api.getCountryListPublisher = countryToBeReturned.eraseToAnyPublisher()
                 api.getServerStatusPublisher = serverStatusToBeReturned.eraseToAnyPublisher()
@@ -49,11 +53,11 @@ final class CountryListViewModelTests: QuickSpec {
 
             Then("it startings having transitioned to .loading") {
                 expect(try! stateRecorder.availableElements.get()).to(equal([
-                    CountryListViewModel.UiState(isLoading: true, serverStatus: .Empty)]))
+                    CountryListUiState(isLoading: true, serverStatus: .Empty)]))
             }
 
             When("a country is returned") {
-                var states: [CountryListViewModel.UiState]!
+                var states: [CountryListUiState]!
 
                 beforeEach {
                     countryToBeReturned.send(.init())
@@ -70,6 +74,64 @@ final class CountryListViewModelTests: QuickSpec {
                     expect(states[2].isLoading).to(beFalse())
                     expect(states[2].isLoaded).to(beTrue())
                     expect(states[2].continents.isEmpty).to(beFalse())
+                }
+            }
+
+            When("I request location permissions") {
+                var locationStateRecorder: Recorder<LocationUiState, Never>!
+
+                justBeforeEach {
+                    viewModel.onRefreshLocationTap()
+                    locationStateRecorder = viewModel.$state.map {
+                        $0.yourLocation
+                    }.record()
+                }
+
+                Then("We are in an updating state") {
+                    expect(locationStateRecorder.allElementsDescription) == ["updating"]
+                }
+
+                And("It is not authorized") {
+                    beforeEach {
+                        LocationFacadeTestFactory(container)
+                            .withLocationStatusDenied()
+                    }
+
+                    And("We advance our scheduler") {
+                        justBeforeEach {
+                            TimeAdvancingFactory(container)
+                                .advance(by: LocationRepository.LocationAuthorizationTimeout)
+                                .save()
+                        }
+
+                        fThen("We get multiple errors") {
+                            expect(locationStateRecorder.allElementsDescription) == [
+                                "updating",
+                                "error"
+                            ]
+                        }
+                    }
+                }
+
+                And("It is authorized") {
+                    beforeEach {
+                        LocationFacadeTestFactory(container)
+                            .withLocationAuthorizedAlways()
+                            .withNextLocationEmpireState()
+                    }
+
+                    And("We receive a location after a second") {
+                        justBeforeEach {
+                            TimeAdvancingFactory(container).advance(by: 1.0).save()
+                        }
+
+                        Then("We get a new location") {
+                            expect(locationStateRecorder.allElementsDescription) == [
+                                "updating",
+                                "location:40.748817,-73.985428"
+                            ]
+                        }
+                    }
                 }
             }
         }

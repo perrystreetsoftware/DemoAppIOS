@@ -20,3 +20,8 @@
 
 "fail_other_title" = "Fail (about page)";
 "fail_not_logged_in_title" = "Fail not logged in";
+
+"location_state_unknown" = "Unknown";
+"location_state_updating" = "Updating location";
+"location_state_error" = "Error";
+"location_state_your_location %@" = "Your location: %@";

@@ -43,7 +43,7 @@ public final class ServerStatusLogic {
 
     @Published public var serverStatus: ServerStatus
 
-    public init(serverStatusRepository: ServerStatusPushBasedRepository) {
+    init(serverStatusRepository: ServerStatusPushBasedRepository) {
         self.serverStatusRepository = serverStatusRepository
 
         self.serverStatus = serverStatusRepository.status

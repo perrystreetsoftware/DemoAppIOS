@@ -9,7 +9,7 @@ import Foundation
 import Repositories
 import Combine
 import DI
-import DomainModels
+import FrameworkProviderProtocolModels
 
 @Factory
 public final class GetCurrentLocationLogic {
