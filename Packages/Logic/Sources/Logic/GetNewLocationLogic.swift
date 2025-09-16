@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  GetNewLocationLogic.swift
 //  
 //
 //  Created by Eric Silverberg on 9/22/24.
@@ -11,10 +11,10 @@ import DI
 import Combine
 
 @Factory
-public final class RequestNewLocationLogic {
+public final class GetNewLocationLogic {
     private let locationRepository: LocationRepository
 
-    public func callAsFunction() -> AnyPublisher<Void, LocationRepositoryError> {
+    public func callAsFunction() -> AnyPublisher<Void, LocationLogicError> {
         locationRepository.requestNewLocation()
     }
 }

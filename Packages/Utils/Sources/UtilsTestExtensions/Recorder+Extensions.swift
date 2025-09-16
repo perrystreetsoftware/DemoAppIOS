@@ -13,5 +13,9 @@ public extension Recorder {
     var allElements: [Recorder.Input] {
         try! self.availableElements.get()
     }
+
+    var allElementsDescription: [String] {
+        try! self.availableElements.get().map { ($0 as? CustomStringConvertible)?.description ?? "nil" }
+    }
     // swiftlint:enable pss_forced_try
 }

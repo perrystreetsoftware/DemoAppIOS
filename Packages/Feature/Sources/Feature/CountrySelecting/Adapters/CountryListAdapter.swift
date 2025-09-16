@@ -30,6 +30,8 @@ public struct CountryListAdapter: View {
             viewModel.onCountrySelected(country: country)
         }, onButtonTapped: {
             viewModel.onButtonTap()
+        }, onRefreshLocationTap: {
+            viewModel.onRefreshLocationTap()
         }, onFailOtherTapped: {
             viewModel.onFailOtherTap()
         })

@@ -24,7 +24,7 @@ public final class CountryListLogic {
     @Published public private(set) var continents: [Continent]
     private let countryListRepository: CountryListRepository
 
-    public init(countryListRepository: CountryListRepository) {
+    init(countryListRepository: CountryListRepository) {
         self.countryListRepository = countryListRepository
         self.continents = countryListRepository.continents
 

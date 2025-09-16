@@ -33,11 +33,15 @@ import SwiftUI
   /// {{string.translation}}
   {% endif %}
   {% if string.types %}
-  public static func {{string.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}({% call parametersBlock string.types %}) -> String {
-    return tr("{{table}}", "{{string.key}}", {% call argumentsBlock string.types %})
+  public static func {{string.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}({% call parametersBlock string.types %}) -> LocalizedString {
+    let lookupKeyArg1 = {% call argumentsBlock string.types %}
+    return LocalizedString(table: "{{table}}",
+                           lookupKey: "{{string.key}}",
+                           localizedStringKeyBase: "{{string.key|replace:"%@","\(lookupKeyArg1)"}}",
+                           args: {% call argumentsBlock string.types %})
   }
   {% else %}
-  public static let {{string.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = LocalizedString(table: "{{table}}", lookupKey: "{{string.key}}")
+  public static let {{string.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = LocalizedString(table: "{{table}}", lookupKey: "{{string.key}}", localizedStringKeyBase: "{{string.key}}")
   {% endif %}
   {% endfor %}
   {% for child in item.children %}
@@ -72,13 +76,17 @@ fileprivate func tr(_ table: String, _ key: String, _ locale: Locale = Locale.cu
   return String(format: format, locale: locale, arguments: args)
 }
 
-public struct LocalizedString: Hashable {
+public struct LocalizedString {
   let table: String
   fileprivate let lookupKey: String
+  fileprivate let localizedStringKeyBase: LocalizedStringKey
+  fileprivate let args: [CVarArg]
 
-  init(table: String, lookupKey: String) {
+  init(table: String, lookupKey: String, localizedStringKeyBase: LocalizedStringKey, args: CVarArg...) {
     self.table = table
     self.lookupKey = lookupKey
+    self.localizedStringKeyBase = localizedStringKeyBase
+    self.args = args
   }
 
   private var key: LocalizedStringKey {
@@ -90,13 +98,26 @@ public struct LocalizedString: Hashable {
   }
 
   public var stringValue: String {
-    tr(table, lookupKey)
+    tr(table, lookupKey, Locale.current, args)
   }
 
   func stringValue(withLocale locale: Locale) -> String {
-    tr(table, lookupKey, locale)
+    tr(table, lookupKey, locale, args)
   }
 }
+
+extension LocalizedString: Hashable {
+  public static func == (lhs: LocalizedString, rhs: LocalizedString) -> Bool {
+    return lhs.table == rhs.table &&
+    lhs.lookupKey == rhs.lookupKey
+  }
+
+  public func hash(into hasher: inout Hasher) {
+      hasher.combine(table)
+      hasher.combine(lookupKey)
+  }
+}
+
 {% endif %}
 {% if not param.bundle %}
 

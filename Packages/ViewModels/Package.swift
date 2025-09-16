@@ -47,6 +47,7 @@ let package = Package(
                            "Nimble",
                            "CombineExpectations",
                            .product(name: "FrameworkProviderMocks", package: "FrameworkProviders"),
+                           .product(name: "FrameworkProviderTestFactories", package: "FrameworkProviders"),
                            .product(name: "UtilsTestExtensions", package: "Utils"),
                            .product(name: "InterfaceMocks", package: "Interfaces"),
                            .product(name: "RepositoriesMocks", package: "Repositories")]),

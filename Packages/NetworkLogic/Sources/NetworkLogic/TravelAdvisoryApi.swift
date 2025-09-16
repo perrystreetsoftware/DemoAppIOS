@@ -126,8 +126,8 @@ public final class TravelAdvisoryApi: TravelAdvisoryApiImplementing {
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
 
-                    let httpResponse = response as! HTTPURLResponse
-                    let apiResponseCode = ApiResponseCode(rawValue: httpResponse.statusCode)
+                    let httpResponse = response as? HTTPURLResponse
+                    let apiResponseCode = ApiResponseCode(rawValue: httpResponse?.statusCode ?? 0)
 
                     if apiResponseCode == .success {
                         do {
@@ -138,7 +138,7 @@ public final class TravelAdvisoryApi: TravelAdvisoryApiImplementing {
                             promise(.failure(TravelAdvisoryApiError.domainError(.countryNotFound, responseCode: .notFound)))
                         }
                     } else {
-                        promise(.failure(TravelAdvisoryApiError(statusCode: httpResponse.statusCode,
+                        promise(.failure(TravelAdvisoryApiError(statusCode: httpResponse?.statusCode ?? 0,
                                                                 responseData: data)))
                     }
                 }

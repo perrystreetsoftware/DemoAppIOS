@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/perrystreetsoftware/harmonize.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "fd97296914327ff5a52ce43b4a3d6a2ccddb65f5"
+        "revision" : "611438466fbc26187535b94325d4d3846a0d2815",
+        "version" : "0.6.0"
       }
     },
     {
@@ -95,8 +95,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/swiftlang/swift-syntax.git",
       "state" : {
-        "revision" : "64889f0c732f210a935a0ad7cda38f77f876262d",
-        "version" : "509.1.1"
+        "revision" : "f99ae8aa18f0cf0d53481901f88a0991dc3bd4a2",
+        "version" : "601.0.1"
       }
     },
     {

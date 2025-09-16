@@ -1,10 +1,15 @@
 import CoreLocation
 import FrameworkProviderProtocols
 import Combine
-import DomainModels
+import FrameworkProviderProtocolModels
 
 public final class LocationProvider: NSObject, LocationProviding, CLLocationManagerDelegate {
+    public var authorizationStatus: LocationAuthorizationStatus {
+        return LocationAuthorizationStatus(manager.authorizationStatus)
+    }
+
     private let manager: CLLocationManager
+    private weak var delegate: LocationProvidingDelegate?
 
     override public init() {
         self.manager = CLLocationManager()
@@ -12,6 +17,17 @@ public final class LocationProvider: NSObject, LocationProviding, CLLocationMana
 
         self.manager.delegate = self
 
+    }
+
+    public func locationManager(_ manager: CLLocationManager,
+                                didChangeAuthorization status: CLAuthorizationStatus) {
+        delegate?.didChangeAuthorization(
+            status: LocationAuthorizationStatus(status)
+        )
+    }
+
+    public func requestWhenInUseAuthorization() {
+        manager.requestWhenInUseAuthorization()
     }
 
     public func startUpdatingLocation() {
@@ -30,8 +46,6 @@ public final class LocationProvider: NSObject, LocationProviding, CLLocationMana
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
         self.delegate?.didFailWithError(error: error)
     }
-
-    private weak var delegate: LocationProvidingDelegate?
 
     public func setDelegate(delegate: (any LocationProvidingDelegate)?) {
         self.delegate = delegate

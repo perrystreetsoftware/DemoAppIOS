@@ -12,6 +12,7 @@ import Combine
 import Interfaces
 import DI
 import FrameworkProviderProtocols
+import FrameworkProviderProtocolModels
 
 public enum LocationRepositoryError: Error {
     case timeout
@@ -21,11 +22,13 @@ public enum LocationRepositoryError: Error {
 
 @Single
 public final class LocationRepository {
+    public static let LocationAuthorizationTimeout = TimeInterval(10)
     public static let LocationTimeout = TimeInterval(30)
 
     @Published public private(set) var location: PSSLocation?
     @Published public private(set) var state = State.idle
     @Published public private(set) var lastError: LocationRepositoryError?
+    @Published public private(set) var authorizationStatus: LocationAuthorizationStatus?
 
     private let locationFacade: LocationProviderFacade
     private let scheduler: AppSchedulerProviding
@@ -39,6 +42,7 @@ public final class LocationRepository {
         self.locationFacade = locationFacade
         self.scheduler = scheduler
 
+        locationFacade.$authorizationStatus.assign(to: &$authorizationStatus)
         locationFacade.$location.assign(to: &$location)
     }
 
@@ -65,9 +69,6 @@ public final class LocationRepository {
             .timeout(.seconds(Self.LocationTimeout),
                      scheduler: scheduler.mainScheduler, 
                      customError: { LocationRepositoryError.timeout })
-            .handleEvents(receiveOutput: { [weak self] location in
-                self?.location = location
-            })
             .handleEvents(
                 receiveSubscription: { [weak self] (_) in
                     guard let self = self else { return }
@@ -94,5 +95,27 @@ public final class LocationRepository {
             .map { _ in }
             .eraseToAnyPublisher()
 
+    }
+
+    public func requestAuthorization() -> AnyPublisher<LocationAuthorizationStatus?, LocationRepositoryError> {
+        if let authorizationStatus = self.authorizationStatus,
+           authorizationStatus.isGranted || authorizationStatus == .denied {
+            return Just(authorizationStatus)
+                .setFailureType(to: LocationRepositoryError.self)
+                .eraseToAnyPublisher()
+        } else {
+            return self.$authorizationStatus
+                .dropFirst()
+                .first()
+                .setFailureType(to: LocationRepositoryError.self)
+                .handleEvents(receiveSubscription: { [weak self] _ in
+                    self?.locationFacade.requestWhenInUseAuthorization()
+                })
+                .timeout(.seconds(Self.LocationAuthorizationTimeout),
+                         scheduler: scheduler.mainScheduler,
+                         options: nil,
+                         customError:  { LocationRepositoryError.timeout })
+                .eraseToAnyPublisher()
+        }
     }
 }

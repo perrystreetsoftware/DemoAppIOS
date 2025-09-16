@@ -1,13 +1,10 @@
 import Foundation
 import Combine
-import DomainModels
-
-public protocol LocationProvidingDelegate: AnyObject {
-    func didUpdateLocation(locations: [PSSLocation])
-    func didFailWithError(error: Error)
-}
+import FrameworkProviderProtocolModels
 
 public protocol LocationProviding {
+    var authorizationStatus: LocationAuthorizationStatus { get }
+    func requestWhenInUseAuthorization()
     func startUpdatingLocation()
     func stopUpdatingLocation()
     func setDelegate(delegate: LocationProvidingDelegate?)

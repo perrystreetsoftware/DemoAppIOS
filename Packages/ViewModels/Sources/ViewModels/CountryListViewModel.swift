@@ -8,48 +8,13 @@
 import Foundation
 import Combine
 import DomainModels
+import FrameworkProviderProtocolModels
 import Logic
 import DI
 
 @Factory
 public final class CountryListViewModel: ObservableObject {
-    public struct UiState: Equatable {
-        public let continents: [Continent]
-        public let isLoading: Bool
-        public let isLoaded: Bool
-        public let yourLocation: PSSLocation?
-        public let serverStatus: ServerStatus?
-
-        public init(continents: [Continent] = [],
-                    isLoading: Bool = false,
-                    isLoaded: Bool = false,
-                    yourLocation: PSSLocation? = nil,
-                    serverStatus: ServerStatus? = nil) {
-            self.continents = continents
-            self.isLoading = isLoading
-            self.isLoaded = isLoaded
-            self.yourLocation = yourLocation
-            self.serverStatus = serverStatus
-        }
-
-        public func copy(
-            continents: [Continent]? = nil,
-            isLoading: Bool? = nil,
-            isLoaded: Bool? = nil,
-            yourLocation: PSSLocation? = nil,
-            serverStatus: ServerStatus? = nil
-        ) -> UiState {
-            return UiState(
-                continents: continents ?? self.continents,
-                isLoading: isLoading != nil ? (isLoading ?? false) : self.isLoading,
-                isLoaded: isLoaded != nil ? (isLoaded ?? false) : self.isLoaded,
-                yourLocation: yourLocation ?? self.yourLocation,
-                serverStatus: serverStatus != nil ? serverStatus : self.serverStatus
-            )
-        }
-    }
-
-    @Published public var state: UiState = UiState()
+    @Published public var state: CountryListUiState = CountryListUiState()
     @Published public var navigationDestination: Country?
     @Published public var error: CountryListError? = nil
     @Published public var location: PSSLocation? = nil
@@ -58,18 +23,24 @@ public final class CountryListViewModel: ObservableObject {
     private let logic: CountryListLogic
     private let serverStatusLogic: ServerStatusLogic
     private let currentLocationLogic: GetCurrentLocationLogic
-    private let requestNewLocationLogic: RequestNewLocationLogic
+    private let getLocationErrorLogic: GetLocationErrorLogic
+    private let getNewLocationLogic: GetNewLocationLogic
+    private let getNewLocationIfAuthorizedLogic: GetNewLocationIfAuthorizedLogic
 
     public init(
         logic: CountryListLogic,
         serverStatusLogic: ServerStatusLogic,
         currentLocationLogic: GetCurrentLocationLogic,
-        requestNewLocationLogic: RequestNewLocationLogic
+        getLocationErrorLogic: GetLocationErrorLogic,
+        getNewLocationLogic: GetNewLocationLogic,
+        getNewLocationIfAuthorizedLogic: GetNewLocationIfAuthorizedLogic
     ) {
         self.logic = logic
         self.serverStatusLogic = serverStatusLogic
         self.currentLocationLogic = currentLocationLogic
-        self.requestNewLocationLogic = requestNewLocationLogic
+        self.getLocationErrorLogic = getLocationErrorLogic
+        self.getNewLocationLogic = getNewLocationLogic
+        self.getNewLocationIfAuthorizedLogic = getNewLocationIfAuthorizedLogic
 
         logic.$continents
             .dropFirst()
@@ -120,14 +91,20 @@ public final class CountryListViewModel: ObservableObject {
         } receiveValue: { _ in
         }.store(in: &cancellables)
 
-        currentLocationLogic.callAsFunction().sink { newLocation in
+        currentLocationLogic().sink { newLocation in
             self.location = newLocation
-            self.state = self.state.copy(yourLocation: newLocation)
+            self.state = self.state.copy(yourLocation: .location(newLocation))
         }.store(in: &cancellables)
 
-        requestNewLocationLogic.callAsFunction().sink(receiveCompletion: { _ in
+        getNewLocationLogic().sink(receiveCompletion: { _ in
         }, receiveValue: { _ in
         }).store(in: &cancellables)
+
+        getLocationErrorLogic().sink { locationError in
+            if locationError != nil {
+                self.state = self.state.copy(yourLocation: .error)
+            }
+        }.store(in: &cancellables)
     }
 
     public func onButtonTap() {
@@ -143,6 +120,17 @@ public final class CountryListViewModel: ObservableObject {
                 }
             },
                   receiveValue: { _ in })
+            .store(in: &cancellables)
+    }
+
+    public func onRefreshLocationTap() {
+        getNewLocationIfAuthorizedLogic()
+            .handleEvents(receiveSubscription: { [weak self] _ in
+                guard let self else { return }
+
+                self.state = self.state.copy(yourLocation: .updating)
+            })
+            .sink(receiveCompletion: { _ in }, receiveValue: { })
             .store(in: &cancellables)
     }
 

@@ -64,9 +64,12 @@ let package = Package(
         .target(
             name: "FrameworkProviderProtocols",
             dependencies: [
-                "DomainModels",
+                "FrameworkProviderProtocolModels",
                 .product(name: "CombineSchedulers", package: "combine-schedulers"),
             ]),
+        .target(
+            name: "FrameworkProviderProtocolModels",
+            dependencies: []),
         .target(
             name: "FrameworkProviderMocks",
             dependencies: [
