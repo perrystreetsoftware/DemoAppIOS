@@ -4,13 +4,13 @@ import UtilsTestExtensions
 import Harmonize
 import HarmonizeSemantics
 
-final class LogicClassDoesNotExposePublicVars: QuickSpec {
+final class DoNotExposePublicVars: QuickSpec {
     private static let allowedAttributes = ["Published", "CurrentValue"]
     private static let message = "Logic classes should only expose a single callAsFunction or @Published var"
     
     override class func spec() {
         Given("A logic class in production code") {
-            let logicClasses = Harmonize.on("Logic").classes().withSuffix("Logic")
+            let logicClasses = HarmonizeTravelAdvisories.logicProduction
 
             Then("It does not expose public vars") {
                 logicClasses.assertTrue(message: message) {

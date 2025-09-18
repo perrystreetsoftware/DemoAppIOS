@@ -7,7 +7,7 @@ import HarmonizeSemantics
 final class DoesNotUsePastTenseForActions: QuickSpec {
     override class func spec() {
         Given("A ViewModel") {
-            let viewModels = Harmonize.on("ViewModels").classes()
+            let viewModels = HarmonizeTravelAdvisories.viewModelsProduction
 
             When("There is a function for a user action") {
                 let functions = viewModels.functions()

@@ -9,7 +9,7 @@ final class DoNotDependsOnRepositories: QuickSpec {
     
     override class func spec() {
         Given("A ViewModel") {
-            let viewModels = Harmonize.on("ViewModels").classes()
+            let viewModels = HarmonizeTravelAdvisories.viewModelsProduction
 
             Then("It does not depend on repositories") {
                 viewModels.initializers().parameters()
