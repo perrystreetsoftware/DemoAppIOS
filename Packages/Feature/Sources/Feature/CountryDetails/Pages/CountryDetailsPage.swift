@@ -25,24 +25,8 @@ public struct CountryDetailsPage: View {
         ZStack {
             ProgressIndicator(isLoading: detailsUiState.isLoading)
             CountryNotFoundErrorView(viewModelState: detailsUiState)
-            CountryDetailsContent(countryName: extractCountryName(from: detailsUiState),
-                                  detailsText: extractCountryDetails(from: detailsUiState))
-        }
-    }
-
-    private func extractCountryName(from detailsUiState: CountryDetailsViewModel.State) -> String {
-        if case .loaded(let details) = detailsUiState {
-            return details.country.countryName ?? ""
-        } else {
-            return ""
-        }
-    }
-
-    private func extractCountryDetails(from detailsUiState: CountryDetailsViewModel.State) -> String {
-        if case .loaded(let details) = detailsUiState {
-            return details.detailsText ?? ""
-        } else {
-            return ""
+            CountryDetailsContent(countryName: detailsUiState.countryName,
+                                  detailsText: detailsUiState.countryDetails)
         }
     }
 }

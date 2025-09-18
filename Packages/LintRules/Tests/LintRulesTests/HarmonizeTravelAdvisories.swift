@@ -5,7 +5,11 @@
 //  Created by Eric Silverberg on 9/15/25.
 //
 
+import Foundation
 import Harmonize
+import HarmonizeSemantics
+import SwiftUI
+
 
 final class HarmonizeTravelAdvisories {
     private init() {}
@@ -18,5 +22,15 @@ final class HarmonizeTravelAdvisories {
 
     nonisolated(unsafe) static var classesProduction = { productionCode.classes(includeNested: true) }()
 
+    nonisolated(unsafe) static var presentationFeaturePackage = {
+        productionCode.on("Feature/Sources/Feature")
+    }()
+
     nonisolated(unsafe) static var productionCode = { Harmonize.productionCode() }()
+}
+
+extension Excluding {
+    var views: [Struct] {
+        structs(includeNested: true).conforming(to: (any View).self)
+    }
 }
