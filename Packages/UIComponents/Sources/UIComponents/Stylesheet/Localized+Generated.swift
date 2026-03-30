@@ -48,6 +48,8 @@ public enum L10n {
     public static let placeholder = LocalizedString(table: "Localizable", lookupKey: "placeholder", localizedStringKeyBase: "placeholder")
   }
   public enum Ui {
+    /// About Drawer
+    public static let aboutDrawer = LocalizedString(table: "UI", lookupKey: "about_drawer", localizedStringKeyBase: "about_drawer")
     /// Cancel
     public static let cancelButtonTitle = LocalizedString(table: "UI", lookupKey: "cancel_button_title", localizedStringKeyBase: "cancel_button_title")
     /// Countries
@@ -117,7 +119,7 @@ public struct LocalizedString {
   }
 
   public var text: Text {
-    Text(localizedStringKeyBase, tableName: table, bundle: BundleToken.bundle)
+    Text(key, tableName: table, bundle: BundleToken.bundle)
   }
 
   public var stringValue: String {
