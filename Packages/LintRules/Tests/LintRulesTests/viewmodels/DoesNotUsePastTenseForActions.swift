@@ -13,7 +13,7 @@ final class DoesNotUsePastTenseForActions: QuickSpec {
                 let functions = viewModels.functions()
                     .withPrefix("on")
                     .withNameContaining("Tap")
-                
+
                 Then("It does not use past tense in its name") {
                     functions.assertFalse(message: pastTenseMessage) {
                         $0.name.hasSuffix("ed")
@@ -28,12 +28,35 @@ final class DoesNotUsePastTenseForActions: QuickSpec {
             }
         }
     }
-    
-    private static var pastTenseMessage: String {
-        "Verbs in ViewModel functions that represent user actions should not be in past tense."
-    }
 
-    private static var clickMessage: String {
-        "ViewModel function represents a user action and should use 'tap' instead of 'click'."
-    }
+    private static let pastTenseMessage = LintRuleMessage(
+        rule: "ViewModel user-action functions must not use past tense.",
+        why: """
+            A user action names the intent at the moment it happens (`onButtonTap`), not \
+            an event that already completed. Present-tense names keep the ViewModel API \
+            consistent and aligned with how SwiftUI forwards gestures.
+            """,
+        howToFix: "Rename the function to present tense, e.g. `onButtonTapped` becomes `onButtonTap`.",
+        badExample: """
+            public func onButtonTapped() { ... }
+            """,
+        goodExample: """
+            public func onButtonTap() { ... }
+            """
+    )
+
+    private static let clickMessage = LintRuleMessage(
+        rule: "ViewModel user-action functions must use 'tap', not 'click'.",
+        why: """
+            iOS interactions are taps, not clicks. Consistent terminology keeps function \
+            names searchable and aligned with platform conventions.
+            """,
+        howToFix: "Rename the function replacing 'click' with 'tap'.",
+        badExample: """
+            public func onButtonclickTap() { ... }
+            """,
+        goodExample: """
+            public func onButtonTap() { ... }
+            """
+    )
 }

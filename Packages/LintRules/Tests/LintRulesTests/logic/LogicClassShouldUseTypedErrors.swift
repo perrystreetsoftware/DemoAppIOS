@@ -23,21 +23,51 @@ final class LogicClassShouldUseTypedErrors: QuickSpec {
             }
 
             Then("It wraps or typealiases RepositoryError classes") {
-                logicClasses.functions().assertFalse(message: Self.repoErrorMessage) {
+                logicClasses.functions().assertFalse(message: repoErrorMessage) {
                     $0.returnClause?.typeAnnotation?.name.contains("RepositoryError>") == true
                 }
             }
         }
     }
 
-    private static let repoErrorMessage: String = """
-        Logic classes should return specialized error types; otherwise dependent layers (such
-        as the ViewModel layer) may have to `import Repositories` to obtain the error type. 
-    
-        Use a typealias if no new scenarios are added; for example:
-    
-        typealias LocationLogicError = LocationRepositoryError
-    """
-    
-    private static let message: String = "Use typed Swift errors instead of generic `Error` type. Typed errors can be more easily converted by the UI layer into `dialogState` values. Typed errors are a capability of Swift not present in RxJava that we take advantage of."
+    private static let message = LintRuleMessage(
+        rule: "Logic classes must use typed Swift errors instead of the generic `Error` type.",
+        why: """
+            Typed errors can be more easily converted by the UI layer into `dialogState` \
+            values. Typed errors are a capability of Swift not present in RxJava that we \
+            take advantage of.
+            """,
+        howToFix: """
+            Declare a specific error enum for the failure type of the returned publisher \
+            instead of the generic `Error`.
+            """,
+        badExample: """
+            public func callAsFunction() -> AnyPublisher<Void, Error> { ... }
+            """,
+        goodExample: """
+            public func callAsFunction() -> AnyPublisher<Void, CountryListError> { ... }
+            """
+    )
+
+    private static let repoErrorMessage = LintRuleMessage(
+        rule: "Logic classes must wrap or typealias RepositoryError types.",
+        why: """
+            Logic classes should return specialized error types; otherwise dependent layers \
+            (such as the ViewModel layer) may have to `import Repositories` to obtain the \
+            error type.
+            """,
+        howToFix: """
+            Use a typealias if no new scenarios are added; for example:
+
+            typealias LocationLogicError = LocationRepositoryError
+            """,
+        badExample: """
+            public func callAsFunction() -> AnyPublisher<Void, LocationRepositoryError> { ... }
+            """,
+        goodExample: """
+            public typealias LocationLogicError = LocationRepositoryError
+
+            public func callAsFunction() -> AnyPublisher<Void, LocationLogicError> { ... }
+            """
+    )
 }

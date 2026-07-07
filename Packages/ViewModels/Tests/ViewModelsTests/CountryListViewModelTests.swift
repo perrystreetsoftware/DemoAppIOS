@@ -104,7 +104,7 @@ final class CountryListViewModelTests: QuickSpec {
                                 .save()
                         }
 
-                        fThen("We get multiple errors") {
+                        Then("We get multiple errors") {
                             expect(locationStateRecorder.allElementsDescription) == [
                                 "updating",
                                 "error"

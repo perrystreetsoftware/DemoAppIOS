@@ -16,7 +16,7 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../Utils"),
-        .package(url: "https://github.com/perrystreetsoftware/harmonize.git", from: "0.6.0"),
+        .package(url: "https://github.com/perrystreetsoftware/harmonize.git", from: "1.1.0"),
         .package(url: "https://github.com/Quick/Quick.git", from: "7.0.2"),
     ],
     targets: [

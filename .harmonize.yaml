@@ -1,0 +1,7 @@
+excludes:
+  - LintRules
+  # "Tests iOS" cannot be excluded as a folder: the space is percent-encoded
+  # during Harmonize's path matching, so exclude its file directly.
+  - Tests_iOS.swift
+  - TravelAdvisoriesTestsObjc
+  - Package.swift
