@@ -41,6 +41,8 @@ final class HarmonizeTravelAdvisories {
 
     nonisolated(unsafe) static var productionCode = { Harmonize.productionCode() }()
 
+    nonisolated(unsafe) static var productionAndTestCode = { Harmonize.productionAndTestCode() }()
+
     nonisolated(unsafe) static var testCode = { Harmonize.testCode() }()
 
     nonisolated(unsafe) static var classesTest = { testCode.classes(includeNested: true) }()
