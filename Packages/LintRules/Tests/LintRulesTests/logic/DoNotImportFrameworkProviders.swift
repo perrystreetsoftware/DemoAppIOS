@@ -17,16 +17,37 @@ final class DoNotImportFrameworkProviders: QuickSpec {
         Given("A logic class in production code") {
             let logicClassSources = HarmonizeTravelAdvisories.logicPackage.sources()
 
-            Then("It does not expose public vars") {
-                logicClassSources.withImport("FrameworkProviders").assertEmpty(message: Self.Message)
+            Then("It does not import FrameworkProviders") {
+                logicClassSources.withImport("FrameworkProviders").assertEmpty(message: message)
             }
         }
     }
 
-    static let Message: String = """
-        Do not directy import FrameworkProviders except in the outer layer;
-        
-        Interior layers should only be using FrameworkProviderProtocols and 
-        FrameworkProviderProtocolModels
-    """
+    private static let message = LintRuleMessage(
+        rule: "Do not import FrameworkProviders directly except in the outer layer.",
+        why: """
+            Interior layers must depend on abstractions, not concrete framework wrappers. \
+            Importing FrameworkProviders couples Logic to CoreLocation-style frameworks and \
+            makes tests require real framework behavior.
+            """,
+        howToFix: """
+            Import FrameworkProviderProtocols (for the protocol) or \
+            FrameworkProviderProtocolModels (for the model types) instead, and let DI \
+            provide the concrete implementation.
+            """,
+        badExample: """
+            import FrameworkProviders
+
+            public final class GetNewLocationLogic {
+                private let provider: LocationProvider
+            }
+            """,
+        goodExample: """
+            import FrameworkProviderProtocols
+
+            public final class GetNewLocationLogic {
+                private let provider: LocationProviding
+            }
+            """
+    )
 }

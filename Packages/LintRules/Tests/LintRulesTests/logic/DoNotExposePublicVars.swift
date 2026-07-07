@@ -6,8 +6,7 @@ import HarmonizeSemantics
 
 final class DoNotExposePublicVars: QuickSpec {
     private static let allowedAttributes = ["Published", "CurrentValue"]
-    private static let message = "Logic classes should only expose a single callAsFunction or @Published var"
-    
+
     override class func spec() {
         Given("A logic class in production code") {
             let logicClasses = HarmonizeTravelAdvisories.logicProduction
@@ -24,4 +23,27 @@ final class DoNotExposePublicVars: QuickSpec {
             }
         }
     }
+
+    private static let message = LintRuleMessage(
+        rule: "Logic classes must not expose public vars other than @Published or CurrentValue streams.",
+        why: """
+            Logic classes should expose a single callAsFunction or a reactive stream \
+            (@Published / CurrentValue). Arbitrary public mutable state on a Logic class \
+            breaks unidirectional data flow and makes the class harder to test.
+            """,
+        howToFix: """
+            Make the variable private, or expose it as a @Published stream if downstream \
+            layers need to observe it.
+            """,
+        badExample: """
+            public final class CountryListLogic {
+                public var continents: [Continent] = []
+            }
+            """,
+        goodExample: """
+            public final class CountryListLogic {
+                @Published public private(set) var continents: [Continent] = []
+            }
+            """
+    )
 }
