@@ -4,6 +4,7 @@ import Utils
 import DomainModels
 import UIComponents
 import ViewModels
+import DesignSystem
 
 public struct CountryListPage: View {
     private var listUiState: CountryListUiState
@@ -11,6 +12,7 @@ public struct CountryListPage: View {
     private var onButtonTapped: (() -> Void)?
     private var onRefreshLocationTap: (() -> Void)?
     private var onFailOtherTapped: (() -> Void)?
+    @State private var isAboutSheetPresented: Bool = false
 
     public init(listUiState: CountryListUiState,
                 onItemTapped: ((Country) -> Void)? = nil,
@@ -48,8 +50,17 @@ public struct CountryListPage: View {
                 } label: {
                     L10n.Ui.failOtherTitle.text
                 }
-                
+
+                Button {
+                    isAboutSheetPresented = true
+                } label: {
+                    L10n.Ui.aboutDrawer.text
+                }
+
                 yourLocation()
+            }
+            .sheet(isPresented: $isAboutSheetPresented) {
+                CountryAboutDrawer()
             }
         }
     }

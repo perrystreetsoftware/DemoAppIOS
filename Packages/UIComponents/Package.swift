@@ -1,4 +1,4 @@
-// swift-tools-version: 5.6
+// swift-tools-version: 5.7
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -7,13 +7,16 @@ let package = Package(
     name: "UIComponents",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v14), .macOS(.v11)
+        .iOS(.v16), .macOS(.v11)
     ],
     products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
+        // Products define the executables  and libraries a package produces, and make them visible to other packages.
         .library(
             name: "UIComponents",
             targets: ["UIComponents"]),
+        .library(
+            name: "DesignSystem",
+            targets: ["DesignSystem"]),
     ],
     dependencies: [
         .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0"),
@@ -28,11 +31,19 @@ let package = Package(
             dependencies: [
                 "Swinject",
                 "Utils",
+                "DesignSystem",
                 .product(name: "NotificationBannerSwift", package: "NotificationBanner")
             ],
             resources: [.process("Resources")]),
+        .target(
+            name: "DesignSystem",
+            dependencies: [
+                "Swinject",
+            ],
+        ),
         .testTarget(
             name: "UIComponentsTests",
             dependencies: ["UIComponents"]),
     ]
 )
+
