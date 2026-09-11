@@ -1,4 +1,4 @@
-// swift-tools-version: 5.7
+// swift-tools-version: 5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "Feature",
     platforms: [
-        .iOS(.v14), .macOS(.v11)
+        .iOS(.v17)
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
@@ -23,7 +23,8 @@ let package = Package(
         .package(path: "../Utils"),
         .package(path: "../FrameworkProviders"),
         .package(url: "https://github.com/Quick/Quick.git", from: "7.4.0"),
-        .package(url: "https://github.com/Quick/Nimble.git", from: "13.2.0")
+        .package(url: "https://github.com/Quick/Nimble.git", from: "13.2.0"),
+        .package(url: "https://github.com/perrystreetsoftware/Waypoint.git", from: "0.2.1")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -32,7 +33,8 @@ let package = Package(
             name: "Feature",
             dependencies: [
                 "UIComponents",
-                "ViewModels"
+                "ViewModels",
+                "Waypoint"
             ]
         ),
         .testTarget(

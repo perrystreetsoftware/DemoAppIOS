@@ -5,61 +5,25 @@
 //  Created by Eric Silverberg on 9/17/22.
 //
 
-import Foundation
-import SwiftUI
-import Utils
-import Combine
-import DomainModels
 import Feature
-import ViewModels
-import Swinject
+import SwiftUI
+import Waypoint
 
 public struct TravelAdvisoriesNavHost: View {
-    private let resolver: Swinject.Resolver
-
-    @State var destination: Destinations?
-
-    enum Destinations {
-        case details(regionCode: String)
-        case aboutThisApp
-    }
-
-    public init(resolver: Swinject.Resolver = InjectSettings.resolver!) {
-        self.resolver = resolver
-    }
+    public init() {}
 
     public var body: some View {
-        NavigationView {
-            VStack {
-                NavigationLink(
-                    destination: self.buildChildViewFromState(),
-                    isActive: $destination.mappedToBool(),
-                    label: {
-                        EmptyView()
-                    }
-                )
-
-                self.buildBaseView()
-            }
-        }
+        WaypointTabView(tabs: AppTab.allCases.map { tab in
+            RootTab(id: tab) { rootView(for: tab) }
+        })
     }
 
-    @ViewBuilder func buildBaseView() -> some View {
-        CountryListAdapter(onCountrySelected: { country in
-            self.destination = Destinations.details(regionCode: country.regionCode)
-        }) {
-            self.destination = Destinations.aboutThisApp
-        }
-    }
-
-    @ViewBuilder func buildChildViewFromState() -> some View {
-        switch destination {
-        case .details(let regionCode):
-            CountryDetailsAdapter(regionCode: regionCode)
-        case .aboutThisApp:
+    @ViewBuilder private func rootView(for tab: AppTab) -> some View {
+        switch tab {
+        case .countries:
+            CountryListAdapter()
+        case .about:
             AboutAdapter()
-        case .none:
-            EmptyView()
         }
     }
 }

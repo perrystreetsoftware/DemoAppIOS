@@ -23,6 +23,7 @@
 		61C9EEEB28CD3A9500ACDF3E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61C9EEC128CD3A9500ACDF3E /* Assets.xcassets */; };
 		61FCB31D2CA03FB400280C8D /* FrameworkProviderProtocols in Frameworks */ = {isa = PBXBuildFile; productRef = 61FCB31C2CA03FB400280C8D /* FrameworkProviderProtocols */; };
 		61FCB31F2CA06A9800280C8D /* FrameworkProviderFacades in Frameworks */ = {isa = PBXBuildFile; productRef = 61FCB31E2CA06A9800280C8D /* FrameworkProviderFacades */; };
+		7A1B2C3D4E5F60718293A4B7 /* Waypoint in Frameworks */ = {isa = PBXBuildFile; productRef = 7A1B2C3D4E5F60718293A4B6 /* Waypoint */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +70,7 @@
 				051EAF80290C20FA0091E365 /* Utils in Frameworks */,
 				051EAF78290C20FA0091E365 /* Logic in Frameworks */,
 				05E665FB29F1B6A4008CDA2C /* FrameworkProviders in Frameworks */,
+				7A1B2C3D4E5F60718293A4B7 /* Waypoint in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +200,7 @@
 				05E665FA29F1B6A3008CDA2C /* FrameworkProviders */,
 				61FCB31C2CA03FB400280C8D /* FrameworkProviderProtocols */,
 				61FCB31E2CA06A9800280C8D /* FrameworkProviderFacades */,
+				7A1B2C3D4E5F60718293A4B6 /* Waypoint */,
 			);
 			productName = "DemoApp (iOS)";
 			productReference = 61C9EEC628CD3A9500ACDF3E /* TravelAdvisories.app */;
@@ -229,6 +232,7 @@
 			);
 			mainGroup = 61C9EEB928CD3A9400ACDF3E;
 			packageReferences = (
+				7A1B2C3D4E5F60718293A4B5 /* XCRemoteSwiftPackageReference "Waypoint" */,
 			);
 			productRefGroup = 61C9EEC728CD3A9500ACDF3E /* Products */;
 			projectDirPath = "";
@@ -425,7 +429,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -456,7 +460,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -494,6 +498,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7A1B2C3D4E5F60718293A4B5 /* XCRemoteSwiftPackageReference "Waypoint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/perrystreetsoftware/Waypoint.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		051EAF73290C20FA0091E365 /* Feature */ = {
@@ -539,6 +554,11 @@
 		61FCB31E2CA06A9800280C8D /* FrameworkProviderFacades */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FrameworkProviderFacades;
+		};
+		7A1B2C3D4E5F60718293A4B6 /* Waypoint */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A1B2C3D4E5F60718293A4B5 /* XCRemoteSwiftPackageReference "Waypoint" */;
+			productName = Waypoint;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
