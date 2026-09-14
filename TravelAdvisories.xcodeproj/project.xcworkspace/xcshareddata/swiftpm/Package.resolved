@@ -127,6 +127,15 @@
       }
     },
     {
+      "identity" : "waypoint",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/perrystreetsoftware/Waypoint.git",
+      "state" : {
+        "revision" : "16f38cbd355511cfce10e9ed29b1c529bacf9a85",
+        "version" : "0.2.1"
+      }
+    },
+    {
       "identity" : "xctest-dynamic-overlay",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",

@@ -12,18 +12,13 @@ import Combine
 import UIComponents
 import DomainModels
 import ViewModels
+import Waypoint
 
 public struct CountryListAdapter: View {
     @InjectStateObject private var viewModel: CountryListViewModel
+    @Environment(WaypointNavigator.self) private var navigator
 
-    private var onCountrySelected: ((Country) -> Void)?
-    private var onAboutThisAppSelected: (() -> Void)?
-
-    public init(onCountrySelected: ((Country) -> Void)? = nil,
-                onAboutThisAppSelected: (() -> Void)? = nil) {
-        self.onCountrySelected = onCountrySelected
-        self.onAboutThisAppSelected = onAboutThisAppSelected
-    }
+    public init() {}
 
     public var body: some View {
         CountryListPage(listUiState: viewModel.state, onItemTapped: { country in
@@ -38,12 +33,14 @@ public struct CountryListAdapter: View {
         .onReceive(viewModel.$navigationDestination, perform: { country in
             guard let country = country else { return }
 
-            self.onCountrySelected?(country)
+            navigator.navigate(to: CountryDetailsAdapter(regionCode: country.regionCode), mode: .present(.sheet))
 
             viewModel.navigationDestination = nil
         })
         .pss_notify(item: $viewModel.error, alertBuilder: {
-            $0.asFloatingAlert(viewModel: viewModel, onAboutThisAppSelected: onAboutThisAppSelected)
+            $0.asFloatingAlert(viewModel: viewModel, onAboutThisAppSelected: {
+                navigator.switchTab(to: AppTab.about)
+            })
         })
     }
 }
